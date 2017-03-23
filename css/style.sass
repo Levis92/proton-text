@@ -7,7 +7,7 @@ $delimitator: 200px
   color: rgba(210, 210, 210, $alpha)
 
 body
-  font-family: sans-serif
+  font-family: "Helvetica Neue", sans-serif
   margin: 0
   width: 100%
   height: 100vh
@@ -28,7 +28,7 @@ body
       height: 24px
       padding: 3px 0
       padding-left: 17px
-      +text-color(1)
+      +text-color(0.8)
       &:first-child
         padding-left: 10px
       &:last-child
@@ -81,19 +81,19 @@ main
         display: flex
         justify-content: center
         align-items: center
-        +text-color(0.7)
+        +text-color(0.5)
         .fa-times
           position: relative
           right: -20px
       .active-tab
         background-color: $theme-color
-        +text-color(1)
+        +text-color(0.8)
         border: 1px solid $line-color
         border-left: 3px solid deepskyblue
         border-bottom: none
   #file-tree
     font-size: 14px
-    +text-color(1)
+    +text-color(0.8)
     position: absolute
     top: 0
     left: 0
