@@ -1,0 +1,62 @@
+$theme-color: rgba(50, 55, 50, 1)
+$lighter-theme-color: rgba(60, 65, 60, 1)
+$line-color: rgba(38, 38, 38, 1)
+
+=text-color($alpha)
+  color: rgba(210, 210, 210, $alpha)
+
+body
+  font-family: sans-serif
+  margin: 0
+  width: 100%
+  height: 100vh
+  background-color: $theme-color
+
+h1
+  font-size: 8rem
+  color: #09cdda
+
+#function-bar, footer
+  width: 100%
+  height: 24px
+  position: fixed
+  background-color: $theme-color
+  ul
+    list-style: none
+    padding-left: 0
+    margin: 0
+    li
+      font-size: 14px
+      display: inline-block
+      height: 24px
+      padding: 3px 0
+      padding-left: 10px
+      +text-color(1)
+      &:last-child
+        padding-right: 10px
+
+#function-bar
+  top: 0
+  border-bottom: 1px solid $line-color
+
+main
+  position: fixed
+  top: 25px
+  bottom: 25px
+  left: 0
+  right: 0
+  background-color: $lighter-theme-color
+
+footer
+  display: flex
+  justify-content: space-between
+  bottom: 0
+  border-top: 1px solid $line-color
+  .left-footer, .right-footer
+    height: inherit
+
+
+.centerVaH
+  display: flex
+  justify-content: center
+  align-items: center
