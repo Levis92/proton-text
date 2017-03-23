@@ -3,17 +3,13 @@ body {
   margin: 0;
   width: 100%;
   height: 100vh;
-  background-color: #323732; }
-
-h1 {
-  font-size: 8rem;
-  color: #09cdda; }
+  background-color: #272822; }
 
 #function-bar, footer {
   width: 100%;
   height: 24px;
   position: fixed;
-  background-color: #323732; }
+  background-color: #272822; }
   #function-bar ul, footer ul {
     list-style: none;
     padding-left: 0;
@@ -23,8 +19,10 @@ h1 {
       display: inline-block;
       height: 24px;
       padding: 3px 0;
-      padding-left: 10px;
+      padding-left: 17px;
       color: #d2d2d2; }
+      #function-bar ul li:first-child, footer ul li:first-child {
+        padding-left: 10px; }
       #function-bar ul li:last-child, footer ul li:last-child {
         padding-right: 10px; }
 
@@ -38,7 +36,73 @@ main {
   bottom: 25px;
   left: 0;
   right: 0;
-  background-color: #3c413c; }
+  background-color: #323732; }
+  main #documents {
+    position: absolute;
+    top: 0;
+    left: 200px;
+    right: 0;
+    bottom: 0; }
+    main #documents .CodeMirror, main #documents .CodeMirror-scroll {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0; }
+    main #documents .CodeMirror {
+      font-size: 16px;
+      top: 50px;
+      height: inherit;
+      border-left: 1px solid #262626;
+      border-top: 1px solid #262626; }
+    main #documents .tabs {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow: scroll;
+      height: 45px;
+      position: relative;
+      top: 5px; }
+      main #documents .tabs .tab {
+        height: inherit;
+        padding-left: 20px;
+        padding-right: 20px;
+        min-width: 130px;
+        background-color: #323732;
+        border-radius: 3px 3px 0 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgba(210, 210, 210, 0.7); }
+        main #documents .tabs .tab .fa-times {
+          position: relative;
+          right: -20px; }
+      main #documents .tabs .active-tab {
+        background-color: #272822;
+        color: #d2d2d2;
+        border: 1px solid #262626;
+        border-left: 3px solid deepskyblue;
+        border-bottom: none; }
+  main #file-tree {
+    font-size: 14px;
+    color: #d2d2d2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px; }
+    main #file-tree .tree {
+      padding-top: 5px; }
+    main #file-tree .tree, main #file-tree ul {
+      padding-left: 15px;
+      list-style: none; }
+    main #file-tree ul {
+      padding-left: 22px;
+      margin-top: 7px; }
+      main #file-tree ul li {
+        margin-top: 5px; }
+      main #file-tree ul i {
+        margin-right: 7px; }
 
 footer {
   display: flex;

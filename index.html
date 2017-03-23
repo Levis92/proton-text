@@ -3,6 +3,11 @@
   <head>
     <title>Proton Text</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="codemirror-5.25.0/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="codemirror-5.25.0/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror-5.25.0/theme/railscasts.css">
+    <script src="codemirror-5.25.0/mode/javascript/javascript.js"></script>
+    <script src="https://use.fontawesome.com/da03a0462c.js"></script>
   </head>
   <body>
     <header id="function-bar">
@@ -19,7 +24,42 @@
       </ul>
     </header>
     <main>
-      
+      <section id="file-tree">
+        <ul class="tree">
+          <li><i class="fa fa-chevron-down" aria-hidden="true"></i><i class="fa fa-folder" aria-hidden="true"></i>foldername</li>
+          <ul>
+            <li><i class="fa fa-file" aria-hidden="true"></i>filename.md</li>
+          </ul>
+          <ul>
+            <li><i class="fa fa-chevron-down" aria-hidden="true"></i><i class="fa fa-folder" aria-hidden="true"></i>foldername</li>
+            <ul>
+              <li><i class="fa fa-file" aria-hidden="true"></i>filename.md</li>
+              <li><i class="fa fa-file" aria-hidden="true"></i>filename.md</li>
+            </ul>
+          </ul>
+        </ul>
+      </section>
+      <article id="documents">
+        <aside class="tabs">
+          <div class="tab active-tab">
+            filename.md <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+          <div class="tab">
+            filename.md <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+          <div class="tab">
+            filename.md <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+        </aside>
+        <script type="text/javascript">
+          var myCodeMirror = CodeMirror(document.getElementById('documents'), {
+            value: "function myScript(){return 100;}\n",
+            theme: "railscasts",
+            mode:  "javascript",
+            lineNumbers: true
+          });
+        </script>
+      </article>
     </main>
     <footer>
       <div class="left-footer">
@@ -30,6 +70,7 @@
       </div>
       <div class="right-footer">
         <ul>
+          <li>javascript</li>
           <li>Last commit: 13:37</li>
           <li>Last save: 14:01</li>
         </ul>

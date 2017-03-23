@@ -1,6 +1,7 @@
-$theme-color: rgba(50, 55, 50, 1)
-$lighter-theme-color: rgba(60, 65, 60, 1)
+$theme-color: #272822
+$lighter-theme-color: rgba(50, 55, 50, 1)
 $line-color: rgba(38, 38, 38, 1)
+$delimitator: 200px
 
 =text-color($alpha)
   color: rgba(210, 210, 210, $alpha)
@@ -11,10 +12,6 @@ body
   width: 100%
   height: 100vh
   background-color: $theme-color
-
-h1
-  font-size: 8rem
-  color: #09cdda
 
 #function-bar, footer
   width: 100%
@@ -30,8 +27,10 @@ h1
       display: inline-block
       height: 24px
       padding: 3px 0
-      padding-left: 10px
+      padding-left: 17px
       +text-color(1)
+      &:first-child
+        padding-left: 10px
       &:last-child
         padding-right: 10px
 
@@ -46,6 +45,72 @@ main
   left: 0
   right: 0
   background-color: $lighter-theme-color
+  #documents
+    position: absolute
+    top: 0
+    left: $delimitator
+    right: 0
+    bottom: 0
+    .CodeMirror, .CodeMirror-scroll
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+    .CodeMirror
+      font-size: 16px
+      top: 50px
+      height: inherit
+      border-left: 1px solid $line-color
+      border-top: 1px solid $line-color
+    .tabs
+      display: flex
+      flex-direction: row
+      flex-wrap: nowrap
+      overflow: scroll
+      height: 45px
+      position: relative
+      top: 5px
+      .tab
+        height: inherit
+        padding-left: 20px
+        padding-right: 20px
+        min-width: 130px
+        background-color: $lighter-theme-color
+        border-radius: 3px 3px 0 0
+        display: flex
+        justify-content: center
+        align-items: center
+        +text-color(0.7)
+        .fa-times
+          position: relative
+          right: -20px
+      .active-tab
+        background-color: $theme-color
+        +text-color(1)
+        border: 1px solid $line-color
+        border-left: 3px solid deepskyblue
+        border-bottom: none
+  #file-tree
+    font-size: 14px
+    +text-color(1)
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    width: $delimitator
+    .tree
+      padding-top: 5px
+    .tree, ul
+      padding-left: 15px
+      list-style: none
+    ul
+      padding-left: 22px
+      margin-top: 7px
+      li
+        margin-top: 5px
+      i
+        margin-right: 7px
 
 footer
   display: flex
