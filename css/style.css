@@ -3,13 +3,13 @@ body {
   margin: 0;
   width: 100%;
   height: 100vh;
-  background-color: #272822; }
+  background-color: #2B2B2B; }
 
 #function-bar, footer {
   width: 100%;
   height: 24px;
   position: fixed;
-  background-color: #272822; }
+  background-color: #2B2B2B; }
   #function-bar ul, footer ul {
     list-style: none;
     padding-left: 0;
@@ -28,15 +28,15 @@ body {
 
 #function-bar {
   top: 0;
-  border-bottom: 1px solid #262626; }
+  border-bottom: 2px solid #262626; }
 
 main {
   position: fixed;
-  top: 25px;
-  bottom: 25px;
+  top: 26px;
+  bottom: 26px;
   left: 0;
   right: 0;
-  background-color: #323732; }
+  background-color: #2f342f; }
   main #documents {
     position: absolute;
     top: 0;
@@ -53,8 +53,9 @@ main {
       font-size: 16px;
       top: 50px;
       height: inherit;
-      border-left: 1px solid #262626;
-      border-top: 1px solid #262626; }
+      border-left: 2px solid #262626;
+      border-top: 2px solid #262626;
+      z-index: 0; }
     main #documents .tabs {
       display: flex;
       flex-direction: row;
@@ -62,13 +63,13 @@ main {
       overflow: scroll;
       height: 45px;
       position: relative;
-      top: 5px; }
+      top: 7px;
+      z-index: 10; }
       main #documents .tabs .tab {
         height: inherit;
         padding-left: 20px;
         padding-right: 20px;
         min-width: 130px;
-        background-color: #323732;
         border-radius: 3px 3px 0 0;
         display: flex;
         justify-content: center;
@@ -78,9 +79,9 @@ main {
           position: relative;
           right: -20px; }
       main #documents .tabs .active-tab {
-        background-color: #272822;
+        background-color: #2B2B2B;
         color: rgba(210, 210, 210, 0.8);
-        border: 1px solid #262626;
+        border: 2px solid #262626;
         border-left: 3px solid deepskyblue;
         border-bottom: none; }
   main #file-tree {
@@ -108,7 +109,7 @@ footer {
   display: flex;
   justify-content: space-between;
   bottom: 0;
-  border-top: 1px solid #262626; }
+  border-top: 2px solid #262626; }
   footer .left-footer, footer .right-footer {
     height: inherit; }
 

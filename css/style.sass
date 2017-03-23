@@ -1,5 +1,5 @@
-$theme-color: #272822
-$lighter-theme-color: rgba(50, 55, 50, 1)
+$theme-color: #2B2B2B
+$lighter-theme-color: rgba(47, 52, 47, 1)
 $line-color: rgba(38, 38, 38, 1)
 $delimitator: 200px
 
@@ -36,12 +36,12 @@ body
 
 #function-bar
   top: 0
-  border-bottom: 1px solid $line-color
+  border-bottom: 2px solid $line-color
 
 main
   position: fixed
-  top: 25px
-  bottom: 25px
+  top: 26px
+  bottom: 26px
   left: 0
   right: 0
   background-color: $lighter-theme-color
@@ -61,8 +61,9 @@ main
       font-size: 16px
       top: 50px
       height: inherit
-      border-left: 1px solid $line-color
-      border-top: 1px solid $line-color
+      border-left: 2px solid $line-color
+      border-top: 2px solid $line-color
+      z-index: 0
     .tabs
       display: flex
       flex-direction: row
@@ -70,13 +71,13 @@ main
       overflow: scroll
       height: 45px
       position: relative
-      top: 5px
+      top: 7px
+      z-index: 10
       .tab
         height: inherit
         padding-left: 20px
         padding-right: 20px
         min-width: 130px
-        background-color: $lighter-theme-color
         border-radius: 3px 3px 0 0
         display: flex
         justify-content: center
@@ -88,7 +89,7 @@ main
       .active-tab
         background-color: $theme-color
         +text-color(0.8)
-        border: 1px solid $line-color
+        border: 2px solid $line-color
         border-left: 3px solid deepskyblue
         border-bottom: none
   #file-tree
@@ -116,7 +117,7 @@ footer
   display: flex
   justify-content: space-between
   bottom: 0
-  border-top: 1px solid $line-color
+  border-top: 2px solid $line-color
   .left-footer, .right-footer
     height: inherit
 
