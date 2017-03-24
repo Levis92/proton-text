@@ -60,11 +60,14 @@ main {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      overflow: scroll;
+      overflow-x: scroll;
+      overflow-y: hidden;
       height: 45px;
       position: relative;
       top: 7px;
       z-index: 10; }
+      main #documents .tabs::-webkit-scrollbar {
+        display: none; }
       main #documents .tabs .tab {
         height: inherit;
         padding-left: 20px;
@@ -75,9 +78,17 @@ main {
         justify-content: center;
         align-items: center;
         color: rgba(210, 210, 210, 0.5); }
+        main #documents .tabs .tab:hover > .fa-times {
+          visibility: visible; }
         main #documents .tabs .tab .fa-times {
           position: relative;
-          right: -20px; }
+          right: -20px;
+          visibility: hidden;
+          padding: 1px 3px;
+          border-radius: 2px; }
+          main #documents .tabs .tab .fa-times:hover {
+            background-color: deepskyblue;
+            color: black; }
       main #documents .tabs .active-tab {
         background-color: #2B2B2B;
         color: rgba(210, 210, 210, 0.8);
