@@ -135,4 +135,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/intellij,windows,macos,linux
+### Sass ###
+.sass-cache/
+*.css.map
+
+# End of https://www.gitignore.io/api/intellij,windows,macos,linux,sass
