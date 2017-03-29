@@ -6,7 +6,7 @@
     <script src="codemirror-5.25.0/lib/codemirror.js"></script>
     <link rel="stylesheet" href="codemirror-5.25.0/lib/codemirror.css">
     <link rel="stylesheet" href="codemirror-5.25.0/theme/railscasts.css">
-    <script src="codemirror-5.25.0/mode/javascript/javascript.js"></script>
+    <script src="codemirror-5.25.0/mode/markdown/markdown.js"></script>
     <script src="https://use.fontawesome.com/da03a0462c.js"></script>
   </head>
   <body>
@@ -53,9 +53,9 @@
         </aside>
         <script type="text/javascript">
           var myCodeMirror = CodeMirror(document.getElementById('documents'), {
-            value: "function myScript(){return 100;}\n",
+            value: "# Heading\n\n- Listitem\n- Listitem\n\n`def helloWorld():\n\tprint 'Hello, world!'`",
             theme: "railscasts",
-            mode:  "javascript",
+            mode:  "markdown",
             lineNumbers: true
           });
         </script>
@@ -70,7 +70,7 @@
       </div>
       <div class="right-footer">
         <ul>
-          <li>javascript</li>
+          <li>markdown</li>
           <li>Last commit: 13:37</li>
           <li>Last save: 14:01</li>
         </ul>
