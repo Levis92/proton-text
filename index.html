@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="codemirror-5.25.0/theme/railscasts.css">
     <script src="codemirror-5.25.0/mode/markdown/markdown.js"></script>
     <script src="https://use.fontawesome.com/da03a0462c.js"></script>
+    <script src="scripts/main.js">
+
+    </script>
   </head>
   <body>
     <header id="function-bar">
@@ -53,7 +56,7 @@
         </aside>
         <script type="text/javascript">
           var myCodeMirror = CodeMirror(document.getElementById('documents'), {
-            value: "# Heading\n\n- Listitem\n- Listitem\n\n`def helloWorld():`\n\t`print 'Hello, world!'`",
+            value: "# Heading\n\n- Listitem\n- Listitem\n\n`def helloWorld():\n\n\tprint 'Hello, world!'`",
             theme: "railscasts",
             mode:  "markdown",
             lineNumbers: true
@@ -76,5 +79,10 @@
         </ul>
       </div>
     </footer>
+    <article id="domain" style="display: 'none'; height: 100vh; width: 100%; background: #fff; flex-direction: column; justify-content: center; align-items: center">
+      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+      <img src="images/domain_model.png" alt="Domänmodell" style="height: 60vh">
+      <button type="button" name="button" onclick="showMockup()" style="margin-top: 50px; font-size: 2rem; padding: 0.3em; border-radius: 0.1em; background: #09cdda; color: white; outline: none">Visa namn</button>
+    </article>
   </body>
 </html>
