@@ -18,10 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
   main.style.display = 'none';
   footer.style.display = 'none';
   domainModel.style.display = 'flex';
-
-  window.addEventListener("resize", function(e) {
-    image.style.height = image.offsetWidth / 1.8273;
-  });
 })
 
 
