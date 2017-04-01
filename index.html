@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Proton Text</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="css/style.css">
     <script src="codemirror-5.25.0/lib/codemirror.js"></script>
     <link rel="stylesheet" href="codemirror-5.25.0/lib/codemirror.css">
@@ -9,6 +11,19 @@
     <script src="codemirror-5.25.0/mode/markdown/markdown.js"></script>
     <script src="https://use.fontawesome.com/da03a0462c.js"></script>
     <script src="scripts/main.js"></script>
+    <style media="screen">
+      @media (max-width: 800px) {
+        img {
+          width: 95%;
+          max-height: 60vh;
+        }
+      }
+      @media (min-width: 801px) {
+        img {
+          height: 60vh;
+        }
+      }
+    </style>
   </head>
   <body>
     <header id="function-bar">
@@ -79,7 +94,7 @@
     </footer>
     <article id="domain" style="display: 'none'; height: 100vh; width: 100%; background: #fff; flex-direction: column; justify-content: center; align-items: center">
       <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-      <img src="images/domain_model.png" alt="Domänmodell" style="height: 60vh">
+      <img src="images/domain_model.png" alt="Domänmodell">
       <button type="button" name="button" onclick="showMockup()" style="margin-top: 50px; font-size: 2rem; padding: 0.3em; border-radius: 0.1em; background: #09cdda; color: white; outline: none">Visa namn</button>
     </article>
   </body>
