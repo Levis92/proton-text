@@ -3,6 +3,7 @@ package edu.chl.proton.model;
 
 
 /**
+ * @author Ludvig Ekman
  * Created by ludvig on 2017-05-01.
  */
 public class Cursor{ // extends javafx.scene.Cursor ?
