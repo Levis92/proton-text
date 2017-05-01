@@ -90,7 +90,7 @@
                </right>
             </JFXToolbar>
             <Separator layoutX="17.0" layoutY="60.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-            <JFXTabPane layoutX="445.0" layoutY="260.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
+            <JFXTabPane fx:id="tabPane" layoutX="445.0" layoutY="260.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
             <Pane layoutX="130.0" layoutY="486.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #09cdda;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
