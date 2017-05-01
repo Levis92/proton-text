@@ -15,7 +15,7 @@ public class Char {
     public Char(Position position, Fontstyle style, String color){
         this.position = position;
         this.style = style;
-        //color?
+        Colors.valueOf(color);
     }
 
     protected Position getPosition(){
@@ -23,8 +23,8 @@ public class Char {
     }
 
     protected void setPosition(int x, int y){
-        this.position.getX() = x;
-        this.position.getY() = y;
+        this.position.setX(x);
+        this.position.setY(y);
     }
 
 }
