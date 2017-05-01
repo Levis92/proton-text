@@ -24,7 +24,7 @@ public abstract class DirectoryContent {
         return "Hej";
     }
 
-    protected void setPath() {
+    protected void setPath(String path) {
 
     }
 }
