@@ -42,7 +42,7 @@ public class FontStyle {
         return font;
     }
 
-    protected void setPosture(enum posture) {
+    protected void setPosture(Posture posture) {
         switch (posture) {
             case BOLD:
                 // Do stuff bold
@@ -66,7 +66,7 @@ public class FontStyle {
         return posture;
     }
 
-    protected void setSize(size){
+    protected void setSize(int size){
             // do something with the text size
     }
 
