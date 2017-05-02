@@ -1,7 +1,5 @@
 package edu.chl.proton.model;
 
-import com.sun.tools.javac.code.Attribute;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +7,13 @@ import java.util.List;
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
-public class Workspace {
+public class Workspace implements IWorkspace {
     private static Workspace uniqueInstance = new Workspace();
     private List<Document> tabs = new ArrayList<Document>();
     private Document currentDocument;
     private Folder currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
-    private enum docType {MARKDOWN, PLAIN};
+    public enum docType {MARKDOWN, PLAIN};
 
     private Workspace() {}
 
@@ -31,6 +29,10 @@ public class Workspace {
         return currentDocument;
     }
 
+    public void saveCurrentDocument() {
+        currentDocument.save();
+    }
+
     public void setCurrentDirectory(Folder folder) {
         currentDirectory = folder;
     }
@@ -39,7 +41,16 @@ public class Workspace {
         return currentDirectory;
     }
 
-    public void createDocument(docType type, File file) {
+
+    public void createDocument(DocumentType type) {
+        factory.createDocument(type);
+    }
+
+    public void createDocument(docType type) {
+
+    }
+
+    public void openDocument(File file) {
         factory.getDocument(type, file);
     }
 
@@ -53,7 +64,7 @@ public class Workspace {
         currentDirectory = folder;
     }
 
-    public Folder getDirectory(Folder) {
+    public Folder getDirectory(Folder folder) {
         return currentDirectory;
     }
 }
