@@ -50,11 +50,24 @@ public abstract class Document {
         parts.clear();
     }
 
+    protected void addLines(String lines){
+        this.lines.add(lines);
+    }
+
+    protected void removeLines(int index){
+        lines.remove(index);
+    }
+
+    protected void removeAllLines(){
+        lines.clear();
+    }
+
     protected void setText(List<String> text){
         for(String str : text){
             lines.add(str);
         }
     }
+
 
     // Aqcuires the text from the file we opened.
     protected void aqcuireText(){

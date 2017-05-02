@@ -9,13 +9,11 @@ import java.util.*;
 public class Markdown extends Document{
 
 
-    public Markdown(Cursor cursor, File file, List<Parts> parts, List<String> lines){
-        this.setCursor(cursor);
+    public Markdown(File file){
+        getCursor().setPosition(0,0);
         this.setFile(file);
-        this.setText(lines);
-        for(Parts part : parts){
-            addParts(part);
-        }
     }
+
+
 
 }
