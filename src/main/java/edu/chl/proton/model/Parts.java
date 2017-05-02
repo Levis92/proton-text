@@ -3,7 +3,7 @@ package edu.chl.proton.model;
 import java.util.*;
 
 /**
- * @author
+ * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
 public class Parts {

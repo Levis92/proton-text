@@ -10,9 +10,9 @@ public class Char {
 
     private Position position;
     private enum Colors{BLACK, RED, ORANGE, BLUE, GREEN, YELLOW, PINK, GRAY;}
-    private Fontstyle style;
+    private FontStyle style;
 
-    public Char(Position position, Fontstyle style, String color){
+    public Char(Position position, FontStyle style, String color){
         this.position = position;
         this.style = style;
         Colors.valueOf(color);
