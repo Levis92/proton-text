@@ -16,7 +16,7 @@
          <children>
             <JFXToolbar layoutX="108.0" layoutY="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
-                  <JFXButton onAction="#test" text="New" BorderPane.alignment="CENTER" />
+                  <JFXButton onAction="#onClickNewButton" text="New" BorderPane.alignment="CENTER" />
                </left>
                <center>
                   <JFXButton text="Open" BorderPane.alignment="CENTER" />
