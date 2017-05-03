@@ -34,4 +34,12 @@ public class Folder extends FileSystemEntity {
         return files;
     }
 
+    protected void removeFolder(Folder folder) {
+        folders.remove(folder);
+    }
+
+    protected void removeFile(File file) {
+        files.remove(file);
+
+    }
 }
