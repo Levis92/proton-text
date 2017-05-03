@@ -15,15 +15,6 @@ public class Folder extends FileSystemEntity {
 
     public Folder(String name) {
         this.setName(name);
-
-    }
-
-    protected void addFolder(Folder folder) {
-        folders.add(folder);
-    }
-
-    protected void addFile(File file) {
-        files.add(file);
     }
 
     protected List<Folder> getFolders() {
@@ -34,12 +25,32 @@ public class Folder extends FileSystemEntity {
         return files;
     }
 
+    protected void addFolder(Folder folder) {
+        // Remove the given folder from its current folder
+        folder.getParentFolder().removeFolder(folder);
+        // Set the new parent folder
+        folder.setParentFolder(this);
+        // Add it to its new parent folder's child folder list
+        childFolders.add(folder);
+    }
+
+    protected void addFile(File file) {
+        // Remove the given file from its current folder
+        file.getParentFolder().removeFile(file);
+        // Set the new parent folder
+        file.setParentFolder(this);
+        // Add it to its new parent folder's file list
+        files.add(file);
+    }
+
     protected void removeFolder(Folder folder) {
         childFolders.remove(folder);
+        folder.setParentFolder(null);
     }
 
     protected void removeFile(File file) {
         files.remove(file);
+        file.setParentFolder(null);
 
     }
 }
