@@ -8,18 +8,13 @@ import java.util.List;
  * Created by antonlevholm on 2017-05-01.
  */
 public class Workspace implements IWorkspace {
-    private static Workspace uniqueInstance = new Workspace();
-    private List<Document> tabs = new ArrayList<Document>();
+    private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
     private Folder currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
-    public enum docType {MARKDOWN, PLAIN};
 
-    private Workspace() {}
+    public Workspace() {}
 
-    public static Workspace getInstance() {
-        return uniqueInstance;
-    }
 
     public void setCurrentDocument(Document doc) {
         currentDocument = doc;
@@ -66,5 +61,15 @@ public class Workspace implements IWorkspace {
 
     public Folder getDirectory(Folder folder) {
         return currentDirectory;
+    }
+
+    @Override
+    public void setText(List<String> text) {
+
+    }
+
+    @Override
+    public List<String> getText() {
+        return currentDocument.getText();
     }
 }

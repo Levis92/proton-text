@@ -2,7 +2,8 @@ package edu.chl.proton.control;
 
 import com.jfoenix.controls.JFXTabPane;
 import edu.chl.proton.model.DocumentType;
-import edu.chl.proton.model.Workspace;
+import edu.chl.proton.model.IWorkspace;
+import edu.chl.proton.model.WorkspaceFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,17 +12,26 @@ import javafx.scene.control.Tab;
 import java.io.IOException;
 
 /**
+ * Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
 public class MainController {
-    private Workspace workspace = Workspace.getInstance();
+    private static IWorkspace workspace;
+    private FXMLLoader loader;
 
     @FXML
     private JFXTabPane tabPane;
 
     public void initialize() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
+        workspace = (new WorkspaceFactory()).getWorkspace();
+        loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab("Untitled");
+        tab.setContent(loader.load());
+        tabPane.getTabs().add(tab);
+    }
+
+    public void addNewTab(String name) throws IOException {
+        Tab tab = new Tab(name);
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
     }
@@ -29,6 +39,7 @@ public class MainController {
     @FXML
     public void onClickNewButton(ActionEvent event) throws IOException {
         workspace.createDocument(DocumentType.MARKDOWN);
+        addNewTab("Untitled.md");
     }
 
     @FXML
