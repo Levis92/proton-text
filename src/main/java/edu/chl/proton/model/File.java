@@ -14,9 +14,4 @@ public class File extends FileSystemEntity {
     protected void save() {
 
     }
-
-    protected void remove() {
-
-    }
-
 }
