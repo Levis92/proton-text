@@ -18,13 +18,13 @@ public interface IWorkspace {
 
     void createDocument(DocumentType type);
 
-    void openDocument(File file);
+    void openDocument(String filePath);
 
     void removeDocument(Document doc);
 
-    void setDirectory(Folder folder);
+    void setDirectory(String folderPath);
 
-    Folder getDirectory(Folder folder);
+    String getDirectory();
 
     void setText(List<String> text);
 

@@ -41,18 +41,26 @@ public class Workspace implements IWorkspace {
         factory.createDocument(type);
     }
 
-    public void createDocument(docType type) {
+    @Override
+    public void openDocument(String filePath) {
+        factory.getDocument(filePath);
 
-    }
-
-    public void openDocument(File file) {
-        factory.getDocument(type, file);
     }
 
     public void removeDocument(Document doc) {
         if (tabs.contains(doc)) {
             tabs.remove(doc);
         }
+    }
+
+    @Override
+    public void setDirectory(String folderPath) {
+
+    }
+
+    @Override
+    public String getDirectory() {
+        return null;
     }
 
     public void setDirectory(Folder folder) {
