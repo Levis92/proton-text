@@ -18,11 +18,11 @@ public class Folder extends FileSystemEntity {
 
     }
 
-    protected void move(Folder folder) {
+    protected void addFolder(Folder folder) {
         folders.add(folder);
     }
 
-    protected void move(File file) {
+    protected void addFile(File file) {
         files.add(file);
     }
 
