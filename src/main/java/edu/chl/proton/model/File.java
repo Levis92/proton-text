@@ -10,7 +10,7 @@ public class File extends FileSystemEntity {
         this.setName(name);
 
     }
-
+    // What should be saved? Shouldn't this be in document?
     protected void save() {
 
     }
