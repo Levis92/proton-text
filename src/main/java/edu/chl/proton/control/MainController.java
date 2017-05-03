@@ -44,11 +44,12 @@ public class MainController {
 
     @FXML
     public void onClickOpenButton(ActionEvent event) throws IOException {
+        String file = "";
         workspace.openDocument(file);
     }
 
     @FXML
-    public void onClickSaveButton(ActionEvent) throws IOException {
+    public void onClickSaveButton(ActionEvent event) throws IOException {
         workspace.saveCurrentDocument();
     }
 
@@ -59,6 +60,11 @@ public class MainController {
 
     @FXML
     public void onClickRedoButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickLinkButton(ActionEvent event) throws IOException {
 
     }
 
@@ -99,6 +105,11 @@ public class MainController {
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
 
     }
 }
