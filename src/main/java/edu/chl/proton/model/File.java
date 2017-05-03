@@ -10,6 +10,12 @@ public class File extends FileSystemEntity {
         this.setName(name);
 
     }
+
+    public File(String name, Folder parentFolder) {
+        this.setName(name);
+        parentFolder.addFile(this);
+    }
+
     // What should be saved? Shouldn't this be in document?
     protected void save() {
 

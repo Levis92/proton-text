@@ -17,6 +17,11 @@ public class Folder extends FileSystemEntity {
         this.setName(name);
     }
 
+    public Folder(String name, Folder parentFolder) {
+        this.setName(name);
+        parentFolder.addFolder(this);
+    }
+
     protected List<Folder> getFolders() {
         return childFolders;
     }
