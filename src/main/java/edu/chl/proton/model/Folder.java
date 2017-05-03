@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Folder extends FileSystemEntity {
 
-    private List<Folder> folders = new ArrayList<Folder>();
+    private List<Folder> childFolders = new ArrayList<Folder>();
     private List<File> files = new ArrayList<File>();
 
 
@@ -27,7 +27,7 @@ public class Folder extends FileSystemEntity {
     }
 
     protected List<Folder> getFolders() {
-        return folders;
+        return childFolders;
     }
 
     protected List<File> getFiles() {
@@ -35,7 +35,7 @@ public class Folder extends FileSystemEntity {
     }
 
     protected void removeFolder(Folder folder) {
-        folders.remove(folder);
+        childFolders.remove(folder);
     }
 
     protected void removeFile(File file) {
