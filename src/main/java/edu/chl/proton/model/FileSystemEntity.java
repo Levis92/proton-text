@@ -8,6 +8,9 @@ public abstract class FileSystemEntity {
 
     private String name;
 
+    private Folder parentFolder;
+
+
     protected String getName() {
         return name;
     }
@@ -22,5 +25,13 @@ public abstract class FileSystemEntity {
 
     protected void setPath(String path) {
 
+    }
+
+    protected Folder getParentFolder() {
+        return this.parentFolder;
+    }
+
+    protected void setParentFolder(Folder folder) {
+        this.parentFolder = folder;
     }
 }
