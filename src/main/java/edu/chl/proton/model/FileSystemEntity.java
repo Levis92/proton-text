@@ -20,11 +20,12 @@ public abstract class FileSystemEntity {
     }
 
     protected String getPath() {
-        return "Hej";
-    }
-
     protected void setPath(String path) {
-
+        if (this.parentFolder != null) {
+            return this.parentFolder.getPath() + "/" + this.name;
+        } else {
+            return "/" + this.name;
+        }
     }
 
     protected Folder getParentFolder() {
