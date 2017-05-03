@@ -6,14 +6,24 @@ package edu.chl.proton.model;
  */
 public class File extends FileSystemEntity {
 
-    public File(String name) {
-        this.setName(name);
+    private Document document;
 
+    public File(String name, Document document) {
+        this.setName(name);
+        this.document = document;
     }
 
-    public File(String name, Folder parentFolder) {
-        this.setName(name);
+    public File(String name, Document document, Folder parentFolder) {
+        this(name, document);
         parentFolder.addFile(this);
+    }
+
+    protected Document getDocument() {
+        return this.document;
+    }
+
+    protected void setDocument(Document document) {
+        this.document = document;
     }
 
     // What should be saved? Shouldn't this be in document?
