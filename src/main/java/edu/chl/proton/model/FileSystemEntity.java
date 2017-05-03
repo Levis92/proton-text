@@ -4,7 +4,7 @@ package edu.chl.proton.model;
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
  */
-public abstract class DirectoryContent {
+public abstract class FileSystemEntity {
 
     private String name;
 
@@ -14,10 +14,6 @@ public abstract class DirectoryContent {
 
     protected void setName(String name) {
         this.name = name;
-    }
-
-    protected void remove() {
-
     }
 
     protected String getPath() {
