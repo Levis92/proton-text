@@ -35,7 +35,8 @@ public abstract class Document {
     }
 
     protected void addFile(String path){
-        file.setPath(path);
+        // file.setPath(path);
+        // setFile(rootFolder.getFileFromPath(path)); ???
     }
 
     protected void addParts(Parts parts){

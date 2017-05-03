@@ -58,4 +58,9 @@ public class Folder extends FileSystemEntity {
         file.setParentFolder(null);
 
     }
+
+    // TODO
+    protected File getFileFromPath(String path) {
+        return null;
+    }
 }
