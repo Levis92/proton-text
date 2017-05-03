@@ -26,10 +26,6 @@ public class Folder extends FileSystemEntity {
         files.add(file);
     }
 
-    protected void add() {
-
-    }
-
     protected List<Folder> getFolders() {
         return folders;
     }
