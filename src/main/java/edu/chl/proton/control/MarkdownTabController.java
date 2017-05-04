@@ -26,6 +26,6 @@ public class MarkdownTabController {
     }
 
     public static void setTextFlow() {
-        List<String> text = workspace.getText();
+        List<Text> text = workspace.getText();
     }
 }
