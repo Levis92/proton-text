@@ -71,12 +71,12 @@ public abstract class Document {
     }
 
     // Returns a formated List, where every lsit item is a row in the document
-    protected List<javafx.scene.text.Text> getText(){
+    protected List<Text> getText(){
 
-        List<javafx.scene.text.Text> text = new ArrayList<javafx.scene.text.Text>();
+        List<Text> text = new ArrayList<Text>();
 
         for(String str : lines){
-            javafx.scene.text.Text newText = new javafx.scene.text.Text(str);
+            Text newText = new Text(str);
             text.add(newText);
         }
         return text;
