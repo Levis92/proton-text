@@ -1,7 +1,7 @@
 package edu.chl.proton.model;
 
 
-import javax.xml.soap.Text;
+import javafx.scene.text.Text;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
