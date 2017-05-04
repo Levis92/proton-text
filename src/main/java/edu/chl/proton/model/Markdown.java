@@ -28,9 +28,9 @@ public class Markdown extends Document{
     // Returns a formatted List, where every list item is a row
     // in the document and every character gets a style.
     @Override
-    protected List<Text> getText(){
+    protected List<javafx.scene.text.Text> getText(){
         List<javafx.scene.text.Text> text = new ArrayList<javafx.scene.text.Text>();
-        javafx.scene.text.Text newText = new Text("Bä, bä, vita lamm, har du någon ull?\n" +
+        javafx.scene.text.Text newText = new javafx.scene.text.Text("Bä, bä, vita lamm, har du någon ull?\n" +
                 "Ja, ja, lilla barn, jag har säcken full.\n" +
                 "Helgdagsrock åt far och söndagskjol åt mor\n" +
                 "och två par strumpor åt lille, lille bror.");
