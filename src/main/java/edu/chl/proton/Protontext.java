@@ -1,4 +1,4 @@
-//package edu.chl.proton;
+package edu.chl.proton;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +20,8 @@ public class Protontext extends Application {
         primaryStage.setTitle("Proton Text");
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
+        primaryStage.setMinWidth(900);
+        primaryStage.setMinHeight(600);
     }
 
     public static void main(String[] args) {
