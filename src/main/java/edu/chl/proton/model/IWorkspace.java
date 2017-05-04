@@ -1,5 +1,7 @@
 package edu.chl.proton.model;
 
+import javafx.scene.text.Text;
+
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public interface IWorkspace {
 
     String getDirectory();
 
-    void setText(List<String> text);
+    void setText(List<Text> text);
 
-    List<String> getText();
+    List<Text> getText();
 }
