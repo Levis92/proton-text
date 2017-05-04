@@ -68,6 +68,12 @@ public abstract class Document {
         }
     }
 
+    // Document needs a getText() method that returns a formatted List, where every list item is a row in the document and every character gets a style.
+
+    protected List<String> getText(){
+        return null;
+    }
+
 
     // Aqcuires the text from the file we opened.
     protected void aqcuireText(){

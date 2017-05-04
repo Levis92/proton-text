@@ -1,7 +1,5 @@
 package edu.chl.proton.model;
 
-import java.util.*;
-
 /**
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
