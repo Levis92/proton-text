@@ -1,6 +1,7 @@
 package edu.chl.proton.model;
 
 
+import javax.xml.soap.Text;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -69,12 +70,21 @@ public abstract class Document {
         }
     }
 
-    // Document needs a getText() method that returns a formatted List, where every list item is a row in the document and every character gets a style.
+    // Returns a formated List, where every lsit item is a row in the document
+    protected List<javafx.scene.text.Text> getText(){
 
-    protected List<String> getText(){
-        return null;
+        List<javafx.scene.text.Text> text = new ArrayList<javafx.scene.text.Text>();
+
+        for(String str : lines){
+            javafx.scene.text.Text newText = new javafx.scene.text.Text(str);
+            text.add(newText);
+        }
+        return text;
     }
 
+    protected void save(){
+        file.save();
+    }
 
     // Aqcuires the text from the file we opened.
     protected void aqcuireText(){
