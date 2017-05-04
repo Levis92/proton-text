@@ -1,5 +1,7 @@
 package edu.chl.proton.model;
 
+import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,12 +74,12 @@ public class Workspace implements IWorkspace {
     }
 
     @Override
-    public void setText(List<String> text) {
+    public void setText(List<Text> text) {
 
     }
 
     @Override
-    public List<String> getText() {
+    public List<Text> getText() {
         return currentDocument.getText();
     }
 }
