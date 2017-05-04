@@ -12,7 +12,7 @@ public class Markdown extends Document{
 
 
     public Markdown(){
-        
+
     }
 
     public Markdown(File file){
