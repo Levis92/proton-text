@@ -1,6 +1,8 @@
 package edu.chl.proton.model;
 
-import java.util.*;
+import javafx.scene.text.Text;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mickaela
@@ -9,11 +11,34 @@ import java.util.*;
 public class Markdown extends Document{
 
 
+    public Markdown(){
+
+    }
+
     public Markdown(File file){
         getCursor().setPosition(0,0);
         this.setFile(file);
     }
 
+    // getHTML() returns a List with the resulting HTML from the Markdown text
+    protected void getHTML(){
 
+    }
+
+    // Returns a formatted List, where every list item is a row
+    // in the document and every character gets a style.
+    @Override
+    protected List<Text> getText(){
+        List<Text> text = new ArrayList<Text>();
+        Text newText = new Text("Bä, bä, vita lamm, har du någon ull?\n" +
+                "Ja, ja, lilla barn, jag har säcken full.\n" +
+                "Helgdagsrock åt far och söndagskjol åt mor\n" +
+                "och två par strumpor åt lille, lille bror.");
+
+        text.add(newText);
+
+        return text;
+
+    }
 
 }
