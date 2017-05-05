@@ -12,12 +12,32 @@ import java.util.*;
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
-public abstract class Document {
+public class Document {
 
-    private Cursor cursor;;
+    // Lika = document
+
+    private Cursor cursor;
     private File file;
     private List<String> lines = new ArrayList<String>();
     private List<Parts> parts = new ArrayList<Parts>();
+
+    DocTypeInterface docType;
+
+    public Document(DocumentType type){
+        if(type == DocumentType.MARKDOWN){
+            docType = new Markdown();
+        } else if(type == DocumentType.ASSIGNMENT){
+            // TODO
+        } else if(type == DocumentType.PLAIN){
+            // TODO
+        } else if(type == DocumentType.SLIDE){
+            // TODO
+        }
+    }
+
+    public Document(String name){
+        String extension = name.substring(name.lastIndexOf(".") + 1, name.length());
+    }
 
     protected Cursor getCursor(){
         return this.cursor;
@@ -64,12 +84,32 @@ public abstract class Document {
         lines.clear();
     }
 
+    protected void insertChar(char ch){
+
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
+
+        // check if Enter was the key pressed
+        if(ch == '\r'){
+            cursor.setPosition(row + 1, col);
+        } else {
+            String tmp = lines.get(row);
+
+            StringBuilder str = new StringBuilder(tmp);
+            str.insert(col, ch);
+
+            lines.set(row, tmp);
+            cursor.setPosition(row, col + 1);
+        }
+
+    }
+
     protected void setText(List<String> text){
         for(String str : text){
             lines.add(str);
         }
     }
-
+    /*
     // Returns a formated List, where every lsit item is a row in the document
     protected List<Text> getText(){
 
@@ -80,11 +120,16 @@ public abstract class Document {
             text.add(newText);
         }
         return text;
-    }
+    }*/
 
     protected void save(){
         file.save();
     }
+
+    /*
+    protected boolean isSaved(){
+        return file.isSaved();  // <--- Kommenteras in igen när isSaved() finns i File
+    }*/
 
     // Aqcuires the text from the file we opened.
     protected void aqcuireText(){
