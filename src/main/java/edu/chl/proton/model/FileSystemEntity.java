@@ -7,6 +7,7 @@ package edu.chl.proton.model;
 public abstract class FileSystemEntity {
 
     private String name;
+    private String path;
 
     private Folder parentFolder;
 
@@ -25,6 +26,10 @@ public abstract class FileSystemEntity {
         } else {
             return "/" + this.name;
         }
+    }
+
+    protected void setPath(String name) {
+        path = this.parentFolder + "/" + this.name;
     }
 
     protected Folder getParentFolder() {
