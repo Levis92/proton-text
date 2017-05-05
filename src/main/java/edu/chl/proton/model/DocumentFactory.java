@@ -44,8 +44,6 @@ public class DocumentFactory {
     public Document getDocument(String filePath){
         return createDocument(DocumentType.MARKDOWN);
     }
-    public Document getDocument(){
-        return createDocument(DocumentType.MARKDOWN);
-    }
+
 
 }
