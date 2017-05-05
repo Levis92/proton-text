@@ -45,5 +45,4 @@ public class DocumentFactory {
         return createDocument(DocumentType.MARKDOWN);
     }
 
-
 }
