@@ -9,7 +9,7 @@ import java.util.List;
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
-public class Workspace implements IWorkspace {
+public class Workspace implements IFileHandler, IDocumentHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
     private Folder currentDirectory;
