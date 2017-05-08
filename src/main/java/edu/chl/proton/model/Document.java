@@ -25,7 +25,7 @@ public class Document {
 
     public Document(DocumentType type){
         if(type == DocumentType.MARKDOWN){
-            docType = new Markdown(lines, parts);
+            docType = new Markdown(file);
         } else if(type == DocumentType.ASSIGNMENT){
             // TODO
         } else if(type == DocumentType.PLAIN){
