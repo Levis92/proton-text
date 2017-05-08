@@ -2,7 +2,8 @@ package edu.chl.proton.control;
 
 import com.jfoenix.controls.JFXTabPane;
 import edu.chl.proton.model.DocumentType;
-import edu.chl.proton.model.IWorkspace;
+import edu.chl.proton.model.IDocumentHandler;
+import edu.chl.proton.model.IFileHandler;
 import edu.chl.proton.model.WorkspaceFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,14 +17,17 @@ import java.io.IOException;
  * Created by antonlevholm on 2017-05-01.
  */
 public class MainController {
-    private static IWorkspace workspace;
+    private static IFileHandler file;
+    private static IDocumentHandler document;
     private FXMLLoader loader;
 
     @FXML
     private JFXTabPane tabPane;
 
     public void initialize() throws IOException {
-        workspace = (new WorkspaceFactory()).getWorkspace();
+        WorkspaceFactory factory = new WorkspaceFactory();
+        file = factory.getWorkspace();
+        document = factory.getWorkspace();
         loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab("Untitled");
         tab.setContent(loader.load());
@@ -38,19 +42,19 @@ public class MainController {
 
     @FXML
     public void onClickNewButton(ActionEvent event) throws IOException {
-        workspace.createDocument(DocumentType.MARKDOWN);
+        document.createDocument(DocumentType.MARKDOWN);
         addNewTab("Untitled.md");
     }
 
     @FXML
     public void onClickOpenButton(ActionEvent event) throws IOException {
         String file = "";
-        workspace.openDocument(file);
+        document.openDocument(file);
     }
 
     @FXML
     public void onClickSaveButton(ActionEvent event) throws IOException {
-        workspace.saveCurrentDocument();
+        file.saveCurrentDocument();
     }
 
     @FXML

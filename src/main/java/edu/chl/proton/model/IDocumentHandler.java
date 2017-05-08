@@ -6,17 +6,11 @@ import java.util.List;
 
 /**
  * Anton Levholm
- * Created by antonlevholm on 2017-05-02.
+ * Created by antonlevholm on 2017-05-07.
  */
-public interface IWorkspace {
+public interface IDocumentHandler {
 
     Document getCurrentDocument();
-
-    void saveCurrentDocument();
-
-    void setCurrentDirectory(Folder folder);
-
-    Folder getCurrentDirectory();
 
     void createDocument(DocumentType type);
 
@@ -24,11 +18,8 @@ public interface IWorkspace {
 
     void removeDocument(Document doc);
 
-    void setDirectory(String folderPath);
-
-    String getDirectory();
-
     void setText(List<Text> text);
 
     List<Text> getText();
+
 }
