@@ -104,6 +104,10 @@ public class Document {
 
     }
 
+    public List<Text> getText(){
+        return docType.getText();
+    }
+
     protected void setText(List<String> text){
         for(String str : text){
             lines.add(str);
