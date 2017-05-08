@@ -29,7 +29,7 @@ public class DocumentFactory {
 
         } else if(documentType==DocumentType.MARKDOWN){
             //return new Markdown(file); // Cursor cursor, File file, List<Parts> parts, List<String> lines
-            return new Markdown();
+            return new Markdown(file);
 
         } else if(documentType==DocumentType.SLIDE){
             //return new SlideDocument(file); // Mode where you can do some notes on each slide (MAIN POINT, DETAILS, PICTURE)
