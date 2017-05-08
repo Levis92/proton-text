@@ -5,7 +5,7 @@ package edu.chl.proton.model;
  * Created by antonlevholm on 2017-05-03.
  */
 public class WorkspaceFactory {
-    private static IWorkspace workspace;
+    private static Workspace workspace;
 
     public WorkspaceFactory() {
         if (workspace == null) {
@@ -17,7 +17,7 @@ public class WorkspaceFactory {
         }
     }
 
-    public IWorkspace getWorkspace() {
+    public Workspace getWorkspace() {
         return workspace;
     }
 }
