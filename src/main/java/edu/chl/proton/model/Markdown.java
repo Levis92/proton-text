@@ -171,57 +171,58 @@ public class Markdown implements DocTypeInterface{
         // Check for h6
         Matcher match = h6.matcher(str);
         StringBuffer sb = new StringBuffer();
-        while (match.find()) {
+        if (match.find()) {
             match.appendReplacement(sb, "<h6>$1</h6>");
+            match.appendTail(sb);
+            return sb.toString();
         }
-        match.appendTail(sb);
-        String tmp = sb.toString();
 
         // Check for h5
         match = h5.matcher(str);
         sb = new StringBuffer();
-        while (match.find()) {
+        if(match.find()) {
             match.appendReplacement(sb, "<h5>$1</h5>");
+            match.appendTail(sb);
+            return sb.toString();
         }
-        match.appendTail(sb);
-        tmp = sb.toString();
 
         // check for h4
-        match = h4.matcher(tmp);
+        match = h4.matcher(str);
         sb = new StringBuffer();
-        while(match.find()){
+        if (match.find()){
             match.appendReplacement(sb, "<h4>$1</h4>");
+            match.appendTail(sb);
+            return sb.toString();
         }
-        match.appendTail(sb);
-        tmp = sb.toString();
 
         // check for h3
-        match = h3.matcher(tmp);
+        match = h3.matcher(str);
         sb = new StringBuffer();
-        while(match.find()){
+        if (match.find()){
             match.appendReplacement(sb, "<h3>$1</h3>");
+            match.appendTail(sb);
+            return sb.toString();
         }
-        match.appendTail(sb);
-        tmp = sb.toString();
 
         // check for h2
-        match = h2.matcher(tmp);
+        match = h2.matcher(str);
         sb = new StringBuffer();
-        while(match.find()){
+        if (match.find()){
             match.appendReplacement(sb, "<h2>$1</h2>");
+            match.appendTail(sb);
+            return sb.toString();
         }
-        match.appendTail(sb);
-        tmp = sb.toString();
 
         // check for h1
-        match = h1.matcher(tmp);
+        match = h1.matcher(str);
         sb = new StringBuffer();
-        while(match.find()){
+        if (match.find()){
             match.appendReplacement(sb, "<h1>$1</h1>");
+            match.appendTail(sb);
+            return sb.toString();
         }
-        match.appendTail(sb);
-        tmp = sb.toString();
-        return tmp;
+        // no matches found, return original string
+        return str;
     }
 
     protected String checkLink(String str){
@@ -235,7 +236,7 @@ public class Markdown implements DocTypeInterface{
             throw(ex);
         }
 
-        // Check for h5
+        // Check for img link
         Matcher match = picLink.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (match.find()) {
@@ -244,7 +245,7 @@ public class Markdown implements DocTypeInterface{
         match.appendTail(sb);
         String tmp = sb.toString();
 
-        // check for h4
+        // check for text link
         match = textLink.matcher(tmp);
         sb = new StringBuffer();
         while(match.find()){
