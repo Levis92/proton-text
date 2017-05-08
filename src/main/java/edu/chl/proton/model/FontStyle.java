@@ -49,7 +49,7 @@ public class FontStyle {
                 // Make stuff italic
                 break;
 
-            case :
+            case NORMAL:
                 // and so on
                 break;
 
@@ -66,7 +66,7 @@ public class FontStyle {
             case BOLD:
                 // Do stuff bold
                 break;
-            case :
+            case NORMAL:
             // and so on
             break;
 
