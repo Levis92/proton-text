@@ -12,8 +12,8 @@ import static java.time.format.SignStyle.NORMAL;
 // non-static object from a static method.
 public class FontStyle {
     private String font;
-    TextPosture posture;
-    TextWeight weight;
+    private TextPosture posture;
+    private TextWeight weight;
     private int size;
 
     public FontStyle(String font, TextPosture posture, TextWeight weight, int size){

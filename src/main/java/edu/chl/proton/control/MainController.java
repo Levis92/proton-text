@@ -75,7 +75,8 @@ public class MainController {
 
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
-
+        // Four asterixes and move cursor two steps back. Method in Document that takes in
+        // this and updates the aktuella line?
     }
 
     @FXML
