@@ -23,16 +23,8 @@ public class Document {
 
     DocTypeInterface docType;
 
-    public Document(DocumentType type){
-        if(type == DocumentType.MARKDOWN){
-            docType = new Markdown(file);
-        } else if(type == DocumentType.ASSIGNMENT){
-            // TODO
-        } else if(type == DocumentType.PLAIN){
-            // TODO
-        } else if(type == DocumentType.SLIDE){
-            // TODO
-        }
+    public Document(DocTypeInterface type){
+        this.docType = type;
     }
 
     public Document(String name){
@@ -56,7 +48,7 @@ public class Document {
     }
 
     protected void addFile(String path){
-        // file.setPath(path);
+        file.setPath(path);
         // setFile(rootFolder.getFileFromPath(path)); ???
     }
 
@@ -109,12 +101,11 @@ public class Document {
     }
 
     protected void setText(List<String> text){
-        for(String str : text){
-            lines.add(str);
-        }
+        docType.setText();
     }
+
     /*
-    // Returns a formated List, where every lsit item is a row in the document
+    // Returns a formated List, where every list item is a row in the document
     protected List<Text> getText(){
 
         List<Text> text = new ArrayList<Text>();
@@ -126,14 +117,18 @@ public class Document {
         return text;
     }*/
 
-    protected void save(){
-        file.save();
+    protected void save(List<String> lines){
+        file.save(lines);
     }
 
-    /*
+    protected void remove(){
+        file.remove();
+    }
+
+
     protected boolean isSaved(){
-        return file.isSaved();  // <--- Kommenteras in igen när isSaved() finns i File
-    }*/
+        return file.isSaved();
+    }
 
     // Aqcuires the text from the file we opened.
     protected void aqcuireText(){
