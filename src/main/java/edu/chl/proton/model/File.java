@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class File extends FileSystemEntity {
 
-    //private Document document;
 
     public File(String name) {
         this.setName(name);
@@ -22,13 +21,7 @@ public class File extends FileSystemEntity {
         parentFolder.addFile(this);
     }
 
-    //protected Document getDocument() {
-    //    return this.document;
-    //}
 
-    //protected void setDocument(Document document) {
-    //    this.document = document;
-    //}
 
     protected void save(List<String> text) throws IOException {
 
