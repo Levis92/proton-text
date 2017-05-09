@@ -45,4 +45,8 @@ public class File extends FileSystemEntity {
     protected boolean isSaved() {
         return true;
     }
+
+    protected void remove() {
+
+    }
 }
