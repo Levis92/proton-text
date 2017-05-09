@@ -43,8 +43,12 @@ public class File extends FileSystemEntity {
         setIsSaved(true);
     }
 
+    // TODO
+    protected String lastEdited() {
+        return "";
     }
 
+    // TODO
     protected void remove() {
 
     }
