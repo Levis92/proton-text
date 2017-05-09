@@ -104,20 +104,8 @@ public class Document {
         docType.setText();
     }
 
-    /*
-    // Returns a formated List, where every list item is a row in the document
-    protected List<Text> getText(){
 
-        List<Text> text = new ArrayList<Text>();
-
-        for(String str : lines){
-            Text newText = new Text(str);
-            text.add(newText);
-        }
-        return text;
-    }*/
-
-    protected void save(List<String> lines){
+    protected void save(List<String> lines) throws IOException{
         file.save(lines);
     }
 
