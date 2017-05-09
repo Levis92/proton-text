@@ -1,5 +1,10 @@
 package edu.chl.proton.model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
@@ -25,8 +30,15 @@ public class File extends FileSystemEntity {
     //    this.document = document;
     //}
 
-    // What should be saved? Shouldn't this be in document?
-    protected void save() {
+    protected void save(List<String> text) throws IOException {
+
+        File file = new File(this.getPath());
+        BufferedWriter out = new BufferedWriter(new FileWriter(String.valueOf(file)));
+
+        for(String line : text) {
+            out.write(line);
+        }
+        out.close();
 
     }
 
