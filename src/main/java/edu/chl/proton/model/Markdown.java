@@ -22,56 +22,11 @@ public class Markdown implements DocTypeInterface{
     }
 
     public Markdown(File file){
-        getCursor().setPosition(0,0);
-        this.setFile(file);
-
+        Document.getCursor().setPosition(0,0);
+        Document.setFile(file);
     }
 
-    public Cursor getCursor(){
-        return null;
-    }
-
-    public void setCursor(Cursor cursor){
-
-    }
-
-    public File getFile(){
-        return null;
-    }
-
-    public void setFile(File file){
-
-    }
-
-    public void addFile(){
-
-    }
-
-    public void addParts(Parts parts){
-
-    }
-
-    public void removeParts(int index){
-
-    }
-
-    public void removeAllParts(){
-
-    }
-
-    public void addLines(String str){
-
-    }
-
-    public void removeLines(int index){
-
-    }
-
-    public void removeAllLines(){
-
-    }
-
-    public void save(){
+    public Markdown(){
 
     }
 
@@ -295,6 +250,17 @@ public class Markdown implements DocTypeInterface{
         match.appendTail(sb);
         tmp = sb.toString();
         return tmp;
+    }
+
+    protected String checkCode(String str){
+        Pattern code;
+        try{
+            code = Pattern.compile("");
+        } catch(PatternSyntaxException ex){
+            System.out.println("checkCode: " + ex);
+        }
+
+        Matcher match = code.matcher(str);
     }
 
     // Returns a formatted List, where every list item is a row
