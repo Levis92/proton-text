@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class File extends FileSystemEntity {
 
+    private boolean isSaved;
+
 
     public File(String name) {
         this.setName(name);
@@ -21,7 +23,13 @@ public class File extends FileSystemEntity {
         parentFolder.addFile(this);
     }
 
+    protected void setIsSaved(boolean state) {
+        isSaved = state;
+    }
 
+    protected boolean isSaved() {
+        return isSaved;
+    }
 
     protected void save(List<String> text) throws IOException {
 
@@ -32,11 +40,9 @@ public class File extends FileSystemEntity {
             out.write(line);
         }
         out.close();
-
+        setIsSaved(true);
     }
 
-    protected boolean isSaved() {
-        return true;
     }
 
     protected void remove() {
