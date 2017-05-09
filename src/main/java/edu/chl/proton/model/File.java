@@ -27,7 +27,11 @@ public class File extends FileSystemEntity {
     }
 
     // What should be saved? Shouldn't this be in document?
-    protected void save() {
+    protected void save(File file) {
 
+    }
+
+    protected boolean isSaved() {
+        return true;
     }
 }
