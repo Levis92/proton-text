@@ -34,7 +34,7 @@ public class FontStyle {
         } else if(font.equalsIgnoreCase("ROMAN")){
             return;
 
-        } else if (font.equalsIgnoreCase("VISE")){
+        } else if (font.equalsIgnoreCase("NORMAL")){
             return; // default
         }
     }
