@@ -29,7 +29,7 @@ public abstract class FileSystemEntity {
     }
 
     protected void setPath(String name) {
-        path = this.parentFolder + "/" + this.name;
+        path = this.parentFolder.getPath() + "/" + this.name;
     }
 
     protected Folder getParentFolder() {
