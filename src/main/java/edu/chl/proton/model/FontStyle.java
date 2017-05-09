@@ -31,14 +31,13 @@ public class FontStyle {
         if(font.equalsIgnoreCase("SANS")){
             // FontStyle.setFont(font);
 
-        } else if(font.equalsIgnoreCase("SLIDE")){
+        } else if(font.equalsIgnoreCase("ROMAN")){
             return;
 
-        } else if (font.equalsIgnoreCase("ASSIGNMENT")){
+        } else if (font.equalsIgnoreCase("VISE")){
             return; // default
         }
     }
-
     protected String getFont(){
         return font;
     }
@@ -48,11 +47,9 @@ public class FontStyle {
             case ITALIC:
                 // Make stuff italic
                 break;
-
             case NORMAL:
                 // and so on
                 break;
-
             default:
                 // reset / do nothing?
                 break;
@@ -69,7 +66,6 @@ public class FontStyle {
             case NORMAL:
             // and so on
             break;
-
             default:
                 //text3.setFont(Font.font(family, FontPosture.ITALIC, size));
                 break;
@@ -83,7 +79,6 @@ public class FontStyle {
     protected void setSize(int size){
             // do something with the text size
     }
-
     protected int getSize() {
         return size;
     }
