@@ -2,6 +2,7 @@ package edu.chl.proton.model;
 
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
         return currentDocument;
     }
 
-    public void saveCurrentDocument() {
+    public void saveCurrentDocument() throws IOException {
         currentDocument.save();
     }
 
