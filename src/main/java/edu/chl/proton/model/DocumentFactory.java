@@ -35,7 +35,7 @@ public class DocumentFactory {
         } else if(documentType==DocumentType.ASSIGNMENT){
             //return new AssignmentDocument(file); // Template for assaignments, i.e. front page and subsections for each assignment.
         }
-        return null; ;
+        return null;
     }
 
     // if no document exists, create one. then send it
