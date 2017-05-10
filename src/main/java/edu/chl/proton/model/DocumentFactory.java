@@ -7,7 +7,6 @@ package edu.chl.proton.model;
 public class DocumentFactory {
     //use getShape method to get object of type shape
     private File file; //fileName maybe is more tydlig?
-    private Document document;
 
 
     public DocumentFactory(){
@@ -27,10 +26,9 @@ public class DocumentFactory {
         if(documentType==DocumentType.PLAIN){
             //return new PlainDocument(file); // Start with nothing
 
-        } else if(documentType==DocumentType.MARKDOWN){
-            //return new Markdown(file); // Cursor cursor, File file, List<Parts> parts, List<String> lines
-            return new Markdown();
-
+        } if(documentType==DocumentType.MARKDOWN){
+            DocTypeInterface markdown = new Markdown();
+            return new Document(markdown);
         } else if(documentType==DocumentType.SLIDE){
             //return new SlideDocument(file); // Mode where you can do some notes on each slide (MAIN POINT, DETAILS, PICTURE)
 
@@ -42,6 +40,8 @@ public class DocumentFactory {
 
     // if no document exists, create one. then send it
     public Document getDocument(String filePath){
+        //check filepath, if md, create markdown
+
         return createDocument(DocumentType.MARKDOWN);
     }
 

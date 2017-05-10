@@ -12,12 +12,24 @@ import java.util.*;
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
-public abstract class Document {
+public class Document {
 
-    private Cursor cursor;;
+    // Lika = document
+
+    private Cursor cursor;
     private File file;
     private List<String> lines = new ArrayList<String>();
     private List<Parts> parts = new ArrayList<Parts>();
+
+    DocTypeInterface docType;
+
+    public Document(DocTypeInterface type){
+        this.docType = type;
+    }
+
+    public Document(String name){
+        String extension = name.substring(name.lastIndexOf(".") + 1, name.length());
+    }
 
     protected Cursor getCursor(){
         return this.cursor;
@@ -36,7 +48,7 @@ public abstract class Document {
     }
 
     protected void addFile(String path){
-        // file.setPath(path);
+        file.setPath(path);
         // setFile(rootFolder.getFileFromPath(path)); ???
     }
 
@@ -64,26 +76,46 @@ public abstract class Document {
         lines.clear();
     }
 
+    protected void insertChar(char ch){
+
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
+
+        // check if Enter was the key pressed
+        if(ch == '\r'){
+            cursor.setPosition(row + 1, col);
+        } else {
+            String tmp = lines.get(row);
+
+            StringBuilder str = new StringBuilder(tmp);
+            str.insert(col, ch);
+
+            lines.set(row, tmp);
+            cursor.setPosition(row, col + 1);
+        }
+
+    }
+
+    public List<Text> getText(){
+        return docType.getText();
+    }
+
     protected void setText(List<String> text){
-        for(String str : text){
-            lines.add(str);
-        }
+        docType.setText();
     }
 
-    // Returns a formated List, where every lsit item is a row in the document
-    protected List<Text> getText(){
 
-        List<Text> text = new ArrayList<Text>();
-
-        for(String str : lines){
-            Text newText = new Text(str);
-            text.add(newText);
-        }
-        return text;
+    protected void save(List<String> lines) throws IOException{
+        file.save(lines);
     }
 
-    protected void save(){
-        file.save();
+    protected void remove(){
+        file.remove();
+    }
+
+
+    protected boolean isSaved(){
+        return file.isSaved();
     }
 
     // Aqcuires the text from the file we opened.
