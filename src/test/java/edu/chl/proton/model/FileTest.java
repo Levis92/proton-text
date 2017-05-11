@@ -1,6 +1,15 @@
 package edu.chl.proton.model;
 
-import org.testng.annotations.Test;
+
+
+import org.junit.Test;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -9,6 +18,24 @@ import static org.junit.Assert.assertTrue;
  */
 public class FileTest {
 
-    @Test public void test() {
+    @Test
+    public void saveFileTest() throws IOException {
+        File classUnderTest = new File("hej.txt");
+        List<String> list = new ArrayList<>();
+        for(int i = 0; i < 5; i++) {
+            list.add("Line " + i);
+        }
+        classUnderTest.save(list);
+        List<String> records = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(classUnderTest.getPath()));
+            String line;
+            while((line = reader.readLine()) != null) {
+                records.add(line);
+            }
+            reader.close();
+        } catch (Exception e) {}
+        assertTrue("Instance of Workspace should not be null", classUnderTest != null);
+        assertTrue("Instance of Workspace should not be null", list.equals(records));
     }
 }

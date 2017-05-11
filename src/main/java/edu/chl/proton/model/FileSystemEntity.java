@@ -25,6 +25,7 @@ public abstract class FileSystemEntity {
             return this.parentFolder.getPath() + "/" + this.name;
         } else {
             return "/" + this.name;
+            //return "/Users/stinawerme/Desktop/test-mapp/hej.txt";
         }
     }
 
