@@ -108,7 +108,7 @@ public class Document {
         cursor.setPosition(row, col - 1);
     }
 
-    public List<Text> getText(){
+    public List<String> getText(){
         return docType.getText();
     }
 
