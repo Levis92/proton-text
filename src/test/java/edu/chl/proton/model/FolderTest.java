@@ -18,9 +18,10 @@ public class FolderTest {
         Folder child = new Folder("child", parent);
 
         parent.removeFolder(child);
-        System.out.print(child.getParentFolder());
 
-        assertTrue("Instance of Folder should not be null", child != null);
+        assertTrue("The folder parent should not be null", parent != null);
+        assertTrue("The folder child should not be null", child != null);
+        assertTrue("ParentFolder should be null", child.getParentFolder() == null);
     }
 
     @Test
@@ -28,5 +29,12 @@ public class FolderTest {
 
         File file = new File("file");
         Folder folder = new Folder("folder");
+
+        folder.removeFile(file);
+
+        assertTrue("The file file should not be null", file != null);
+        assertTrue("The folder folder should not be null", folder != null);
+        assertTrue("ParentFolder should be null", file.getParentFolder() == null);
+    }
     }
 }
