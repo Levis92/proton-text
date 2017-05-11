@@ -22,6 +22,8 @@ public class FontStyle {
         this.size=size;
         this.weight=weight;
     }
+    public FontStyle(){
+    }
 
     protected void setFont(String font){ // enum as well?
         if(font == null){
@@ -74,16 +76,36 @@ public class FontStyle {
     protected TextWeight getTextWeight(){
         return weight;
     }
-
-
     protected void setSize(int size){
             // do something with the text size
     }
     protected int getSize() {
         return size;
     }
+    protected makeRich()
 
-    protected String makeRich(String richString) {
-        return "<b>richString</b>";
+    protected String getBoldStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getPostureStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getHeadingStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getLinkStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getListStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
     }
 }
