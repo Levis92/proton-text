@@ -82,9 +82,8 @@ public class FontStyle {
     protected int getSize() {
         return size;
     }
-    protected makeRich()
 
-    protected String getBoldStyle(String makeStyle){
+    protected String getWeightStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
     protected String getPostureStyle(String makeStyle){
@@ -99,13 +98,8 @@ public class FontStyle {
     protected String getListStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
-    protected String getStyle(String makeStyle){
+    protected String getBoldStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
-    protected String getStyle(String makeStyle){
-        return "<b>"+makeStyle+"</b>";
-    }
-    protected String getStyle(String makeStyle){
-        return "<b>"+makeStyle+"</b>";
-    }
+
 }
