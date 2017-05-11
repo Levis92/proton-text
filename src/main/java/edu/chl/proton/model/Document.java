@@ -87,13 +87,25 @@ public class Document {
         } else {
             String tmp = lines.get(row);
 
-            StringBuilder str = new StringBuilder(tmp);
-            str.insert(col, ch);
+            StringBuilder sb = new StringBuilder(tmp);
+            sb.insert(col, ch);
 
-            lines.set(row, tmp);
+            lines.set(row, sb.toString());
             cursor.setPosition(row, col + 1);
         }
 
+    }
+
+    protected void deleteChar(){
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
+
+        String tmp = lines.get(row);
+        StringBuilder sb = new StringBuilder(tmp);
+        sb.deleteCharAt(col);
+
+        lines.set(row, sb.toString());
+        cursor.setPosition(row, col - 1);
     }
 
     public List<Text> getText(){
