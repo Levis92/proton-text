@@ -82,4 +82,8 @@ public class FontStyle {
     protected int getSize() {
         return size;
     }
+
+    protected String makeRich(String richString) {
+        return "<b>richString</b>";
+    }
 }
