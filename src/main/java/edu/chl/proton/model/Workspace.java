@@ -1,7 +1,5 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +48,11 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     }
 
+    @Override
+    public void removeCurrentDocument() {
+
+    }
+
     public void removeDocument(Document doc) {
         if (tabs.contains(doc)) {
             tabs.remove(doc);
@@ -75,12 +78,12 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     @Override
-    public void setText(List<Text> text) {
+    public void setText(List<String> text) {
 
     }
 
     @Override
-    public List<Text> getText() {
+    public List<String> getText() {
         return currentDocument.getText();
     }
 }
