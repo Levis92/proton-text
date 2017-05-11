@@ -307,16 +307,13 @@ public class Markdown implements DocTypeInterface{
         } catch(PatternSyntaxException ex){
             System.out.println("checkCode: " + ex);
         }
-
         Matcher match = code.matcher(str);
     }*/
 
     /*
     // Returns a formated List, where every list item is a row in the document
     protected List<Text> getText(){
-
         List<Text> text = new ArrayList<Text>();
-
         for(String str : lines){
             Text newText = new Text(str);
             text.add(newText);
@@ -328,22 +325,32 @@ public class Markdown implements DocTypeInterface{
     // in the document and every character gets a style.
     public List<Text> getText(){
 
+        // TODO Fix the styles for markdown and plain
         FontStyle markdown = new FontStyle(null, null, null, 0);
         FontStyle plain = new FontStyle(null, null, null, 0);
 
         List<Text> text = new ArrayList<Text>();
         for(String line: lines) {
 
-            // Check for bold & italic
-            String[] tmp = line.split("( )\\*{3}( )");
+            String[] boldItalic = line.split("( )\\*{3}( )");
+            String[] bold = line.split("( )\\*{2}( )");
+            String[] italic = line.split("( )\\*( )");
+            String[] quote = line.split("");
+
+
+            int tmp = line.indexOf("***");
+            String first = line.substring(0, tmp);
+            String last = line.substring(tmp, line.length());
+
             List<Text> textTEMP = new ArrayList<>();
             Text textMatch;
 
-            for(String str : tmp) {
-                Matcher match = posturePattern("boldItalic").matcher(str);
-
-                if (match.find()) {
-                    textMatch = new Text(match.group());
+            // Check for bold & italic
+            for(String str : boldItalic) {
+                Matcher matchBoldItalic = posturePattern("boldItalic").matcher(str);
+                // search for bold & italic
+                if (matchBoldItalic.find()) {
+                    textMatch = new Text(matchBoldItalic.group());
                     textMatch.setFont(Font.font(markdown.getFont(), FontWeight.valueOf(markdown.getTextWeight().toString()),
                             FontPosture.valueOf(markdown.getTextPosture().toString()), markdown.getSize()));
                     textTEMP.add(textMatch);
@@ -351,6 +358,7 @@ public class Markdown implements DocTypeInterface{
                     textTEMP.add(new Text(str));
                 }
             }
+
             text.addAll(textTEMP);
 
         }

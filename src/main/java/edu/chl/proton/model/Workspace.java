@@ -28,7 +28,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     public void saveCurrentDocument() throws IOException {
-        currentDocument.save();
+       // currentDocument.save();
     }
 
     public void setCurrentDirectory(Folder folder) {

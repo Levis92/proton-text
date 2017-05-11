@@ -105,7 +105,7 @@ public class Document {
     }
 
 
-    protected void save(List<String> lines) throws IOException{
+    protected void save() throws IOException{
         file.save(lines);
     }
 
