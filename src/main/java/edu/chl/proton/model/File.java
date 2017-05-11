@@ -32,15 +32,20 @@ public class File extends FileSystemEntity {
     }
 
     protected void save(List<String> text) throws IOException {
+        try {
 
-        File file = new File(this.getPath());
-        BufferedWriter out = new BufferedWriter(new FileWriter(String.valueOf(file)));
+            java.io.File file = new java.io.File(this.getPath());
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            System.out.println("hej");
+            for(String line : text) {
+                out.write(line);
+                out.newLine();
+            }
+            out.close();
+            setIsSaved(true);
+        } catch (IOException e) {
 
-        for(String line : text) {
-            out.write(line);
         }
-        out.close();
-        setIsSaved(true);
     }
 
     // TODO
