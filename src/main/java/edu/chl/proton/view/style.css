@@ -1,0 +1,12 @@
+#footer-pane {
+    -fx-background-color: #09cdda;
+}
+
+.buttons {
+    -fx-padding: 0.3em 0.4em;
+    -fx-font-size: 12px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(77,102,204);
+    -fx-pref-width: 50;
+    -fx-text-fill: WHITE;
+}
