@@ -26,7 +26,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     public void saveCurrentDocument() throws IOException {
-       // currentDocument.save();
+       currentDocument.save();
     }
 
     public void setCurrentDirectory(Folder folder) {
@@ -84,6 +84,6 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     @Override
     public List<String> getText() {
-        return currentDocument.getText();
+        return new ArrayList<>();
     }
 }

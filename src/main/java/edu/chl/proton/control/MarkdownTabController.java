@@ -30,6 +30,7 @@ public class MarkdownTabController {
         hideHTMLEditorToolbars(htmlEditor);
     }
 
+    // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
     public static void hideHTMLEditorToolbars(final HTMLEditor editor)
     {
         editor.setVisible(false);
@@ -45,7 +46,7 @@ public class MarkdownTabController {
     }
 
     public static void setTextFlow() {
-        List<Text> text = document.getText();
+        //List<Text> text = document.getText();
     }
 
 }
