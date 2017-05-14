@@ -2,6 +2,8 @@ package edu.chl.proton.model;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 
@@ -17,10 +19,11 @@ public class FolderTest {
         Folder parent = new Folder("parent");
         Folder child = new Folder("child", parent);
 
+        assertTrue("The folder parent should not be null", parent.getFolders().size() == 1);
+
         parent.removeFolder(child);
 
-        assertTrue("The folder parent should not be null", parent != null);
-        assertTrue("The folder child should not be null", child != null);
+        assertTrue("The folder parent should not be null", parent.getFolders().size() == 0);
         assertTrue("ParentFolder should be null", child.getParentFolder() == null);
     }
 
@@ -41,15 +44,14 @@ public class FolderTest {
     public void addFileTest() {
 
         Folder parent = new Folder("parent");
-        File childFile = new File("childFile", parent);
-        Folder newParent = new Folder("newParent");
+        File childFile = new File("childFile");
 
-        newParent.addFile(childFile);
+        assertTrue("The folder parent should not be null", parent.getFiles().size() == 0);
 
-        assertTrue("The folder parent should not be null", parent != null);
-        assertTrue("The file childFile should not be null", childFile != null);
-        assertTrue("The folder newParent should not be null", newParent != null);
-        assertTrue("ParentFolder should be newParent", childFile.getParentFolder() == newParent);
+        parent.addFile(childFile);
+
+        assertTrue("The folder parent should not be null", parent.getFiles().size() == 1);
+        assertTrue("ParentFolder should be newParent", childFile.getParentFolder() == parent);
     }
 
     @Test
