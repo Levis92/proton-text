@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+
 /**
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
@@ -16,11 +17,6 @@ public class File extends FileSystemEntity {
 
     public File(String name) {
         this.setName(name);
-    }
-
-    public File(String name, Folder parentFolder) {
-        this.setName(name);
-        parentFolder.addFile(this);
     }
 
     protected void setIsSaved(boolean state) {
@@ -55,6 +51,6 @@ public class File extends FileSystemEntity {
 
     // TODO
     protected void remove() {
-
+        this.getFile().delete();
     }
 }
