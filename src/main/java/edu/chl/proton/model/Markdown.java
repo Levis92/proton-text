@@ -322,7 +322,7 @@ public class Markdown implements DocTypeInterface{
             Matcher match = posturePattern("boldItalic").matcher(str);
             StringBuffer sb = new StringBuffer();
             while (match.find()) {
-                match.appendReplacement(sb, style.getBoldItalicStyle(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE BOLDITALIC
             }
             match.appendTail(sb);
             String tmp = sb.toString();
@@ -340,7 +340,7 @@ public class Markdown implements DocTypeInterface{
             match = posturePattern("italic").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getItalicStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE ITALIC
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -349,7 +349,7 @@ public class Markdown implements DocTypeInterface{
             match = posturePattern("quote").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getQuoteStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE QUOTE
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -358,7 +358,7 @@ public class Markdown implements DocTypeInterface{
             match = headingPattern("h6").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()) {
-                match.appendReplacement(sb, style.getHeadingStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -367,7 +367,7 @@ public class Markdown implements DocTypeInterface{
             match = headingPattern("h5").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()) {
-                match.appendReplacement(sb, style.getHeadingStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -376,7 +376,7 @@ public class Markdown implements DocTypeInterface{
             match = headingPattern("h4").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getHeadingStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -385,7 +385,7 @@ public class Markdown implements DocTypeInterface{
             match = headingPattern("h3").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getHeadingStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -394,7 +394,7 @@ public class Markdown implements DocTypeInterface{
             match = headingPattern("h2").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getHeadingStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -403,7 +403,7 @@ public class Markdown implements DocTypeInterface{
             match = headingPattern("h1").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getHeadingStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -412,7 +412,7 @@ public class Markdown implements DocTypeInterface{
             match = linkPattern("picLink").matcher(tmp);
             sb = new StringBuffer();
             while (match.find()) {
-                match.appendReplacement(sb, style.getLinkStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -421,7 +421,7 @@ public class Markdown implements DocTypeInterface{
             match = linkPattern("textLink").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getLinkStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -430,7 +430,7 @@ public class Markdown implements DocTypeInterface{
             match = listPattern("orderedList").matcher(tmp);
             sb = new StringBuffer();
             while (match.find()) {
-                match.appendReplacement(sb, style.getListStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -439,7 +439,7 @@ public class Markdown implements DocTypeInterface{
             match = listPattern("unorderedList").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getListStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -448,7 +448,7 @@ public class Markdown implements DocTypeInterface{
             match = listPattern("list").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getListStyle.makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();

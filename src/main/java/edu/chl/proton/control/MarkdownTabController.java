@@ -3,9 +3,11 @@ package edu.chl.proton.control;
 import edu.chl.proton.model.IDocumentHandler;
 import edu.chl.proton.model.IFileHandler;
 import edu.chl.proton.model.WorkspaceFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.web.HTMLEditor;
 
 import java.util.List;
 
@@ -19,17 +21,32 @@ public class MarkdownTabController {
     private static IDocumentHandler document;
 
     @FXML
-    private TextFlow textFlow;
+    HTMLEditor htmlEditor;
 
     public void initialize() {
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
-        Text text1 = new Text("Example text");
-        textFlow.getChildren().add(text1);
+        hideHTMLEditorToolbars(htmlEditor);
+    }
+
+    // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
+    public static void hideHTMLEditorToolbars(final HTMLEditor editor)
+    {
+        editor.setVisible(false);
+        Platform.runLater(() -> {
+            Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
+            for(Node node : nodes)
+            {
+                node.setVisible(false);
+                node.setManaged(false);
+            }
+            editor.setVisible(true);
+        });
     }
 
     public static void setTextFlow() {
-        List<Text> text = document.getText();
+        //List<Text> text = document.getText();
     }
+
 }

@@ -51,7 +51,7 @@ public class Document {
         // setFile(rootFolder.getFileFromPath(path)); ???
     }
 
-    protected void insertParts(String str){
+    protected void insertPart(String str){
         int row = cursor.getPosition().getY();
         int col = cursor.getPosition().getX();
 

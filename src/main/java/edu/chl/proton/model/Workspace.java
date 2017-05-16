@@ -1,7 +1,5 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.Text;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     public void saveCurrentDocument() throws IOException {
-       // currentDocument.save();
+       currentDocument.save();
     }
 
     public void setCurrentDirectory(Folder folder) {
@@ -47,6 +45,11 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public void openDocument(String filePath) {
         factory.getDocument(filePath);
+
+    }
+
+    @Override
+    public void removeCurrentDocument() {
 
     }
 
@@ -75,12 +78,12 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     @Override
-    public void setText(List<Text> text) {
+    public void setText(List<String> text) {
 
     }
 
     @Override
-    public List<Text> getText() {
-        return currentDocument.getText();
+    public List<String> getText() {
+        return new ArrayList<>();
     }
 }
