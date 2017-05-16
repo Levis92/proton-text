@@ -90,15 +90,23 @@ public class FontStyle {
         return "<b>"+makeStyle+"</b>";
     }
     protected String getHeadingStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
     protected String getLinkStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
     protected String getListStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
     protected String getBoldStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getQuoteStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
 
