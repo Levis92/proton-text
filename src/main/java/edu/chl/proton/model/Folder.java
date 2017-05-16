@@ -48,6 +48,7 @@ public class Folder extends FileSystemEntity {
         files.add(file);
     }
 
+
     protected void removeFolder(Folder folder) {
         childFolders.remove(folder);
         folder.setParentFolder(null);
@@ -58,6 +59,7 @@ public class Folder extends FileSystemEntity {
         file.setParentFolder(null);
 
     }
+
 
     // TODO
     protected File getFileFromPath(String path) {

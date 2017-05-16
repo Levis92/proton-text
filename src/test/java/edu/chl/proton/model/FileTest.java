@@ -35,7 +35,8 @@ public class FileTest {
             }
             reader.close();
         } catch (Exception e) {}
-        assertTrue("Instance of Workspace should not be null", classUnderTest != null);
-        assertTrue("Instance of Workspace should not be null", list.equals(records));
+
+        assertTrue("The file classUnderTest should not be null", classUnderTest != null);
+        assertTrue("list should be equal to records", list.equals(records));
     }
 }
