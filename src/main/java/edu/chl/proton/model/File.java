@@ -2,6 +2,8 @@ package edu.chl.proton.model;
 
 import java.io.*;
 import java.util.List;
+import java.text.SimpleDateFormat;
+
 
 /**
  * @author Stina Werme
@@ -16,11 +18,6 @@ public class File extends FileSystemEntity {
         this.setName(name);
     }
 
-    public File(String name, Folder parentFolder) {
-        this.setName(name);
-        parentFolder.addFile(this);
-    }
-
     protected void setIsSaved(boolean state) {
         isSaved = state;
     }
@@ -30,25 +27,34 @@ public class File extends FileSystemEntity {
     }
 
     protected void save(List<String> text) throws IOException {
+        try {
 
-        File file = new File(this.getPath());
-        BufferedWriter out = new BufferedWriter(new FileWriter(String.valueOf(file)));
+            java.io.File file = new java.io.File(this.getPath());
+            BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            System.out.println("hej");
+            for(String line : text) {
+                out.write(line);
+                out.newLine();
+            }
+            out.close();
+            setIsSaved(true);
+        } catch (IOException e) {
 
-        for(String line : text) {
-            out.write(line);
         }
-        out.close();
-        setIsSaved(true);
     }
 
     // TODO
     protected String lastEdited() {
-        return "";
+
+        java.io.File file = new java.io.File(getName());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+        return sdf.format(file.lastModified());
     }
 
-    // TODO
     protected void remove() {
-
+        this.getFile().delete();
     }
 
     // Aqcuires the text from the file we opened.
@@ -60,7 +66,7 @@ public class File extends FileSystemEntity {
         try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader =
-                    new FileReader(file.getName());
+                    new FileReader(getName());
 
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader =
@@ -76,15 +82,16 @@ public class File extends FileSystemEntity {
         catch(FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file '" +
-                            file.getName() + "'");
+                            getName() + "'");
         }
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '"
-                            + file.getName() + "'");
+                            + getName() + "'");
         }
 
 
     }
 
 }
+
