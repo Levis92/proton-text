@@ -35,8 +35,8 @@ public class Workspace implements IFileHandler, IDocumentHandler {
         currentDirectory = folder;
     }
 
-    public Folder getCurrentDirectory() {
-        return currentDirectory;
+    public String getCurrentDirectory() {
+        return currentDirectory.getPath();
     }
 
 
