@@ -37,7 +37,7 @@ public class MainController {
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
 
-        File currentDir = new File("./"); // current directory
+        File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);
     }
 
