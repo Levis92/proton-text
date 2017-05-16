@@ -19,7 +19,7 @@ public class Markdown implements IDoc {
     }
 
     public Markdown(){
-
+        //TODO
     }
 
     // getHTML() returns a List with the resulting HTML from the Markdown text
@@ -38,6 +38,7 @@ public class Markdown implements IDoc {
         tmp = checkHeading(tmp);
         tmp = checkLink(tmp);
         tmp = checkList(tmp);
+        tmp = checkCode(tmp);
         return tmp;
     }
 
@@ -294,16 +295,32 @@ public class Markdown implements IDoc {
         return tmp;
     }
 
-    /*
-    protected String checkCode(String str){
+
+    protected Pattern codePattern(String str){
         Pattern code;
         try{
-            code = Pattern.compile("");
+        code = Pattern.compile("\\`{3}(?<text>[^\\`]*)\\`{3}");
         } catch(PatternSyntaxException ex){
-            System.out.println("checkCode: " + ex);
+            System.out.println("checkCode" + ex);
+            throw(ex);
         }
-        Matcher match = code.matcher(str);
-    }*/
+        if(str.equals("code")){
+            return code;
+        }
+        return null;
+    }
+
+    protected String checkCode(String str){
+        Matcher match = codePattern("code").matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while(match.find()){
+            match.appendReplacement(sb, "<div style=\"background-color: #f8f8f8; border: 1px solid #ddd; " +
+                    "font-size: 13px; line-height: 19px; overflow: auto; padding: 6px 10px; border-radius: 3px; " +
+                    "margin: 15px\"><code style=\"font-family: monospace\">$1</code></div>");
+        }
+        match.appendTail(sb);
+        return sb.toString();
+    }
 
     // Finds the markdown syntax, asks FontStyle for the correct FontStyle and
     // returns the formatted list.
@@ -317,7 +334,7 @@ public class Markdown implements IDoc {
             Matcher match = posturePattern("boldItalic").matcher(str);
             StringBuffer sb = new StringBuffer();
             while (match.find()) {
-                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE BOLDITALIC
+                match.appendReplacement(sb, style.getItalicBoldStyle(match.group(0)));
             }
             match.appendTail(sb);
             String tmp = sb.toString();
@@ -335,7 +352,7 @@ public class Markdown implements IDoc {
             match = posturePattern("italic").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE ITALIC
+                match.appendReplacement(sb, style.getItalicStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -344,7 +361,7 @@ public class Markdown implements IDoc {
             match = posturePattern("quote").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE QUOTE
+                match.appendReplacement(sb, style.getQuoteStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -444,6 +461,15 @@ public class Markdown implements IDoc {
             sb = new StringBuffer();
             while(match.find()){
                 match.appendReplacement(sb, style.getListStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for code
+            match = codePattern("code").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getCodeStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
