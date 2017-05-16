@@ -22,4 +22,6 @@ public interface IDocumentHandler {
 
     List<String> getText();
 
+    void insertPart(String part);
+
 }
