@@ -321,52 +321,49 @@ public class Markdown implements DocTypeInterface{
         return text;
     }*/
 
-    // Returns a formatted List, where every list item is a row
-    // in the document and every character gets a style.
-    public List<Text> getText(){
+    // Finds the markdown syntax, asks FontStyle for the correct FontStyle and
+    // returns the formatted list.
+    public List<String> getText(){
 
-        // TODO Fix the styles for markdown and plain
-        FontStyle markdown = new FontStyle(null, null, null, 0);
-        FontStyle plain = new FontStyle(null, null, null, 0);
+        for(String str : lines) {
 
-        List<Text> text = new ArrayList<Text>();
-        for(String line: lines) {
-
-            String[] boldItalic = line.split("( )\\*{3}( )");
-            String[] bold = line.split("( )\\*{2}( )");
-            String[] italic = line.split("( )\\*( )");
-            String[] quote = line.split("");
-
-
-            int tmp = line.indexOf("***");
-            String first = line.substring(0, tmp);
-            String last = line.substring(tmp, line.length());
-
-            List<Text> textTEMP = new ArrayList<>();
-            Text textMatch;
-
-            // Check for bold & italic
-            for(String str : boldItalic) {
-                Matcher matchBoldItalic = posturePattern("boldItalic").matcher(str);
-                // search for bold & italic
-                if (matchBoldItalic.find()) {
-                    textMatch = new Text(matchBoldItalic.group());
-                    textMatch.setFont(Font.font(markdown.getFont(), FontWeight.valueOf(markdown.getTextWeight().toString()),
-                            FontPosture.valueOf(markdown.getTextPosture().toString()), markdown.getSize()));
-                    textTEMP.add(textMatch);
-                } else {
-                    textTEMP.add(new Text(str));
-                }
+            // Check for italic and bold
+            Matcher match = posturePattern("boldItalic").matcher(str);
+            StringBuffer sb = new StringBuffer();
+            while (match.find()) {
+                match.appendReplacement(sb, makeRich(match.group(0)));
             }
+            match.appendTail(sb);
+            String tmp = sb.toString();
 
-            text.addAll(textTEMP);
+            // check for bold
+            match = posturePattern("bold").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, makeRich(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
+            // check for italic
+            match = posturePattern("italic").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, makeRich(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for quotes
+            match = posturePattern("quote").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, makeRich(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
         }
 
-
-
-
-        return text;
     }
 
     public void setText(){

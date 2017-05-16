@@ -11,7 +11,7 @@ public interface DocTypeInterface {
 
     // Olika = interface
 
-    List<Text> getText();
+    List<String> getText();
     void setText();
 
 }

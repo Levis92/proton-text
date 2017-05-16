@@ -1,16 +1,14 @@
 package edu.chl.proton.control;
 
 import com.jfoenix.controls.JFXTabPane;
-import edu.chl.proton.model.DocumentType;
-import edu.chl.proton.model.IDocumentHandler;
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 
 import java.io.IOException;
+
 
 /**
  * Anton Levholm
@@ -59,7 +57,7 @@ public class MainController {
 
     @FXML
     public void onClickUndoButton(ActionEvent event) throws IOException {
-
+        // Can be really hard to implement.
     }
 
     @FXML
@@ -79,17 +77,22 @@ public class MainController {
 
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
-
+        // Four asterixes and move cursor two steps back. Method in Document that takes in
+        // this and updates the aktuella line?
+        Markdown.insertPart("****");
+        // Position.setX(Position.getX()-2);
     }
 
     @FXML
     public void onClickItalicButton(ActionEvent event) throws IOException {
-
+        Markdown.insertPart("**");
     }
 
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
-
+        // Go to beginning of line. Set cursor?
+        // Position.setX(0);
+        Markdown.insertPart("> ");
     }
 
     @FXML
@@ -104,12 +107,15 @@ public class MainController {
 
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
-
+        // Go to beginning of line
+        Markdown.insertPart("1.   ");//the actual number has no importance.
+        // Should it repeat itself?
     }
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
-
+        // Go to beginning of line
+        Markdown.insertPart("*   ");
     }
 
     @FXML
