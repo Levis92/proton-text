@@ -14,7 +14,9 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     private Folder currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
-    public Workspace() {}
+    public Workspace() {
+        setCurrentDirectory(new Folder("Root"));
+    }
 
 
     public void setCurrentDocument(Document doc) {
