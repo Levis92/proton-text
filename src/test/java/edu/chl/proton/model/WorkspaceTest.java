@@ -1,6 +1,8 @@
 package edu.chl.proton.model;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -8,17 +10,18 @@ import static org.junit.Assert.assertTrue;
  * Created by antonlevholm on 2017-05-02.
  */
 public class WorkspaceTest {
+    private Workspace workspace = (new WorkspaceFactory()).getWorkspace();
 
-    @Test public void InstanceTest() {
-        Workspace classUnderTest = Workspace.getInstance();
+    @Test
+    public void InstanceTest() {
+        Workspace classUnderTest = workspace;
         assertTrue("Instance of Workspace should not be null", classUnderTest != null);
     }
 
     @Test public void createDocumentTest() {
-        Workspace classUnderTest = Workspace.getInstance();
+        Workspace classUnderTest = workspace;
         classUnderTest.createDocument(DocumentType.MARKDOWN);
         assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() != null);
-        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() instanceof Markdown);
     }
 
     @Test public void openDocumentTest() {

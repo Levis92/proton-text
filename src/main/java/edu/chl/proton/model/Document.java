@@ -1,10 +1,6 @@
 package edu.chl.proton.model;
 
 
-import javafx.scene.text.Text;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -12,12 +8,23 @@ import java.util.*;
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
-public abstract class Document {
+public class Document {
 
-    private Cursor cursor;;
+    // Lika = document
+
+    private Cursor cursor;
     private File file;
     private List<String> lines = new ArrayList<String>();
-    private List<Parts> parts = new ArrayList<Parts>();
+
+    IDoc docType;
+
+    public Document(IDoc type){
+        this.docType = type;
+    }
+
+    public Document(String name){
+        String extension = name.substring(name.lastIndexOf(".") + 1, name.length());
+    }
 
     protected Cursor getCursor(){
         return this.cursor;
@@ -36,20 +43,21 @@ public abstract class Document {
     }
 
     protected void addFile(String path){
-        // file.setPath(path);
+        file.setPath(path);
         // setFile(rootFolder.getFileFromPath(path)); ???
     }
 
-    protected void addParts(Parts parts){
-        this.parts.add(parts);
-    }
+    protected void insertPart(String str){
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
 
-    protected void removeParts(int index){
-        parts.remove(index);
-    }
+        String tmp = lines.get(row);
 
-    protected void removeAllParts(){
-        parts.clear();
+        StringBuilder sb = new StringBuilder(tmp);
+        sb.insert(col, str);
+
+        lines.set(row, sb.toString());
+        cursor.setPosition(row, col + 1);
     }
 
     protected void addLines(String lines){
@@ -64,62 +72,63 @@ public abstract class Document {
         lines.clear();
     }
 
+    protected void insertChar(char ch){
+
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
+
+        // check if Enter was the key pressed
+        if(ch == '\r'){
+            cursor.setPosition(row + 1, col);
+        } else {
+            String tmp = lines.get(row);
+
+            StringBuilder sb = new StringBuilder(tmp);
+            sb.insert(col, ch);
+
+            lines.set(row, sb.toString());
+            cursor.setPosition(row, col + 1);
+        }
+
+    }
+
+    protected void deleteChar(){
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
+
+        String tmp = lines.get(row);
+        StringBuilder sb = new StringBuilder(tmp);
+        sb.deleteCharAt(col);
+
+        lines.set(row, sb.toString());
+        cursor.setPosition(row, col - 1);
+    }
+
+    public List<String> getText(){
+        return docType.getText();
+    }
+
     protected void setText(List<String> text){
-        for(String str : text){
-            lines.add(str);
-        }
+        docType.setText();
     }
 
-    // Returns a formated List, where every lsit item is a row in the document
-    protected List<Text> getText(){
 
-        List<Text> text = new ArrayList<Text>();
-
-        for(String str : lines){
-            Text newText = new Text(str);
-            text.add(newText);
-        }
-        return text;
+    protected void save() throws IOException{
+        file.save(lines);
     }
 
-    protected void save(){
-        file.save();
+    protected void remove(){
+        file.remove();
+    }
+
+
+    protected boolean isSaved(){
+        return file.isSaved();
     }
 
     // Aqcuires the text from the file we opened.
-    protected void aqcuireText(){
-
-        // This will reference one line at a time
-        String line = null;
-
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                    new FileReader(file.getName());
-
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
-
-            // Close file.
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            file.getName() + "'");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + file.getName() + "'");
-        }
-
-
+    protected void aqcuireText() {
+        file.aqcuireText();
     }
 
 }

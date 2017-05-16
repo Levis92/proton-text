@@ -8,8 +8,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Projekt-proton-text_test" target="1.8" />
       <module name="proton-text_main" target="1.8" />
       <module name="proton-text_test" target="1.8" />
+      <module name="ProtonText-proton-text_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,37 +1,46 @@
 package edu.chl.proton.model;
 
+import java.io.File;
+
 /**
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
  */
 public abstract class FileSystemEntity {
 
-    private String name;
+    private java.io.File file;
 
     private Folder parentFolder;
 
-
     protected String getName() {
-        return name;
+        return this.file.getName();
     }
 
     protected void setName(String name) {
-        this.name = name;
+        File file = new File(this.file.getParentFile(), name);
+        this.file.renameTo(file);
     }
 
     protected String getPath() {
-        if (this.parentFolder != null) {
-            return this.parentFolder.getPath() + "/" + this.name;
-        } else {
-            return "/" + this.name;
-        }
+       return this.file.getPath();
+    }
+
+    protected void setPath(String path) {
+        File file = new File(path);
+        this.file.renameTo(file);
+    }
+
+    protected File getFile() {
+        return this.file;
+    }
+
+
+
+    protected void setParentFolder(Folder folder) {
+        this.parentFolder = folder;
     }
 
     protected Folder getParentFolder() {
         return this.parentFolder;
-    }
-
-    protected void setParentFolder(Folder folder) {
-        this.parentFolder = folder;
     }
 }

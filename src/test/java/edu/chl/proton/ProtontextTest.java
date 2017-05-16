@@ -3,12 +3,14 @@
  */
 package edu.chl.proton;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class ProtontextTest {
-    @Test public void test() {
-        // Protontext classUnderTest = new Protontext();
-        // assertTrue("someLibraryMethod should return 'true'", classUnderTest != null);
+    @Test
+    public void test() {
+        Protontext classUnderTest = new Protontext();
+        assertTrue("someLibraryMethod should return 'true'", classUnderTest != null);
     }
 }

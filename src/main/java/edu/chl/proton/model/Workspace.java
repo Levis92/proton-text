@@ -1,7 +1,6 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.Text;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,9 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     private Folder currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
-    public Workspace() {}
+    public Workspace() {
+        //setCurrentDirectory(new Folder("Root"));
+    }
 
 
     public void setCurrentDocument(Document doc) {
@@ -26,16 +27,16 @@ public class Workspace implements IFileHandler, IDocumentHandler {
         return currentDocument;
     }
 
-    public void saveCurrentDocument() {
-        currentDocument.save();
+    public void saveCurrentDocument() throws IOException {
+       currentDocument.save();
     }
 
     public void setCurrentDirectory(Folder folder) {
         currentDirectory = folder;
     }
 
-    public Folder getCurrentDirectory() {
-        return currentDirectory;
+    public String getCurrentDirectory() {
+        return "./"; //currentDirectory.getPath();
     }
 
 
@@ -46,6 +47,11 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public void openDocument(String filePath) {
         factory.getDocument(filePath);
+
+    }
+
+    @Override
+    public void removeCurrentDocument() {
 
     }
 
@@ -74,12 +80,17 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     @Override
-    public void setText(List<Text> text) {
+    public void setText(List<String> text) {
 
     }
 
     @Override
-    public List<Text> getText() {
-        return currentDocument.getText();
+    public List<String> getText() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public void insertPart(String part) {
+        currentDocument.insertPart(part);
     }
 }

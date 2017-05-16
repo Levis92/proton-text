@@ -1,7 +1,5 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.Text;
-
 import java.util.List;
 
 /**
@@ -16,10 +14,14 @@ public interface IDocumentHandler {
 
     void openDocument(String filePath);
 
+    void removeCurrentDocument();
+
     void removeDocument(Document doc);
 
-    void setText(List<Text> text);
+    void setText(List<String> text);
 
-    List<Text> getText();
+    List<String> getText();
+
+    void insertPart(String part);
 
 }

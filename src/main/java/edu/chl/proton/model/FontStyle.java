@@ -12,8 +12,8 @@ import static java.time.format.SignStyle.NORMAL;
 // non-static object from a static method.
 public class FontStyle {
     private String font;
-    TextPosture posture;
-    TextWeight weight;
+    private TextPosture posture;
+    private TextWeight weight;
     private int size;
 
     public FontStyle(String font, TextPosture posture, TextWeight weight, int size){
@@ -21,6 +21,8 @@ public class FontStyle {
         this.posture=posture;
         this.size=size;
         this.weight=weight;
+    }
+    public FontStyle(){
     }
 
     protected void setFont(String font){ // enum as well?
@@ -31,14 +33,13 @@ public class FontStyle {
         if(font.equalsIgnoreCase("SANS")){
             // FontStyle.setFont(font);
 
-        } else if(font.equalsIgnoreCase("SLIDE")){
+        } else if(font.equalsIgnoreCase("ROMAN")){
             return;
 
-        } else if (font.equalsIgnoreCase("ASSIGNMENT")){
+        } else if (font.equalsIgnoreCase("NORMAL")){
             return; // default
         }
     }
-
     protected String getFont(){
         return font;
     }
@@ -48,11 +49,9 @@ public class FontStyle {
             case ITALIC:
                 // Make stuff italic
                 break;
-
             case NORMAL:
                 // and so on
                 break;
-
             default:
                 // reset / do nothing?
                 break;
@@ -69,7 +68,6 @@ public class FontStyle {
             case NORMAL:
             // and so on
             break;
-
             default:
                 //text3.setFont(Font.font(family, FontPosture.ITALIC, size));
                 break;
@@ -78,13 +76,38 @@ public class FontStyle {
     protected TextWeight getTextWeight(){
         return weight;
     }
-
-
     protected void setSize(int size){
             // do something with the text size
     }
-
     protected int getSize() {
         return size;
     }
+
+    protected String getItalicStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getItalicBoldStyle(String makeStyle){
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getHeadingStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getLinkStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getListStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getBoldStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getQuoteStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+
 }
