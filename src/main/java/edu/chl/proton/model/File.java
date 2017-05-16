@@ -1,6 +1,7 @@
 package edu.chl.proton.model;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
@@ -43,7 +44,6 @@ public class File extends FileSystemEntity {
         }
     }
 
-    // TODO
     protected String lastEdited() {
 
         java.io.File file = new java.io.File(getName());
@@ -58,10 +58,11 @@ public class File extends FileSystemEntity {
     }
 
     // Aqcuires the text from the file we opened.
-    protected void aqcuireText(){
+    protected List<String> aqcuireText(){
 
         // This will reference one line at a time
-        String line = null;
+        String line;
+        List<String> lines = new ArrayList<>();
 
         try {
             // FileReader reads text files in the default encoding.
@@ -90,7 +91,7 @@ public class File extends FileSystemEntity {
                             + getName() + "'");
         }
 
-
+        return lines;
     }
 
 }
