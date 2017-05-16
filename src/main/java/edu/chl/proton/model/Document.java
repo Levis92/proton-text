@@ -1,10 +1,6 @@
 package edu.chl.proton.model;
 
 
-import javafx.scene.text.Text;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -19,11 +15,10 @@ public class Document {
     private Cursor cursor;
     private File file;
     private List<String> lines = new ArrayList<String>();
-    private List<Parts> parts = new ArrayList<Parts>();
 
-    DocTypeInterface docType;
+    IDoc docType;
 
-    public Document(DocTypeInterface type){
+    public Document(IDoc type){
         this.docType = type;
     }
 
@@ -52,16 +47,17 @@ public class Document {
         // setFile(rootFolder.getFileFromPath(path)); ???
     }
 
-    protected void addParts(Parts parts){
-        this.parts.add(parts);
-    }
+    protected void insertPart(String str){
+        int row = cursor.getPosition().getY();
+        int col = cursor.getPosition().getX();
 
-    protected void removeParts(int index){
-        parts.remove(index);
-    }
+        String tmp = lines.get(row);
 
-    protected void removeAllParts(){
-        parts.clear();
+        StringBuilder sb = new StringBuilder(tmp);
+        sb.insert(col, str);
+
+        lines.set(row, sb.toString());
+        cursor.setPosition(row, col + 1);
     }
 
     protected void addLines(String lines){
@@ -131,39 +127,8 @@ public class Document {
     }
 
     // Aqcuires the text from the file we opened.
-    protected void aqcuireText(){
-
-        // This will reference one line at a time
-        String line = null;
-
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                    new FileReader(file.getName());
-
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-            while((line = bufferedReader.readLine()) != null) {
-                lines.add(line);
-            }
-
-            // Close file.
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            file.getName() + "'");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + file.getName() + "'");
-        }
-
-
+    protected void aqcuireText() {
+        file.aqcuireText();
     }
 
 }

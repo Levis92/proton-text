@@ -27,7 +27,7 @@ public class DocumentFactory {
             //return new PlainDocument(file); // Start with nothing
 
         } if(documentType==DocumentType.MARKDOWN){
-            DocTypeInterface markdown = new Markdown();
+            IDoc markdown = new Markdown();
             return new Document(markdown);
         } else if(documentType==DocumentType.SLIDE){
             //return new SlideDocument(file); // Mode where you can do some notes on each slide (MAIN POINT, DETAILS, PICTURE)

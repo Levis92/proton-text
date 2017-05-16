@@ -1,10 +1,5 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,7 +10,7 @@ import java.util.regex.PatternSyntaxException;
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
-public class Markdown implements DocTypeInterface{
+public class Markdown implements IDoc {
 
     private List<String> lines = new ArrayList<>();
 
@@ -310,20 +305,11 @@ public class Markdown implements DocTypeInterface{
         Matcher match = code.matcher(str);
     }*/
 
-    /*
-    // Returns a formated List, where every list item is a row in the document
-    protected List<Text> getText(){
-        List<Text> text = new ArrayList<Text>();
-        for(String str : lines){
-            Text newText = new Text(str);
-            text.add(newText);
-        }
-        return text;
-    }*/
-
     // Finds the markdown syntax, asks FontStyle for the correct FontStyle and
     // returns the formatted list.
     public List<String> getText(){
+        FontStyle style = new FontStyle();
+        List<String> text = new ArrayList<>();
 
         for(String str : lines) {
 
@@ -331,7 +317,7 @@ public class Markdown implements DocTypeInterface{
             Matcher match = posturePattern("boldItalic").matcher(str);
             StringBuffer sb = new StringBuffer();
             while (match.find()) {
-                match.appendReplacement(sb, makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE BOLDITALIC
             }
             match.appendTail(sb);
             String tmp = sb.toString();
@@ -340,7 +326,7 @@ public class Markdown implements DocTypeInterface{
             match = posturePattern("bold").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -349,7 +335,7 @@ public class Markdown implements DocTypeInterface{
             match = posturePattern("italic").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE ITALIC
             }
             match.appendTail(sb);
             tmp = sb.toString();
@@ -358,12 +344,113 @@ public class Markdown implements DocTypeInterface{
             match = posturePattern("quote").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, makeRich(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); //TODO SHOULD BE QUOTE
             }
             match.appendTail(sb);
             tmp = sb.toString();
-        }
 
+            //check for heading 6
+            match = headingPattern("h6").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()) {
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // Check for h5
+            match = headingPattern("h5").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()) {
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for h4
+            match = headingPattern("h4").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for h3
+            match = headingPattern("h3").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for h2
+            match = headingPattern("h2").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for h1
+            match = headingPattern("h1").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // Check for img link
+            match = linkPattern("picLink").matcher(tmp);
+            sb = new StringBuffer();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for text link
+            match = linkPattern("textLink").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // Check for ordered list
+            match = listPattern("orderedList").matcher(tmp);
+            sb = new StringBuffer();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for unordered list
+            match = listPattern("unorderedList").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for unordered list
+            match = listPattern("list").matcher(tmp);
+            sb = new StringBuffer();
+            while(match.find()){
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            text.add(tmp);
+        }
+        return text;
     }
 
     public void setText(){

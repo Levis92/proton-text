@@ -6,6 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.TreeItem;
+import java.io.File;
 
 import java.io.IOException;
 
@@ -21,6 +24,9 @@ public class MainController {
 
     @FXML
     private JFXTabPane tabPane;
+    @FXML
+    private TreeView<File> treeView;
+
 
     public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
@@ -30,7 +36,39 @@ public class MainController {
         Tab tab = new Tab("Untitled");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
+
+        File currentDir = new File(file.getCurrentDirectory()); // current directory
+        findFiles(currentDir, null);
     }
+
+
+    private void findFiles(File dir, TreeItem<File> parent) {
+        TreeItem<File> root = new TreeItem<>(dir);
+        root.setExpanded(true);
+        try {
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    System.out.println("directory:" + file.getCanonicalPath());
+                    findFiles(file,root);
+                } else {
+                    System.out.println("     file:" + file.getCanonicalPath());
+                    root.getChildren().add(new TreeItem<>(file));
+                }
+
+            }
+            if(parent == null){
+                treeView.setRoot(root);
+            } else {
+                parent.getChildren().add(root);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     public void addNewTab(String name) throws IOException {
         Tab tab = new Tab(name);
@@ -79,20 +117,20 @@ public class MainController {
     public void onClickBoldButton(ActionEvent event) throws IOException {
         // Four asterixes and move cursor two steps back. Method in Document that takes in
         // this and updates the aktuella line?
-        Markdown.insertPart("****");
+        document.insertPart("****");
         // Position.setX(Position.getX()-2);
     }
 
     @FXML
     public void onClickItalicButton(ActionEvent event) throws IOException {
-        Markdown.insertPart("**");
+        document.insertPart("**");
     }
 
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
         // Go to beginning of line. Set cursor?
         // Position.setX(0);
-        Markdown.insertPart("> ");
+        document.insertPart("> ");
     }
 
     @FXML
@@ -108,14 +146,14 @@ public class MainController {
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
         // Go to beginning of line
-        Markdown.insertPart("1.   ");//the actual number has no importance.
+        document.insertPart("1.   ");//the actual number has no importance.
         // Should it repeat itself?
     }
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
         // Go to beginning of line
-        Markdown.insertPart("*   ");
+        document.insertPart("*   ");
     }
 
     @FXML
