@@ -1,10 +1,6 @@
 package edu.chl.proton.model;
 
 
-import javafx.scene.text.Text;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
@@ -20,9 +16,9 @@ public class Document {
     private File file;
     private List<String> lines = new ArrayList<String>();
 
-    DocTypeInterface docType;
+    IDoc docType;
 
-    public Document(DocTypeInterface type){
+    public Document(IDoc type){
         this.docType = type;
     }
 

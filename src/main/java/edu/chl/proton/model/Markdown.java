@@ -1,10 +1,5 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.Font;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,7 +10,7 @@ import java.util.regex.PatternSyntaxException;
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
-public class Markdown implements DocTypeInterface{
+public class Markdown implements IDoc {
 
     private List<String> lines = new ArrayList<>();
 
