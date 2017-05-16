@@ -61,17 +61,22 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
-
+        // Four asterixes and move cursor two steps back. Method in Document that takes in
+        // this and updates the aktuella line?
+        document.insertPart("****");
+        // Position.setX(Position.getX()-2);
     }
 
     @FXML
     public void onClickItalicButton(ActionEvent event) throws IOException {
-
+        document.insertPart("**");
     }
 
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
-
+        // Go to beginning of line. Set cursor?
+        // Position.setX(0);
+        document.insertPart("> ");
     }
 
     @FXML
@@ -86,17 +91,20 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
-
+        // Go to beginning of line
+        document.insertPart("1.   ");//the actual number has no importance.
+        // Should it repeat itself?
     }
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
-
+        // Go to beginning of line
+        document.insertPart("*   ");
     }
 
     @FXML
     public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
-
+        document.insertPart("****");
     }
 
 }
