@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -46,10 +47,14 @@ public class File extends FileSystemEntity {
 
     // TODO
     protected String lastEdited() {
-        return "";
+
+        File file = new File("C:\\Myfile.txt");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+        return "sdf.format(file.lastModified())";
     }
 
-    // TODO
     protected void remove() {
         this.getFile().delete();
     }
