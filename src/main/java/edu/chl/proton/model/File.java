@@ -46,11 +46,11 @@ public class File extends FileSystemEntity {
     // TODO
     protected String lastEdited() {
 
-        File file = new File("C:\\Myfile.txt");
+        java.io.File file = new java.io.File(getName());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-        return "sdf.format(file.lastModified())";
+        return sdf.format(file.lastModified());
     }
 
     protected void remove() {
@@ -66,7 +66,7 @@ public class File extends FileSystemEntity {
         try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader =
-                    new FileReader(file.getName());
+                    new FileReader(getName());
 
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader =
@@ -82,12 +82,12 @@ public class File extends FileSystemEntity {
         catch(FileNotFoundException ex) {
             System.out.println(
                     "Unable to open file '" +
-                            file.getName() + "'");
+                            getName() + "'");
         }
         catch(IOException ex) {
             System.out.println(
                     "Error reading file '"
-                            + file.getName() + "'");
+                            + getName() + "'");
         }
 
 
