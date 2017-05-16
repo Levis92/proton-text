@@ -1,19 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
-<SplitPane dividerPositions="0.5" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.chl.proton.control.MarkdownTabController">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.chl.proton.control.MarkdownTabController">
+   <children>
+      <Pane prefHeight="43.0" prefWidth="533.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="-203.0" layoutY="-43.0" prefHeight="200.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <WebView layoutX="60.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children></AnchorPane>
-  </items>
-</SplitPane>
+            <JFXToolbar layoutX="450.0" layoutY="4.0" prefHeight="28.0" prefWidth="170.0">
+               <left>
+                  <JFXButton onAction="#onClickOrderedListButton" styleClass="buttons" stylesheets="@style.css" text="&lt;ol&gt;" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <JFXButton onAction="#onClickHeadingButton" styleClass="buttons" stylesheets="@style.css" text="&lt;h1-2&gt;" BorderPane.alignment="CENTER" />
+               </right>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <center>
+                  <JFXButton onAction="#onClickUnorderedListButton" styleClass="buttons" stylesheets="@style.css" text="&lt;ul&gt;" BorderPane.alignment="CENTER" />
+               </center>
+            </JFXToolbar>
+            <JFXToolbar layoutX="140.0" layoutY="4.0" prefHeight="28.0" prefWidth="170.0">
+               <left>
+                  <JFXButton onAction="#onClickLinkButton" prefHeight="23.0" prefWidth="41.0" styleClass="buttons" stylesheets="@style.css" text="&lt;a&gt;" BorderPane.alignment="CENTER" />
+               </left>
+               <right>
+                  <JFXButton onAction="#onClickCodeButton" styleClass="buttons" stylesheets="@style.css" text="Code" BorderPane.alignment="CENTER" />
+               </right>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <center>
+                  <JFXButton onAction="#onClickQuoteButton" styleClass="buttons" stylesheets="@style.css" text="Quote" BorderPane.alignment="CENTER" />
+               </center>
+            </JFXToolbar>
+            <JFXToolbar layoutX="326.0" layoutY="4.0" prefHeight="28.0" prefWidth="112.0">
+               <left>
+                  <JFXButton onAction="#onClickImageButton" styleClass="buttons" stylesheets="@style.css" text="&lt;img&gt;" BorderPane.alignment="CENTER" />
+               </left>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <right>
+                  <JFXButton onAction="#onClickHorizontalLineButton" styleClass="buttons" stylesheets="@style.css" text="&lt;hr&gt;" BorderPane.alignment="CENTER" />
+               </right>
+            </JFXToolbar>
+            <JFXToolbar layoutX="15.0" layoutY="4.0" prefHeight="28.0" prefWidth="112.0">
+               <left>
+                  <JFXButton onAction="#onClickBoldButton" styleClass="buttons" stylesheets="@style.css" text="Bold" BorderPane.alignment="CENTER" />
+               </left>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <right>
+                  <JFXButton onAction="#onClickItalicButton" styleClass="buttons" stylesheets="@style.css" text="Italic" BorderPane.alignment="CENTER" />
+               </right>
+            </JFXToolbar>
+         </children>
+      </Pane>
+      <SplitPane dividerPositions="0.40200445434298443" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="-203.0" layoutY="-43.0" prefHeight="200.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <WebView layoutX="60.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

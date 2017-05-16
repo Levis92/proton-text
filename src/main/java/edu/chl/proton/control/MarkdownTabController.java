@@ -4,12 +4,12 @@ import edu.chl.proton.model.IDocumentHandler;
 import edu.chl.proton.model.IFileHandler;
 import edu.chl.proton.model.WorkspaceFactory;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 
-import java.util.List;
+import java.io.IOException;
 
 
 /**
@@ -47,6 +47,56 @@ public class MarkdownTabController {
 
     public static void setTextFlow() {
         //List<Text> text = document.getText();
+    }
+
+    @FXML
+    public void onClickLinkButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickHeadingButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickBoldButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickItalicButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickQuoteButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickImageButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickCodeButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickOrderedListButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickUnorderedListButton(ActionEvent event) throws IOException {
+
+    }
+
+    @FXML
+    public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
+
     }
 
 }

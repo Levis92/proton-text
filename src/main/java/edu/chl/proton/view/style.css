@@ -1,12 +1,19 @@
-#footer-pane {
+#menu {
+
+}
+
+#footer-pane, #menu {
     -fx-background-color: #09cdda;
 }
 
 .buttons {
     -fx-padding: 0.3em 0.4em;
     -fx-font-size: 12px;
-    -jfx-button-type: RAISED;
-    -fx-background-color: rgb(77,102,204);
-    -fx-pref-width: 50;
+    -fx-background-color: #09cdda;/*rgb(77,102,204);*/
+    -fx-min-width: 50px;
     -fx-text-fill: WHITE;
+}
+
+.split-pane, .tree-view {
+    -fx-background-color: antiquewhite;
 }
