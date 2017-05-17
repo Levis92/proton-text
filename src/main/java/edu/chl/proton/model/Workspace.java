@@ -15,6 +15,8 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     private DocumentFactory factory = new DocumentFactory();
 
     public Workspace() {
+        currentDocument = factory.createDocument(DocumentType.MARKDOWN);
+        tabs.add(currentDocument);
         //setCurrentDirectory(new Folder("Root"));
     }
 
@@ -36,7 +38,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     public String getCurrentDirectory() {
-        return "./"; //currentDirectory.getPath();
+        return currentDirectory == null ? "./" : currentDirectory.getPath();
     }
 
 
