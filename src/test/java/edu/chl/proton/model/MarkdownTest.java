@@ -1,6 +1,10 @@
 package edu.chl.proton.model;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -9,7 +13,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class MarkdownTest {
 
-    private Markdown markdown = new Markdown();
+    private List<String> lines = new ArrayList<>();
+    private Markdown markdown;
+
 
     @Test public void getHTMLTest() {
         String str = "##The story of an hour\rIt was her sister *Josephine* who told her, " +
@@ -25,6 +31,15 @@ public class MarkdownTest {
                 "He had only taken the time to assure himself of its truth by a " +
                 "second [telegram](link to stuff), and had ![hastened](dunno) to forestall any less careful," +
                 " less tender friend in bearing the sad message.\r";
+
+        String[] tmp1 = str.split("\r");
+
+        for(String s : tmp1){
+            this.lines.add(s);
+        }
+
+        markdown = new Markdown(lines);
+
         String outcome = "<h2>The story of an hour</h2>\rIt was her sister <i>Josephine</i> who told her, " +
                 "in broken sentences; veiled <b>hints</b> that revealed in half " +
                 "concealing.\r Her husband's friend <i>Richards</i> was there, too, " +
@@ -38,7 +53,15 @@ public class MarkdownTest {
                 "He had only taken the time to assure himself of its truth by a " +
                 "second <a href=\"link to stuff\">telegram</a>, and had <img src=\"dunno\" alt=\"hastened\"> to forestall any less careful," +
                 " less tender friend in bearing the sad message.\r";
-        //assertTrue(markdown.getHTML());
+
+        String[] tmp2 = outcome.split("\r");
+        List<String> tmp = new ArrayList<>();
+
+        for(String s : tmp2){
+            tmp.add(s);
+        }
+
+        assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(tmp));
 
     }
 

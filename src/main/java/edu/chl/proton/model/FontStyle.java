@@ -109,5 +109,9 @@ public class FontStyle {
 
         return "<b>"+makeStyle+"</b>";
     }
+    protected String getCodeStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
 
 }
