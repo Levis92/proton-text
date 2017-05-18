@@ -5,9 +5,12 @@ import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeItem;
+import javafx.scene.text.Text;
+
 import java.io.File;
 
 import java.io.IOException;
@@ -43,27 +46,28 @@ public class MainController {
 
 
     private void findFiles(File dir, TreeItem<File> parent) {
-        TreeItem<File> root = new TreeItem<>(dir);
-        root.setExpanded(true);
-        try {
-            File[] files = dir.listFiles();
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    System.out.println("directory:" + file.getCanonicalPath());
-                    findFiles(file,root);
-                } else {
-                    System.out.println("     file:" + file.getCanonicalPath());
-                    root.getChildren().add(new TreeItem<>(file));
-                }
-
-            }
-            if(parent == null){
-                treeView.setRoot(root);
+        TreeItem root = new TreeItem<>(dir);
+        root.setValue(dir.getName());
+        if (parent == null) {
+            root.setExpanded(true);
+        } else {
+            root.setExpanded(false);
+        }
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                findFiles(file, root);
             } else {
-                parent.getChildren().add(root);
+                TreeItem item = new TreeItem<>(file);
+                item.setValue(file.getName());
+                root.getChildren().add(item);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        }
+        if(parent == null){
+            treeView.setRoot(root);
+        } else {
+            parent.getChildren().add(root);
         }
     }
 
