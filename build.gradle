@@ -29,5 +29,7 @@ dependencies {
 
     // JFoenix JavaFX component library
     compile 'com.jfoenix:jfoenix:1.2.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+
 }
 
