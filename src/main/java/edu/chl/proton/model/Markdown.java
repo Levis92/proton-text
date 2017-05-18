@@ -19,7 +19,7 @@ public class Markdown implements IDoc {
     }
 
     public Markdown(){
-        //TODO
+        //TODO?
     }
 
     // getHTML() returns a List with the resulting HTML from the Markdown text
@@ -295,7 +295,6 @@ public class Markdown implements IDoc {
         return tmp;
     }
 
-
     protected Pattern codePattern(String str){
         Pattern code;
         try{
@@ -479,8 +478,12 @@ public class Markdown implements IDoc {
         return text;
     }
 
-    public void setText(){
-
+    public String setText(List<String> str){
+        String tmp = "";
+        for(String s : str){
+            tmp = tmp + "<p>" + s + "</p>";
+        }
+        tmp = "<html dir=\"ltr\"><head></head><body contenteditable=\"true\"><p><font face=\"Segoe UI\">" + tmp + "</font></p></body></html>";
+        return tmp;
     }
-
 }
