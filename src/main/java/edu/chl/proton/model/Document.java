@@ -109,7 +109,7 @@ public class Document {
     }
 
     protected void setText(List<String> text){
-        docType.setText();
+        docType.setText(text);
     }
 
 

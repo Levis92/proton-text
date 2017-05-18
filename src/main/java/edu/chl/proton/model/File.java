@@ -44,13 +44,29 @@ public class File extends FileSystemEntity {
         }
     }
 
-    protected String lastEdited() {
+    protected String getDateForlastEdited() {
 
         java.io.File file = new java.io.File(getName());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         return sdf.format(file.lastModified());
+    }
+
+    private java.io.File getLastEditedFile(String dirPath) {
+        java.io.File dir = new java.io.File(dirPath);
+        java.io.File[] files = dir.listFiles();
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        java.io.File lastModifiedFile = files[0];
+        for (int i = 1; i < files.length; i++) {
+            if (lastModifiedFile.lastModified() < files[i].lastModified()) {
+                lastModifiedFile = files[i];
+            }
+        }
+        return lastModifiedFile;
     }
 
     protected void remove() {
