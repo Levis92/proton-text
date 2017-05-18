@@ -59,6 +59,7 @@ public class MarkdownTabController {
                         System.out.println(row);
                     }*/
                     document.setText(doc);
+                    System.out.println(document.getText());
                 }
             }
 
