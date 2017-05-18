@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface IDoc {
 
-    List<String> getText();
+    String getText();
     String setText(List<String> str);
 
 }

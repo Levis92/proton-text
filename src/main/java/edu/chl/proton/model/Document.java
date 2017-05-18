@@ -147,7 +147,7 @@ public class Document {
      * Calls on the appropriate class for getText
      * @returna list of the text
      */
-    public List<String> getText(){
+    public String getText(){
         return docType.getText();
     }
 

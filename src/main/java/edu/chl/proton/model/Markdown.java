@@ -405,9 +405,9 @@ public class Markdown implements IDoc {
      * that returns the matched string with HTML styling
      * @return the list with HTML styling
      */
-    public List<String> getText(){
+    public String getText(){
         FontStyle style = new FontStyle();
-        List<String> text = new ArrayList<>();
+        String wholeText = "";
 
         for(String str : lines) {
 
@@ -555,9 +555,9 @@ public class Markdown implements IDoc {
             match.appendTail(sb);
             tmp = sb.toString();
 
-            text.add(tmp);
+            wholeText = wholeText + tmp;
         }
-        return text;
+        return wholeText;
     }
 
     /**
