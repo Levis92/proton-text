@@ -87,7 +87,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     @Override
-    public List<String> getText() {
+    public String getText() {
         return currentDocument.getText();
     }
 
