@@ -87,7 +87,9 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickCodeButton(ActionEvent event) throws IOException {
-
+        // Go to new line.
+        document.insertPart("*** ");
+        // Go to new line.
     }
 
     @FXML
