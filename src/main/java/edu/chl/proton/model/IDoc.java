@@ -1,6 +1,5 @@
 package edu.chl.proton.model;
 
-import javafx.scene.text.Text;
 import java.util.List;
 
 /**
@@ -8,8 +7,6 @@ import java.util.List;
  * Created by Mickaela on 2017-05-04.
  */
 public interface IDoc {
-
-    // Olika = interface
 
     List<String> getText();
     String setText(List<String> str);
