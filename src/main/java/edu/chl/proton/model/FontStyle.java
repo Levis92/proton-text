@@ -83,22 +83,30 @@ public class FontStyle {
         return size;
     }
 
-    protected String getWeightStyle(String makeStyle){
+    protected String getItalicStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
-    protected String getPostureStyle(String makeStyle){
+    protected String getItalicBoldStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
     protected String getHeadingStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
     protected String getLinkStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
     protected String getListStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
     protected String getBoldStyle(String makeStyle){
+
+        return "<b>"+makeStyle+"</b>";
+    }
+    protected String getQuoteStyle(String makeStyle){
+
         return "<b>"+makeStyle+"</b>";
     }
 
