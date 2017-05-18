@@ -468,7 +468,7 @@ public class Markdown implements IDoc {
             match = codePattern("code").matcher(tmp);
             sb = new StringBuffer();
             while(match.find()){
-                match.appendReplacement(sb, style.getCodeStyle(match.group(0)));
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); // TODO SHOULD BE CODE
             }
             match.appendTail(sb);
             tmp = sb.toString();

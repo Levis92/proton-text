@@ -12,6 +12,6 @@ public interface IDoc {
     // Olika = interface
 
     List<String> getText();
-    String setText();
+    String setText(List<String> str);
 
 }
