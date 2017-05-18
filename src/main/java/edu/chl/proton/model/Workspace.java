@@ -83,16 +83,21 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     @Override
     public void setText(List<String> text) {
-
+        currentDocument.setText(text);
     }
 
     @Override
     public List<String> getText() {
-        return new ArrayList<>();
+        return currentDocument.getText();
     }
 
     @Override
     public void insertPart(String part) {
         currentDocument.insertPart(part);
+    }
+
+    @Override
+    public String getHTML() {
+        return null;
     }
 }

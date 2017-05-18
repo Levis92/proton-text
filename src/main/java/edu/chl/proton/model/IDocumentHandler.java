@@ -24,4 +24,6 @@ public interface IDocumentHandler {
 
     void insertPart(String part);
 
+    String getHTML();
+
 }
