@@ -12,7 +12,7 @@ public interface IFileHandler {
 
     void setCurrentDirectory(Folder folder);
 
-    Folder getCurrentDirectory();
+    String getCurrentDirectory();
 
     void setDirectory(String folderPath);
 
