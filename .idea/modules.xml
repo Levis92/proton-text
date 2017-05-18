@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Projekt-proton-text_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Projekt-proton-text_test.iml" group="proton-text" />
       <module fileurl="file://$PROJECT_DIR$/src/main/main.iml" filepath="$PROJECT_DIR$/src/main/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/proton-text.iml" filepath="$PROJECT_DIR$/.idea/modules/proton-text.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/proton-text_main.iml" filepath="$PROJECT_DIR$/.idea/modules/proton-text_main.iml" group="proton-text" />
