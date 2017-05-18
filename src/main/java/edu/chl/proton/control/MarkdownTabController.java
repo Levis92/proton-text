@@ -11,8 +11,15 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebView;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +34,8 @@ public class MarkdownTabController {
 
     @FXML
     HTMLEditor htmlEditor;
+    @FXML
+    WebView webView;
 
     public void initialize() {
         WorkspaceFactory factory = new WorkspaceFactory();
@@ -42,12 +51,14 @@ public class MarkdownTabController {
                 if (isValidEvent(event))
                 {
                     String text = htmlEditor.getHtmlText();
-                    System.out.println(text);
-                    text = stripHTMLTags(text);
-                    int index = text.length()-1;
-                    System.out.println("Index: " + index);
-                    System.out.println(text.charAt(index));
-                    //document.insertPart(htmlEditor.getHtmlText());
+                    webView.getEngine().loadContent(text);
+                    //System.out.println(text);
+                    List<String> doc;
+                    doc = html2text(text);
+                    /*for (String row : doc) {
+                        System.out.println(row);
+                    }*/
+                    document.setText(doc);
                 }
             }
 
@@ -99,15 +110,17 @@ public class MarkdownTabController {
         });
     }
 
-    private String stripHTMLTags(String htmlText) {
-        Pattern pattern = Pattern.compile("<[^>]*>");
-        Matcher matcher = pattern.matcher(htmlText);
-        final StringBuffer sb = new StringBuffer(htmlText.length());
-        while(matcher.find()) {
-            matcher.appendReplacement(sb, " ");
+    public static List<String> html2text(String html) {
+        ArrayList<String> rowList = new ArrayList<>();
+        Document doc = Jsoup.parse(html);
+        Element table = doc.select("body").get(0);
+        Elements rows = table.select("p");
+
+        for (int i = 0; i < rows.size(); i++) {
+            Element row = rows.get(i);
+            rowList.add(row.text());
         }
-        matcher.appendTail(sb);
-        return sb.toString().trim();
+        return rowList;
     }
 
 
