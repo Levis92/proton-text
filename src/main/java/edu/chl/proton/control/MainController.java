@@ -1,18 +1,18 @@
 package edu.chl.proton.control;
 
-import com.jfoenix.controls.JFXTabPane;
-import edu.chl.proton.model.*;
+import edu.chl.proton.model.DocumentType;
+import edu.chl.proton.model.IDocumentHandler;
+import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.WorkspaceFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
-import javafx.scene.text.Text;
+import javafx.scene.control.TreeView;
 
 import java.io.File;
-
 import java.io.IOException;
 
 
@@ -25,7 +25,7 @@ public class MainController {
     private static IDocumentHandler document;
 
     @FXML
-    private JFXTabPane tabPane;
+    private TabPane tabPane;
     @FXML
     private TreeView<File> treeView;
 
@@ -38,6 +38,7 @@ public class MainController {
         Tab tab = new Tab("Untitled");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);
