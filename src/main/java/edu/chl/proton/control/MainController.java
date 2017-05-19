@@ -23,7 +23,6 @@ import java.io.IOException;
 public class MainController {
     private static IFileHandler file;
     private static IDocumentHandler document;
-    private FXMLLoader loader;
 
     @FXML
     private JFXTabPane tabPane;
@@ -35,7 +34,7 @@ public class MainController {
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
-        loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab("Untitled");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
@@ -75,6 +74,7 @@ public class MainController {
 
 
     public void addNewTab(String name) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
