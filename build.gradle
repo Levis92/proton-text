@@ -29,5 +29,8 @@ dependencies {
 
     // JFoenix JavaFX component library
     compile 'com.jfoenix:jfoenix:1.2.0'
+
+    // jsoup HTML parser library @ http://jsoup.org/
+    compile 'org.jsoup:jsoup:1.10.2'
 }
 

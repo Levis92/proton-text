@@ -20,8 +20,10 @@ public interface IDocumentHandler {
 
     void setText(List<String> text);
 
-    List<String> getText();
+    String getText();
 
     void insertPart(String part);
+
+    String getHTML();
 
 }

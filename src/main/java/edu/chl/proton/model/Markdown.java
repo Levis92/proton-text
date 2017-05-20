@@ -22,7 +22,11 @@ public class Markdown implements IDoc {
         //TODO?
     }
 
-    // getHTML() returns a List with the resulting HTML from the Markdown text
+    /**
+     * Loops through the text and checks for markdown syntax in
+     * one row at a time.
+     * @return the list with the resulting HTML from the markdown text
+     */
     protected List<String> getHTML(){
         String tmp;
         List<String> formattedLines = new ArrayList<>();
@@ -33,6 +37,12 @@ public class Markdown implements IDoc {
         return formattedLines;
     }
 
+    /**
+     * Calls on different methods to give the string
+     * the appropriate styling
+     * @param str
+     * @return the formatted string
+     */
     protected String checkForMarkdown(String str){
         String tmp = checkPosture(str);
         tmp = checkHeading(tmp);
@@ -42,6 +52,12 @@ public class Markdown implements IDoc {
         return tmp;
     }
 
+    /**
+     * Compiles a pattern and returns it. Throws
+     * PatternSyntaxException if it fails.
+     * @param str
+     * @return the specified pattern
+     */
     protected Pattern posturePattern(String str) {
         Pattern bold;
         Pattern italic;
@@ -69,6 +85,13 @@ public class Markdown implements IDoc {
         return null;
     }
 
+    /**
+     * Searches for a pattern in a string and looks for
+     * any matches. If found, adds the proper HTML styling to
+     * the match.
+     * @param str
+     * @return the string with the proper HTML styling
+     */
     protected String checkPosture(String str){
 
         // Check for italic and bold
@@ -109,6 +132,12 @@ public class Markdown implements IDoc {
         return tmp;
     }
 
+    /**
+     * Compiles a pattern and returns it. Throws
+     * PatternSyntaxException if it fails.
+     * @param str
+     * @return the specified pattern
+     */
     protected Pattern headingPattern(String str){
         Pattern h1;
         Pattern h2;
@@ -145,6 +174,13 @@ public class Markdown implements IDoc {
         return null;
     }
 
+    /**
+     * Searches for a pattern in a string and looks for
+     * any matches. If found, adds the proper HTML styling to
+     * the match.
+     * @param str
+     * @return the string with the proper HTML styling
+     */
     protected String checkHeading(String str){
         // Check for h6
         Matcher match = headingPattern("h6").matcher(str);
@@ -203,6 +239,12 @@ public class Markdown implements IDoc {
         return str;
     }
 
+    /**
+     * Compiles a pattern and returns it. Throws
+     * PatternSyntaxException if it fails.
+     * @param str
+     * @return the specified pattern
+     */
     protected Pattern linkPattern(String str){
         Pattern textLink;
         Pattern picLink;
@@ -222,6 +264,13 @@ public class Markdown implements IDoc {
         return null;
     }
 
+    /**
+     * Searches for a pattern in a string and looks for
+     * any matches. If found, adds the proper HTML styling to
+     * the match.
+     * @param str
+     * @return the string with the proper HTML styling
+     */
     protected String checkLink(String str){
         // Check for img link
         Matcher match = linkPattern("picLink").matcher(str);
@@ -243,6 +292,12 @@ public class Markdown implements IDoc {
         return tmp;
     }
 
+    /**
+     * Compiles a pattern and returns it. Throws
+     * PatternSyntaxException if it fails.
+     * @param str
+     * @return the specified pattern
+     */
     protected Pattern listPattern(String str){
         Pattern unorderedList;
         Pattern orderedList;
@@ -265,6 +320,13 @@ public class Markdown implements IDoc {
         return null;
     }
 
+    /**
+     * Searches for a pattern in a string and looks for
+     * any matches. If found, adds the proper HTML styling to
+     * the match.
+     * @param str
+     * @return the string with the proper HTML styling
+     */
     protected String checkList(String str){
         // Check for ordered list
         Matcher match = listPattern("orderedList").matcher(str);
@@ -295,6 +357,12 @@ public class Markdown implements IDoc {
         return tmp;
     }
 
+    /**
+     * Compiles a pattern and returns it. Throws
+     * PatternSyntaxException if it fails.
+     * @param str
+     * @return the specified pattern
+     */
     protected Pattern codePattern(String str){
         Pattern code;
         try{
@@ -309,6 +377,13 @@ public class Markdown implements IDoc {
         return null;
     }
 
+    /**
+     * Searches for a pattern in a string and looks for
+     * any matches. If found, adds the proper HTML styling to
+     * the match.
+     * @param str
+     * @return the string with the proper HTML styling
+     */
     protected String checkCode(String str){
         Matcher match = codePattern("code").matcher(str);
         StringBuffer sb = new StringBuffer();
@@ -323,9 +398,16 @@ public class Markdown implements IDoc {
 
     // Finds the markdown syntax, asks FontStyle for the correct FontStyle and
     // returns the formatted list.
-    public List<String> getText(){
+
+    /**
+     * Searches for specific markdown syntax pattern.
+     * When match is found, calls on different style methods
+     * that returns the matched string with HTML styling
+     * @return the list with HTML styling
+     */
+    public String getText(){
         FontStyle style = new FontStyle();
-        List<String> text = new ArrayList<>();
+        String wholeText = "";
 
         for(String str : lines) {
 
@@ -473,11 +555,17 @@ public class Markdown implements IDoc {
             match.appendTail(sb);
             tmp = sb.toString();
 
-            text.add(tmp);
+            wholeText = wholeText + tmp;
         }
-        return text;
+        return wholeText;
     }
 
+    /**
+     * Takes every row in the text and wraps it with basic HTML tags.
+     * @param str the text, where every item is a row
+     * @return returns the whole text as a string with HTML tags
+     * wrapped around it.
+     */
     public String setText(List<String> str){
         String tmp = "";
         for(String s : str){

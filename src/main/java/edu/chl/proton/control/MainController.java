@@ -1,15 +1,18 @@
 package edu.chl.proton.control;
 
-import com.jfoenix.controls.JFXTabPane;
-import edu.chl.proton.model.*;
+import edu.chl.proton.model.DocumentType;
+import edu.chl.proton.model.IDocumentHandler;
+import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.WorkspaceFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TreeItem;
-import java.io.File;
+import javafx.scene.control.TreeView;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -20,10 +23,9 @@ import java.io.IOException;
 public class MainController {
     private static IFileHandler file;
     private static IDocumentHandler document;
-    private FXMLLoader loader;
 
     @FXML
-    private JFXTabPane tabPane;
+    private TabPane tabPane;
     @FXML
     private TreeView<File> treeView;
 
@@ -32,10 +34,11 @@ public class MainController {
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
-        loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab("Untitled");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);
@@ -43,27 +46,28 @@ public class MainController {
 
 
     private void findFiles(File dir, TreeItem<File> parent) {
-        TreeItem<File> root = new TreeItem<>(dir);
-        root.setExpanded(true);
-        try {
-            File[] files = dir.listFiles();
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    System.out.println("directory:" + file.getCanonicalPath());
-                    findFiles(file,root);
-                } else {
-                    System.out.println("     file:" + file.getCanonicalPath());
-                    root.getChildren().add(new TreeItem<>(file));
-                }
-
-            }
-            if(parent == null){
-                treeView.setRoot(root);
+        TreeItem root = new TreeItem<>(dir);
+        root.setValue(dir.getName());
+        if (parent == null) {
+            root.setExpanded(true);
+        } else {
+            root.setExpanded(false);
+        }
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                findFiles(file, root);
             } else {
-                parent.getChildren().add(root);
+                TreeItem item = new TreeItem<>(file);
+                item.setValue(file.getName());
+                root.getChildren().add(item);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        }
+        if(parent == null){
+            treeView.setRoot(root);
+        } else {
+            parent.getChildren().add(root);
         }
     }
 
@@ -71,6 +75,7 @@ public class MainController {
 
 
     public void addNewTab(String name) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);

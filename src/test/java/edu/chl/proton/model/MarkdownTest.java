@@ -32,9 +32,9 @@ public class MarkdownTest {
                 "second [telegram](link to stuff), and had ![hastened](dunno) to forestall any less careful," +
                 " less tender friend in bearing the sad message.\r";
 
-        String[] tmp1 = str.split("\r");
+        String[] original = str.split("\r");
 
-        for(String s : tmp1){
+        for(String s : original){
             this.lines.add(s);
         }
 
@@ -54,10 +54,10 @@ public class MarkdownTest {
                 "second <a href=\"link to stuff\">telegram</a>, and had <img src=\"dunno\" alt=\"hastened\"> to forestall any less careful," +
                 " less tender friend in bearing the sad message.\r";
 
-        String[] tmp2 = outcome.split("\r");
+        String[] withStyling = outcome.split("\r");
         List<String> tmp = new ArrayList<>();
 
-        for(String s : tmp2){
+        for(String s : withStyling){
             tmp.add(s);
         }
 
