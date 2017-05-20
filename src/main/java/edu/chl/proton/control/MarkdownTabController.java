@@ -1,7 +1,9 @@
 package edu.chl.proton.control;
 
+import edu.chl.proton.event.TextUpdateEvent;
 import edu.chl.proton.model.IDocumentHandler;
 import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.Workspace;
 import edu.chl.proton.model.WorkspaceFactory;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -12,6 +14,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -95,6 +100,29 @@ public class MarkdownTabController {
             }
         });
     }
+/*
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+    */
+
+    // This method will be called when a updateText is posted
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateText(TextUpdateEvent event) {
+        //doSomethingWith(event);
+        //Uppdatera båda osv.
+        document.getText();
+        document.getHTML();
+        System.out.println("JAG ANVÄNDS!!!!");
+    }
 
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
     public static void hideHTMLEditorToolbars(final HTMLEditor editor)
@@ -148,7 +176,7 @@ public class MarkdownTabController {
     public void onClickItalicButton(ActionEvent event) throws IOException {
         document.insertPart("**");
     }
-
+        // 1. Cursors plats 2. setText, med htmltext
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
         // Go to beginning of line. Set cursor?

@@ -95,11 +95,11 @@ public class FontStyle {
     }
     protected String getLinkStyle(String makeStyle){
 
-        return "<b>"+makeStyle+"</b>";
+        return "<span style=\"text-decoration:underline;color:blue\">"+makeStyle+"</span>";
     }
-    protected String getListStyle(String makeStyle){
+    protected String getListStyle(String makeStyle){#007E73
 
-        return "<b>"+makeStyle+"</b>";
+        return "<span style=\"color:#007E73\">" + makeStyle + "</span>";
     }
     protected String getBoldStyle(String makeStyle){
 

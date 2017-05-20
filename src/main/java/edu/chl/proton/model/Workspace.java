@@ -1,5 +1,8 @@
 package edu.chl.proton.model;
 
+import edu.chl.proton.event.TextUpdateEvent;
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +87,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
+        EventBus.getDefault().post(new TextUpdateEvent("Hello everyone!"));
     }
 
     @Override
