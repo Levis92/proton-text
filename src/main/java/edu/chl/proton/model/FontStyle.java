@@ -97,7 +97,7 @@ public class FontStyle {
 
         return "<span style=\"text-decoration:underline;color:blue\">"+makeStyle+"</span>";
     }
-    protected String getListStyle(String makeStyle){#007E73
+    protected String getListStyle(String makeStyle){
 
         return "<span style=\"color:#007E73\">" + makeStyle + "</span>";
     }
