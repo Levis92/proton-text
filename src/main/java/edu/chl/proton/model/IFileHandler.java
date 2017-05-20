@@ -1,6 +1,7 @@
 package edu.chl.proton.model;
 
-import java.io.IOException;
+import java.io.*;
+import java.io.File;
 
 /**
  * Anton Levholm
@@ -10,13 +11,13 @@ public interface IFileHandler {
 
     void saveCurrentDocument() throws IOException;
 
-    void setCurrentDirectory(Folder folder);
+    void setCurrentDirectory(java.io.File folder) throws IOException;
 
     String getCurrentDirectory();
 
     void setDirectory(String folderPath);
 
-    String getDirectory();
+    File getDirectory();
 
 
 }

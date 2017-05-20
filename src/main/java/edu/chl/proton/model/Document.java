@@ -13,7 +13,7 @@ public class Document {
     // Lika = document
 
     private Cursor cursor;
-    private File file;
+    private FileUtility file;
     private List<String> lines = new ArrayList<String>();
 
     IDoc docType;
@@ -34,11 +34,11 @@ public class Document {
         this.cursor = cursor;
     }
 
-    protected File getFile(){
+    protected FileUtility getFile(){
         return this.file;
     }
 
-    protected void setFile(File file){
+    protected void setFile(FileUtility file){
         this.file = file;
     }
 

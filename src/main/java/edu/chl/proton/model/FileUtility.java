@@ -10,13 +10,37 @@ import java.text.SimpleDateFormat;
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
  */
-public class File extends FileSystemEntity {
+public class FileUtility {
 
+    private java.io.File file;
     private boolean isSaved;
 
 
-    public File(String name) {
+    public FileUtility(String name) {
+        this.file = new File(name);
         this.setName(name);
+    }
+
+    protected String getName() {
+        return this.file.getName();
+    }
+
+    protected void setName(String name) {
+        java.io.File file = new java.io.File(this.file.getParentFile(), name);
+        this.file.renameTo(file);
+    }
+
+    protected String getPath() {
+        return this.file.getPath();
+    }
+
+    protected void setPath(String path) {
+        java.io.File file = new java.io.File(path);
+        this.file.renameTo(file);
+    }
+
+    protected java.io.File getFile() {
+        return this.file;
     }
 
     protected void setIsSaved(boolean state) {
