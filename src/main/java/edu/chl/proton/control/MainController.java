@@ -3,13 +3,11 @@ package edu.chl.proton.control;
 import com.jfoenix.controls.JFXTabPane;
 import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TreeView;
-import javafx.scene.control.TreeItem;
-import javafx.scene.text.Text;
+import javafx.scene.control.*;
+import javafx.util.Callback;
 
 import java.io.File;
 
@@ -42,12 +40,18 @@ public class MainController {
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);
+
+        treeView.setEditable(true);
+        treeView.setShowRoot(false);
+        treeView.setCellFactory(p -> new EditableTreeCell());
     }
 
 
     private void findFiles(File dir, TreeItem<File> parent) {
         TreeItem root = new TreeItem<>(dir);
-        root.setValue(dir.getName());
+
+        root.setValue(dir);
+
         if (parent == null) {
             root.setExpanded(true);
         } else {
@@ -59,7 +63,7 @@ public class MainController {
                 findFiles(file, root);
             } else {
                 TreeItem item = new TreeItem<>(file);
-                item.setValue(file.getName());
+                item.setValue(file);
                 root.getChildren().add(item);
             }
 
@@ -70,8 +74,6 @@ public class MainController {
             parent.getChildren().add(root);
         }
     }
-
-
 
 
     public void addNewTab(String name) throws IOException {
