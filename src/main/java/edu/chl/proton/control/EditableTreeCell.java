@@ -1,7 +1,8 @@
 package edu.chl.proton.control;
 
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeCell;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -15,8 +16,19 @@ import java.io.File;
 final class EditableTreeCell extends TreeCell<File> {
 
     private TextField textField;
+    private ContextMenu addMenu = new ContextMenu();
 
     public EditableTreeCell() {
+
+        MenuItem addMenuItem = new MenuItem("Add File");
+        addMenu.getItems().add(addMenuItem);
+        addMenuItem.setOnAction(new EventHandler() {
+            public void handle(Event t) {
+                TreeItem newFile =
+                        new TreeItem<File>();
+                getTreeItem().getChildren().add(newFile);
+            }
+        });
     }
 
     @Override
@@ -60,6 +72,9 @@ final class EditableTreeCell extends TreeCell<File> {
             } else {
                 setText(getString());
                 setGraphic(getTreeItem().getGraphic());
+                if (!getTreeItem().isLeaf()&&getTreeItem().getParent()!= null) {
+                    setContextMenu(addMenu);
+                }
             }
         }
     }
