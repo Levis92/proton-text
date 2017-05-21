@@ -30,6 +30,8 @@ public class MainController {
     private AnchorPane treeViewPane;
     @FXML
     private SplitPane splitPane;
+    @FXML
+    private MenuBar menuBar;
 
 
     public void initialize() throws IOException {
@@ -43,6 +45,7 @@ public class MainController {
         tabPane.getTabs().add(tab);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         treeView.managedProperty().bind(treeView.visibleProperty());
+        menuBar.useSystemMenuBarProperty().set(true);
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);
