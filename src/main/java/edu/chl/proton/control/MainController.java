@@ -7,10 +7,8 @@ import edu.chl.proton.model.WorkspaceFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +26,10 @@ public class MainController {
     private TabPane tabPane;
     @FXML
     private TreeView<File> treeView;
+    @FXML
+    private AnchorPane treeViewPane;
+    @FXML
+    private SplitPane splitPane;
 
 
     public void initialize() throws IOException {
@@ -36,9 +38,11 @@ public class MainController {
         document = factory.getWorkspace();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab("Untitled");
+        tab.getStyleClass().add("tab");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
+        treeView.managedProperty().bind(treeView.visibleProperty());
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);
@@ -77,6 +81,7 @@ public class MainController {
     public void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
+        tab.getStyleClass().add("tab");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
     }
@@ -106,5 +111,20 @@ public class MainController {
     @FXML
     public void onClickRedoButton(ActionEvent event) throws IOException {
 
+    }
+
+    @FXML
+    public void onClickToggleTreeViewVisibility(ActionEvent event) throws IOException {
+        if (treeViewPane.isVisible()) {
+            treeViewPane.setVisible(false);
+            treeViewPane.setMaxWidth(0);
+            treeViewPane.setMinWidth(0);
+            splitPane.getStyleClass().add("hide");
+        } else {
+            treeViewPane.setVisible(true);
+            treeViewPane.setMaxWidth(250);
+            treeViewPane.setMinWidth(150);
+            splitPane.getStyleClass().removeAll("hide");
+        }
     }
 }
