@@ -16,9 +16,14 @@ public class FileUtility {
     private boolean isSaved;
 
 
-    public FileUtility(String name) {
+    public FileUtility(String name, String path) {
         this.file = new File(name);
         this.setName(name);
+        this.setPath(path);
+    }
+    public FileUtility(String path) {
+        this.file = new File(path);
+        this.setPath(path);
     }
 
     protected String getName() {
