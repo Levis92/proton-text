@@ -1,6 +1,19 @@
-#menu-bar {
-
+#menu-bar .items {
+    -fx-background-color: #008187;
 }
+
+.menu-item {
+    -fx-background-color: #008187;
+}
+
+.menu-item:focused {
+    -fx-background-color: darkgray;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}
+
 
 #menu-bar .label, #menu-bar > .menu-item .label {
     -fx-text-fill: antiquewhite;
@@ -11,7 +24,7 @@
 }
 
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: #09cdda;
+    -fx-background-color: #5EDEE4;
 }
 
 .buttons {
@@ -44,7 +57,7 @@
 
 .tab {
     -fx-background-color: #09cdda;
-    -fx-border-color: #008187;
+    -fx-border-color: transparent;
     -fx-border-radius: 2px 2px 0 0;
     -fx-opacity: 0.7;
 }
@@ -56,10 +69,13 @@
 .tab:selected {
     -fx-background-color: #008187;
     -fx-opacity: 1;
+    -fx-border-color: #008187;
+    -fx-focus-color: transparent;
 }
 
 .editor {
     -fx-padding: 2px;
+    -fx-focus-color: transparent;
 }
 
 .editor:focused {
