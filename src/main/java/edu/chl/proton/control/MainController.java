@@ -2,6 +2,7 @@ package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -89,6 +90,7 @@ public class MainController {
         tab.setContent(loader.load());
         selectionModel.select(tab);
         tabPane.getTabs().add(tab);
+        tab.setOnSelectionChanged(e -> document.setCurrentDocument(selectionModel.getSelectedIndex()));
         tab.setOnCloseRequest(e -> document.removeDocument(tabPane.getTabs().indexOf(e.getTarget())));
     }
 
