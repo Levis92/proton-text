@@ -12,8 +12,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +89,7 @@ public class MainController {
         tab.setContent(loader.load());
         selectionModel.select(tab);
         tabPane.getTabs().add(tab);
+        tab.setOnCloseRequest(e -> document.removeDocument(tabPane.getTabs().indexOf(e.getTarget())));
     }
 
     @FXML
