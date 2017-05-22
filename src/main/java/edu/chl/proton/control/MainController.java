@@ -45,15 +45,12 @@ public class MainController {
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
-        Tab tab = new Tab("Untitled.md");
-        tab.getStyleClass().add("tab");
-        tab.setContent(loader.load());
-        tabPane.getTabs().add(tab);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         treeView.managedProperty().bind(treeView.visibleProperty());
         selectionModel = tabPane.getSelectionModel();
         menuBar.useSystemMenuBarProperty().set(true);
+        addNewTab("Untitled.md");
+        document.createDocument(DocumentType.MARKDOWN);
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
         findFiles(currentDir, null);

@@ -46,7 +46,9 @@ public class Workspace implements IFileHandler, IDocumentHandler, IStageHandler 
 
 
     public void createDocument(DocumentType type) {
-        factory.createDocument(type);
+        Document doc = factory.createDocument(type);
+        currentDocument = doc;
+        tabs.add(doc);
     }
 
     @Override
