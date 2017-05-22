@@ -121,6 +121,7 @@ public class MarkdownTabController {
         //Uppdatera båda osv.
         document.getText();
         document.getHTML();
+
         System.out.println("JAG ANVÄNDS!!!!");
     }
 
@@ -134,6 +135,7 @@ public class MarkdownTabController {
             {
                 node.setVisible(false);
                 node.setManaged(false);
+
             }
             editor.setVisible(true);
         });
@@ -169,6 +171,7 @@ public class MarkdownTabController {
             // this and updates the aktuella line?
             document.insertPart("****");
             // Position.setX(Position.getX()-2)?
+
 
     }
 
