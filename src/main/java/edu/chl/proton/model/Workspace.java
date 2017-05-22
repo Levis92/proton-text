@@ -43,7 +43,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
     public String getCurrentDirectory() {
-        return currentDirectory == null ? "./" : currentDirectory.getPath();
+        return currentDirectory == null ? "./Proton Text Directory" : currentDirectory.getPath();
     }
 
 

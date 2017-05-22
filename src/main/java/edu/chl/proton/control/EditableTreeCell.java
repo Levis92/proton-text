@@ -1,8 +1,12 @@
 package edu.chl.proton.control;
 
-import javafx.event.Event;
+import edu.chl.proton.model.FileUtility;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -18,14 +22,17 @@ final class EditableTreeCell extends TreeCell<File> {
     private TextField textField;
     private ContextMenu addMenu = new ContextMenu();
 
+
     public EditableTreeCell() {
 
         MenuItem addMenuItem = new MenuItem("Add File");
         addMenu.getItems().add(addMenuItem);
         addMenuItem.setOnAction(new EventHandler() {
             public void handle(Event t) {
-                TreeItem newFile =
-                        new TreeItem<File>();
+                TreeItem<File> newFile =
+                        new TreeItem<>();
+                FileUtility file = new FileUtility("New.md");
+                newFile.setValue(file);
                 getTreeItem().getChildren().add(newFile);
             }
         });
