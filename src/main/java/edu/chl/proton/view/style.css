@@ -1,19 +1,83 @@
-#menu {
-
+#menu-bar .items {
+    -fx-background-color: #008187;
 }
 
-#footer-pane, #menu {
-    -fx-background-color: #09cdda;
+.menu-item {
+    -fx-background-color: #008187;
+}
+
+.menu-item:focused {
+    -fx-background-color: darkgray;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: blue;
+}
+
+
+#menu-bar .label, #menu-bar > .menu-item .label {
+    -fx-text-fill: antiquewhite;
+}
+
+#footer-pane, #menu-bar {
+    -fx-background-color: #008187;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #5EDEE4;
 }
 
 .buttons {
     -fx-padding: 0.3em 0.4em;
     -fx-font-size: 12px;
-    -fx-background-color: #09cdda;/*rgb(77,102,204);*/
+    -fx-background-color: #008187;
+    -jfx-button-type: RAISED;
     -fx-min-width: 50px;
     -fx-text-fill: WHITE;
 }
 
-.split-pane, .tree-view {
-    -fx-background-color: antiquewhite;
+#tree-view {
+    -fx-background-color: #008187;
+}
+
+.split-pane {
+    -fx-background-color: #008187;
+}
+
+.split-pane.hide > .split-pane-divider {
+    -fx-border-color:  transparent;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.split-pane > .split-pane-divider {
+    -fx-border-width: 0;
+    -fx-background-color: #008187;
+}
+
+.tab {
+    -fx-background-color: #09cdda;
+    -fx-border-color: transparent;
+    -fx-border-radius: 2px 2px 0 0;
+    -fx-opacity: 0.7;
+}
+
+.tab .tab-label {
+    -fx-text-fill: antiquewhite;
+}
+
+.tab:selected {
+    -fx-background-color: #008187;
+    -fx-opacity: 1;
+    -fx-border-color: #008187;
+    -fx-focus-color: transparent;
+}
+
+.editor {
+    -fx-padding: 2px;
+    -fx-focus-color: transparent;
+}
+
+.editor:focused {
+    -fx-border-color: red;
 }
