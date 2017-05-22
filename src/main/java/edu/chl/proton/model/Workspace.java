@@ -1,5 +1,8 @@
 package edu.chl.proton.model;
 
+import edu.chl.proton.Protontext;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +11,7 @@ import java.util.List;
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
-public class Workspace implements IFileHandler, IDocumentHandler {
+public class Workspace implements IFileHandler, IDocumentHandler, IStageHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
     private Folder currentDirectory;
@@ -21,12 +24,12 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
 
-    public void setCurrentDocument(Document doc) {
-        currentDocument = doc;
+    public void setCurrentDocument(int index) {
+        currentDocument = tabs.get(index);
     }
 
-    public Document getCurrentDocument() {
-        return currentDocument;
+    public int getCurrentDocument() {
+        return tabs.indexOf(currentDocument);
     }
 
     public void saveCurrentDocument() throws IOException {
@@ -48,8 +51,9 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     @Override
     public void openDocument(String filePath) {
-        factory.getDocument(filePath);
-
+        Document doc = factory.getDocument(filePath);
+        currentDocument = doc;
+        tabs.add(doc);
     }
 
     @Override
@@ -57,9 +61,9 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     }
 
-    public void removeDocument(Document doc) {
-        if (tabs.contains(doc)) {
-            tabs.remove(doc);
+    public void removeDocument(int index) {
+        if (tabs.contains(tabs.get(index))) {
+            tabs.remove(tabs.get(index));
         }
     }
 
@@ -99,5 +103,10 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public String getHTML() {
         return null;
+    }
+
+    @Override
+    public Stage getStage() {
+        return Protontext.getStage();
     }
 }

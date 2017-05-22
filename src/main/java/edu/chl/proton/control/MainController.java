@@ -1,17 +1,21 @@
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.DocumentType;
-import edu.chl.proton.model.IDocumentHandler;
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,6 +25,8 @@ import java.io.IOException;
 public class MainController {
     private static IFileHandler file;
     private static IDocumentHandler document;
+    private IStageHandler stage;
+    SingleSelectionModel<Tab> selectionModel;
 
     @FXML
     private TabPane tabPane;
@@ -38,13 +44,15 @@ public class MainController {
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
+        stage = factory.getWorkspace();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
-        Tab tab = new Tab("Untitled");
+        Tab tab = new Tab("Untitled.md");
         tab.getStyleClass().add("tab");
         tab.setContent(loader.load());
         tabPane.getTabs().add(tab);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         treeView.managedProperty().bind(treeView.visibleProperty());
+        selectionModel = tabPane.getSelectionModel();
         menuBar.useSystemMenuBarProperty().set(true);
 
         File currentDir = new File(file.getCurrentDirectory()); // current directory
@@ -79,14 +87,25 @@ public class MainController {
     }
 
 
-
-
     public void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
         tab.getStyleClass().add("tab");
         tab.setContent(loader.load());
+        selectionModel.select(tab);
         tabPane.getTabs().add(tab);
+    }
+
+    @FXML
+    public void onClickNextTab(ActionEvent event) throws IOException {
+        selectionModel.selectNext();
+        document.setCurrentDocument(selectionModel.getSelectedIndex());
+    }
+
+    @FXML
+    public void onClickPreviousTab(ActionEvent event) throws IOException {
+        selectionModel.selectPrevious();
+        document.setCurrentDocument(selectionModel.getSelectedIndex());
     }
 
     @FXML
@@ -97,8 +116,22 @@ public class MainController {
 
     @FXML
     public void onClickOpenButton(ActionEvent event) throws IOException {
-        String file = "";
-        document.openDocument(file);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = fileChooser.showOpenDialog(stage.getStage());
+        if (file != null && file.isFile()) {
+            document.openDocument(file.getPath());
+            addNewTab(file.getName());
+            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+                List<String> lines = new ArrayList<>();
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    lines.add(line);
+                }
+                document.setText(lines);
+            }
+        }
     }
 
     @FXML

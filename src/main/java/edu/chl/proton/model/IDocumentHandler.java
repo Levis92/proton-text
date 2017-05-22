@@ -8,7 +8,9 @@ import java.util.List;
  */
 public interface IDocumentHandler {
 
-    Document getCurrentDocument();
+    int getCurrentDocument();
+
+    void setCurrentDocument(int index);
 
     void createDocument(DocumentType type);
 
@@ -16,7 +18,7 @@ public interface IDocumentHandler {
 
     void removeCurrentDocument();
 
-    void removeDocument(Document doc);
+    void removeDocument(int index);
 
     void setText(List<String> text);
 

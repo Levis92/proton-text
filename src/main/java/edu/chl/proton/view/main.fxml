@@ -94,6 +94,17 @@
                                 <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickNextTab" text="Next tab">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Previous tab">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="K" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
                     </items>
                   </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="Help">
