@@ -10,33 +10,28 @@ import java.text.SimpleDateFormat;
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
  */
-public class FileUtility {
+public class FileUtility extends File {
 
     private java.io.File file;
     private boolean isSaved;
 
 
     public FileUtility(String name, String path) {
+        super(path);
         this.file = new File(name);
         this.setName(name);
         this.setPath(path);
     }
+
     public FileUtility(String path) {
+        super(path);
         this.file = new File(path);
         this.setPath(path);
-    }
-
-    protected String getName() {
-        return this.file.getName();
     }
 
     protected void setName(String name) {
         File file = new File(this.file.getParentFile(), name);
         this.file.renameTo(file);
-    }
-
-    protected String getPath() {
-        return this.file.getPath();
     }
 
     protected void setPath(String path) {
@@ -52,7 +47,6 @@ public class FileUtility {
         isSaved = state;
     }
 
-    
     protected boolean isSaved() {
         return isSaved;
     }
@@ -67,7 +61,6 @@ public class FileUtility {
 
             File file = new File(this.getPath());
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            System.out.println("hej");
             for(String line : text) {
                 out.write(line);
                 out.newLine();
@@ -113,13 +106,16 @@ public class FileUtility {
         return lastModifiedFile;
     }
 
+    /**
+     * Delete file
+     */
     protected void remove() {
         this.getFile().delete();
     }
 
     /**
      * Aqcuires the text from the opened file.
-     * @return list of Strings
+     * @return List<String>
      */
     protected List<String> aqcuireText(){
 

@@ -11,7 +11,7 @@ public interface IFileHandler {
 
     void saveCurrentDocument() throws IOException;
 
-    void setCurrentDirectory(java.io.File folder) throws IOException;
+    void setCurrentDirectory(FileUtility directory) throws  IOException;
 
     String getCurrentDirectory();
 

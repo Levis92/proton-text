@@ -32,7 +32,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
        currentDocument.save();
     }
 
-    public void setCurrentDirectory(File directory) throws  IOException {
+    public void setCurrentDirectory(FileUtility directory) throws  IOException {
         if(!directory.isDirectory()) {
             throw new IOException("Trying to set a file as directory");
         }
@@ -71,7 +71,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     }
 
-    public void setDirectory(File folder) {
+    public void setDirectory(FileUtility folder) {
         currentDirectory = folder;
     }
 
