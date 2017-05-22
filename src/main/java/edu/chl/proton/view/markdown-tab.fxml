@@ -10,7 +10,6 @@
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.chl.proton.control.MarkdownTabController">
    <children>
       <Pane prefHeight="43.0" prefWidth="533.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -65,18 +64,23 @@
                   <JFXButton onAction="#onClickItalicButton" styleClass="buttons" stylesheets="@style.css" text="Italic" BorderPane.alignment="CENTER" />
                </right>
             </JFXToolbar>
+            <JFXToolbar layoutX="637.0" layoutY="8.0">
+               <center>
+                  <JFXButton layoutY="4.0" onAction="#onClickGeneratePDF" styleClass="buttons" stylesheets="@style.css" text="To PDF" AnchorPane.rightAnchor="10.0" />
+               </center>
+            </JFXToolbar>
          </children>
       </Pane>
       <SplitPane dividerPositions="0.40200445434298443" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <HTMLEditor styleClass="editor" fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="-203.0" layoutY="-43.0" prefHeight="200.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="-203.0" layoutY="-43.0" prefHeight="200.0" prefWidth="506.0" styleClass="editor" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <WebView fx:id="webView" layoutX="60.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <WebView fx:id="webView" layoutX="60.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>

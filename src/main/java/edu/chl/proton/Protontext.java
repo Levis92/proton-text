@@ -21,9 +21,9 @@ public class Protontext extends Application {
         stage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("/edu/chl/proton/view/main.fxml"));
         primaryStage.setTitle("Proton Text");
-        primaryStage.setScene(new Scene(root, 900, 600));
+        primaryStage.setScene(new Scene(root, 920, 600));
         primaryStage.show();
-        primaryStage.setMinWidth(900);
+        primaryStage.setMinWidth(700);
         primaryStage.setMinHeight(600);
     }
 
