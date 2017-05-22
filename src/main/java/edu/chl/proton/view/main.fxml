@@ -56,7 +56,7 @@
                       </MenuItem>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Save as..." />
                       <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Change directory..." />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickChangeDirectory" text="Change directory..." />
                       <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
                   </items>

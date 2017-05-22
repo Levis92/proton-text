@@ -114,7 +114,7 @@ public class MainController {
     @FXML
     public void onClickOpenButton(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage.getStage());
         if (file != null && file.isFile()) {
             document.openDocument(file.getPath());
@@ -144,6 +144,17 @@ public class MainController {
     @FXML
     public void onClickRedoButton(ActionEvent event) throws IOException {
 
+    }
+
+    @FXML
+    public void onClickChangeDirectory(ActionEvent event) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Change directory");
+        File file = fileChooser.showOpenDialog(stage.getStage());
+        if (file != null && file.isDirectory()) {
+            //this.file.setCurrentDirectory(file);
+
+        }
     }
 
     @FXML

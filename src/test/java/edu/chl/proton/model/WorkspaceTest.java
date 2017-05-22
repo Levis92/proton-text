@@ -21,7 +21,7 @@ public class WorkspaceTest {
     @Test public void createDocumentTest() {
         Workspace classUnderTest = workspace;
         classUnderTest.createDocument(DocumentType.MARKDOWN);
-        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() != null);
+        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() != 0);
     }
 
     @Test public void openDocumentTest() {
