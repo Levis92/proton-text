@@ -87,7 +87,8 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
-        EventBus.getDefault().post(new TextUpdateEvent("Hello everyone!"));
+        //eventBus.post(event);
+        //EventBus.getDefault().post(new TextUpdateEvent("Hello everyone!"));
     }
 
     @Override

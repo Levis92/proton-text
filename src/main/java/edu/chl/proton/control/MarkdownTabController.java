@@ -43,10 +43,12 @@ public class MarkdownTabController {
     WebView webView;
 
     public void initialize() {
+        EventBus.getDefault().register(this);
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         hideHTMLEditorToolbars(htmlEditor);
+
 
         htmlEditor.setOnKeyReleased(new EventHandler<KeyEvent>()
         {
@@ -99,29 +101,20 @@ public class MarkdownTabController {
                 }
             }
         });
-    }
-/*
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+
     }
 
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-    */
 
     // This method will be called when a updateText is posted
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe
     public void updateText(TextUpdateEvent event) {
         //doSomethingWith(event);
         //Uppdatera båda osv.
-        document.getText();
+        /*document.getText();
         document.getHTML();
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "[link](url)");*/
         System.out.println("JAG ANVÄNDS!!!!");
     }
 
