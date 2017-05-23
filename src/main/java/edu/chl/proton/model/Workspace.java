@@ -1,19 +1,19 @@
 package edu.chl.proton.model;
 
-import com.google.common.eventbus.EventBus;
-import edu.chl.proton.event.TextUpdateEvent;
+
 
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
-public class Workspace implements IFileHandler, IDocumentHandler {
+public class Workspace extends Observable implements IFileHandler, IDocumentHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
     private Folder currentDirectory;
@@ -89,8 +89,8 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
-        //eventBus.post(event);
-        EventBus.post(new TextUpdateEvent("Hello everyone!"));
+        setChanged();
+        notifyObservers();
 
     }
 
@@ -108,4 +108,6 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     public String getHTML() {
         return null;
     }
+
+
 }

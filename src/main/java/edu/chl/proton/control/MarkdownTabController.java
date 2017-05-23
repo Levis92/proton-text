@@ -17,8 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.web.HTMLEditor;
 
 import javafx.scene.web.WebView;
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,6 +25,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,15 +38,19 @@ import java.util.regex.Pattern;
 public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
-    public EventBus eventBus = new EventBus();
+    private Observable observable;
 
     @FXML
     HTMLEditor htmlEditor;
     @FXML
     WebView webView;
 
+
+
     public void initialize() {
         WorkspaceFactory factory = new WorkspaceFactory();
+        observable = factory.getWorkspace();
+        UpdateView view = new UpdateView(observable);
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         hideHTMLEditorToolbars(htmlEditor);
@@ -60,7 +64,7 @@ public class MarkdownTabController {
                 if (isValidEvent(event))
                 {
                     String text = htmlEditor.getHtmlText();
-                    webView.getEngine().loadContent(text);
+                    //webView.getEngine().loadContent(text);
                     //System.out.println(text);
                     List<String> doc;
                     doc = html2text(text);
@@ -68,7 +72,7 @@ public class MarkdownTabController {
                         System.out.println(row);
                     }*/
                     document.setText(doc);
-                    System.out.println(document.getText());
+                    //System.out.println(document.getText());
                 }
             }
 
@@ -107,18 +111,6 @@ public class MarkdownTabController {
     }
 
 
-    // This method will be called when a updateText is posted
-    @Subscribe public void updateText(TextUpdateEvent event) {
-        //doSomethingWith(event);
-        //Uppdatera båda osv.
-        //document.getText();
-        //document.getHTML();
-        System.out.println("JAG ANVÄNDS!!!!");
-        /*WebView webView = (WebView) htmlEditor.lookup("WebView");
-        WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "[link](url)");*/
-
-    }
 
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
     public static void hideHTMLEditorToolbars(final HTMLEditor editor)
@@ -159,7 +151,9 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickHeadingButton(ActionEvent event) throws IOException {
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "#");
     }
 
     @FXML
@@ -232,6 +226,23 @@ public class MarkdownTabController {
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "*****");
         //newline
+    }
+
+    public class UpdateView implements Observer {
+        Observable observable;
+        public UpdateView(Observable observable){
+            this.observable = observable;
+            observable.addObserver(this);
+        }
+
+
+        @Override
+        public void update(Observable o, Object arg) {
+            String text = document.getText();
+            htmlEditor.setHtmlText(text);
+            String html = document.getHTML();
+            webView.getEngine().loadContent(html);
+        }
     }
 
 }
