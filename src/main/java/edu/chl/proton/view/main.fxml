@@ -36,6 +36,9 @@
             </Pane>
             <MenuBar id="menu-bar" fx:id="menuBar" layoutX="6.0" layoutY="8.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
+                  <Menu styleClass="menu" mnemonicParsing="false" text="Proton Text">
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
+                  </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="File">
                   <items>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickNewButton" text="New">
@@ -57,8 +60,6 @@
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Save as..." />
                       <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickChangeDirectory" text="Change directory..." />
-                      <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="Edit">
