@@ -1,11 +1,14 @@
 package edu.chl.proton.model;
 
+import com.google.common.eventbus.EventBus;
 import edu.chl.proton.event.TextUpdateEvent;
-import org.greenrobot.eventbus.EventBus;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static edu.chl.proton.control.MarkdownTabController.eventBus;
 
 /**
  * @author Anton Levholm
@@ -88,7 +91,8 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     public void setText(List<String> text) {
         currentDocument.setText(text);
         //eventBus.post(event);
-        //EventBus.getDefault().post(new TextUpdateEvent("Hello everyone!"));
+        eventBus.post(new TextUpdateEvent("Hello everyone!"));
+
     }
 
     @Override

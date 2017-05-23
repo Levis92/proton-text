@@ -1,5 +1,7 @@
 package edu.chl.proton.control;
 
+import com.sun.javafx.webkit.Accessor;
+import com.sun.webkit.WebPage;
 import edu.chl.proton.event.TextUpdateEvent;
 import edu.chl.proton.model.IDocumentHandler;
 import edu.chl.proton.model.IFileHandler;
@@ -13,10 +15,10 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.HTMLEditor;
+
 import javafx.scene.web.WebView;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,6 +38,7 @@ import java.util.regex.Pattern;
 public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
+    public static final EventBus eventBus = new EventBus();
 
     @FXML
     HTMLEditor htmlEditor;
@@ -43,7 +46,8 @@ public class MarkdownTabController {
     WebView webView;
 
     public void initialize() {
-        EventBus.getDefault().register(this);
+        eventBus.register(new MarkdownTabController());
+        //EventBus.getDefault().register(this);
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
@@ -106,16 +110,16 @@ public class MarkdownTabController {
 
 
     // This method will be called when a updateText is posted
-    @Subscribe
-    public void updateText(TextUpdateEvent event) {
+    @Subscribe public void updateText(TextUpdateEvent event) {
         //doSomethingWith(event);
         //Uppdatera båda osv.
-        /*document.getText();
-        document.getHTML();
-        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        //document.getText();
+        //document.getHTML();
+        System.out.println("JAG ANVÄNDS!!!!");
+        /*WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "[link](url)");*/
-        System.out.println("JAG ANVÄNDS!!!!");
+
     }
 
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
@@ -164,6 +168,9 @@ public class MarkdownTabController {
             // this and updates the aktuella line?
             document.insertPart("****");
             // Position.setX(Position.getX()-2)?
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "[link](url)");
 
 
     }
