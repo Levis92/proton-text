@@ -1,5 +1,8 @@
 package edu.chl.proton.control;
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
 import edu.chl.proton.model.IDocumentHandler;
 import edu.chl.proton.model.IFileHandler;
 import edu.chl.proton.model.WorkspaceFactory;
@@ -17,6 +20,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +128,18 @@ public class MarkdownTabController {
         return rowList;
     }
 
+
+    @FXML
+    public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
+        String path = "./test.pdf";
+        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+        PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(path));
+        writer.setInitialLeading(12);
+        doc.open();
+        XMLWorkerHelper.getInstance().parseXHtml(writer, doc,
+                new ByteArrayInputStream(document.getHTML().getBytes()));
+        doc.close();
+    }
 
     @FXML
     public void onClickLinkButton(ActionEvent event) throws IOException {
