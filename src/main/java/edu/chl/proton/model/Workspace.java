@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.chl.proton.control.MarkdownTabController.eventBus;
 
 /**
  * @author Anton Levholm
@@ -91,7 +90,7 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     public void setText(List<String> text) {
         currentDocument.setText(text);
         //eventBus.post(event);
-        eventBus.post(new TextUpdateEvent("Hello everyone!"));
+        EventBus.post(new TextUpdateEvent("Hello everyone!"));
 
     }
 

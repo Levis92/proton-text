@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
-    public static final EventBus eventBus = new EventBus();
+    public EventBus eventBus = new EventBus();
 
     @FXML
     HTMLEditor htmlEditor;
@@ -46,8 +46,6 @@ public class MarkdownTabController {
     WebView webView;
 
     public void initialize() {
-        eventBus.register(new MarkdownTabController());
-        //EventBus.getDefault().register(this);
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
@@ -154,7 +152,9 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickLinkButton(ActionEvent event) throws IOException {
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "[link](git )");
     }
 
     @FXML
@@ -166,55 +166,72 @@ public class MarkdownTabController {
     public void onClickBoldButton(ActionEvent event) throws IOException {
             // Four asterixes and move cursor two steps back. Method in Document that takes in
             // this and updates the aktuella line?
-            document.insertPart("****");
             // Position.setX(Position.getX()-2)?
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "[link](url)");
+        webPage.executeCommand("insertText", "****");
 
 
     }
 
     @FXML
     public void onClickItalicButton(ActionEvent event) throws IOException {
-        document.insertPart("**");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "**");
     }
         // 1. Cursors plats 2. setText, med htmltext
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
         // Go to beginning of line. Set cursor?
         // Position.setX(0);
-        document.insertPart("> ");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "> ");
     }
 
     @FXML
     public void onClickImageButton(ActionEvent event) throws IOException {
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "![alt text]([url] \"Title\")");
     }
 
     @FXML
     public void onClickCodeButton(ActionEvent event) throws IOException {
         // Go to new line.
-        document.insertPart("*** ");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "***");
         // Go to new line.
     }
 
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
         // Go to beginning of line
-        document.insertPart("1.   ");//the actual number has no importance.
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "1.   ");
+
         // Should it repeat itself?
     }
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
         // Go to beginning of line
-        document.insertPart("*   ");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "*     ");
+
     }
 
     @FXML
     public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
-        document.insertPart("****");
+        //newline
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "*****");
+        //newline
     }
 
 }
