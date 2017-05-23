@@ -3,9 +3,7 @@ package edu.chl.proton.control;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import edu.chl.proton.model.IDocumentHandler;
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.model.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,7 +19,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +32,7 @@ import java.util.List;
 public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
+    private IStageHandler stage;
 
     @FXML
     HTMLEditor htmlEditor;
@@ -45,6 +43,7 @@ public class MarkdownTabController {
         WorkspaceFactory factory = new WorkspaceFactory();
         file = factory.getWorkspace();
         document = factory.getWorkspace();
+        stage = factory.getWorkspace();
         hideHTMLEditorToolbars(htmlEditor);
 
         htmlEditor.setOnKeyReleased(new EventHandler<KeyEvent>()
@@ -132,13 +131,17 @@ public class MarkdownTabController {
     @FXML
     public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
         String path = "./test.pdf";
-        com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
-        PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(path));
-        writer.setInitialLeading(12);
-        doc.open();
-        XMLWorkerHelper.getInstance().parseXHtml(writer, doc,
-                new ByteArrayInputStream(document.getHTML().getBytes()));
-        doc.close();
+        String title = "Output filepath";
+        TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
+        if ((path = prompt.getResult()) != null) {
+            com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
+            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(path));
+            writer.setInitialLeading(12);
+            doc.open();
+            XMLWorkerHelper.getInstance().parseXHtml(writer, doc,
+                    new ByteArrayInputStream(document.getHTML().getBytes()));
+            doc.close();
+        }
     }
 
     @FXML
