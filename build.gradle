@@ -38,6 +38,5 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
     compile group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.11'
-
 }
 

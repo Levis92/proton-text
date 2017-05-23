@@ -4,6 +4,13 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import edu.chl.proton.model.*;
+import com.sun.javafx.webkit.Accessor;
+import com.sun.webkit.WebPage;
+import edu.chl.proton.event.TextUpdateEvent;
+import edu.chl.proton.model.IDocumentHandler;
+import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.Workspace;
+import edu.chl.proton.model.WorkspaceFactory;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,12 +24,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -33,14 +43,19 @@ public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
     private IStageHandler stage;
+    private Observable observable;
 
     @FXML
     HTMLEditor htmlEditor;
     @FXML
     WebView webView;
 
+
+
     public void initialize() {
         WorkspaceFactory factory = new WorkspaceFactory();
+        observable = factory.getWorkspace();
+        UpdateView view = new UpdateView(observable);
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
@@ -54,15 +69,9 @@ public class MarkdownTabController {
                 if (isValidEvent(event))
                 {
                     String text = htmlEditor.getHtmlText();
-                    webView.getEngine().loadContent(text);
-                    //System.out.println(text);
                     List<String> doc;
                     doc = html2text(text);
-                    /*for (String row : doc) {
-                        System.out.println(row);
-                    }*/
                     document.setText(doc);
-                    System.out.println(document.getText());
                 }
             }
 
@@ -97,7 +106,10 @@ public class MarkdownTabController {
                 }
             }
         });
+
     }
+
+
 
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
     public static void hideHTMLEditorToolbars(final HTMLEditor editor)
@@ -146,63 +158,105 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickLinkButton(ActionEvent event) throws IOException {
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "[link](git )");
     }
 
     @FXML
     public void onClickHeadingButton(ActionEvent event) throws IOException {
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "#");
     }
 
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
             // Four asterixes and move cursor two steps back. Method in Document that takes in
             // this and updates the aktuella line?
-            document.insertPart("****");
             // Position.setX(Position.getX()-2)?
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "****");
+
 
     }
 
     @FXML
     public void onClickItalicButton(ActionEvent event) throws IOException {
-        document.insertPart("**");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "**");
     }
-
+        // 1. Cursors plats 2. setText, med htmltext
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
         // Go to beginning of line. Set cursor?
         // Position.setX(0);
-        document.insertPart("> ");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "> ");
     }
 
     @FXML
     public void onClickImageButton(ActionEvent event) throws IOException {
-
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "![alt text]([url] \"Title\")");
     }
 
     @FXML
     public void onClickCodeButton(ActionEvent event) throws IOException {
         // Go to new line.
-        document.insertPart("*** ");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "***");
         // Go to new line.
     }
 
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
         // Go to beginning of line
-        document.insertPart("1.   ");//the actual number has no importance.
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "1.   ");
+
         // Should it repeat itself?
     }
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
         // Go to beginning of line
-        document.insertPart("*   ");
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "*     ");
+
     }
 
     @FXML
     public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
-        document.insertPart("****");
+        //newline
+        WebView webView = (WebView) htmlEditor.lookup("WebView");
+        WebPage webPage = Accessor.getPageFor(webView.getEngine());
+        webPage.executeCommand("insertText", "*****");
+        //newline
+    }
+
+    public class UpdateView implements Observer {
+        Observable observable;
+        public UpdateView(Observable observable){
+            this.observable = observable;
+            observable.addObserver(this);
+        }
+
+
+        @Override
+        public void update(Observable o, Object arg) {
+            String text = document.getText();
+            htmlEditor.setHtmlText(text);
+            String html = document.getHTML();
+            webView.getEngine().loadContent(html);
+        }
     }
 
 }
