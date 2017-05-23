@@ -20,6 +20,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -130,14 +131,13 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
-        System.out.println(webView.getEngine().getDocument().getXmlEncoding());
         String path = "./test.pdf";
         com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
         PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream(path));
         writer.setInitialLeading(12);
         doc.open();
         XMLWorkerHelper.getInstance().parseXHtml(writer, doc,
-                new FileInputStream(document.getHTML()));
+                new ByteArrayInputStream(document.getHTML().getBytes()));
         doc.close();
     }
 
