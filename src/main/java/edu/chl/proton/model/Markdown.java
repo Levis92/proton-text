@@ -529,7 +529,6 @@ public class Markdown implements IDoc {
 
             // check for code
             match = codePattern("code").matcher(tmp);
-            System.out.println("code " + match.find()); // TODO HITTAR PATTERN, SKRIVER TRUE MEN FÅR INTE FORMATERING
             sb = new StringBuffer();
             while (match.find()) {
                 match.appendReplacement(sb, style.getBoldStyle(match.group(0))); // TODO SHOULD BE CODE
