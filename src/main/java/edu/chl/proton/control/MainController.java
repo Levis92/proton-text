@@ -199,6 +199,10 @@ public class MainController {
     }
 
     public void onClickCloseApplication(ActionEvent event) {
+        String title = "Close application";
+        String message = "Are you sure you want to quit Proton Text?";
+        PopupWindow popup = new PopupWindow(stage.getStage(),title,message);
+        if (popup.resultIsYes()) stage.getStage().close();
     }
 
     public class UpdateFooter implements Observer {
