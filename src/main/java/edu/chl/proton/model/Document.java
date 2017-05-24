@@ -21,9 +21,9 @@ public class Document {
         this.docType = type;
     }
 
-    public Document(IDoc type, String path){
+    public Document(IDoc type, File file){
         this.docType = type;
-        file = new FileUtility(path);
+        this.file = (FileUtility) file;
     }
 
     /**
@@ -159,8 +159,19 @@ public class Document {
      * Saves the text in the file.
      * @throws IOException
      */
-    protected void save() throws IOException{
+    protected void save(String path) throws IOException{
+        file = new FileUtility(path);
         file.save(lines);
+    }
+
+
+    protected boolean save() throws  IOException {
+        try{
+            file.save(lines);
+            return true;
+        } catch (NullPointerException ex) {
+            return false;
+        }
     }
 
     /**
