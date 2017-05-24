@@ -178,21 +178,8 @@ public class MainController {
         String path = "./Rename.txt";
         String title = "Set new name";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        int pLength = prompt.getResult().length();
-        while ( (pLength <7)==TRUE  ||
-                !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
-                        (prompt.getResult()).substring(pLength-4).equals(".txt")) ||
-                !(prompt.getResult().substring(0,2).equals("./"))
-                )
-        {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Write a correct file name.", ButtonType.OK);
-            alert.showAndWait();
-            prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
-            pLength=prompt.getResult().length();
-        }
+        checkCorrectfileName(prompt, title);
         //TODO: fånga Nullpointer när man kryssar
-
-
 
     }
 
@@ -200,7 +187,23 @@ public class MainController {
         String path = "./oldName.txt";
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
+        checkCorrectfileName(prompt, title);
+
+    }
+    private TextPrompt checkCorrectfileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
+        while ( (pLength <7)==TRUE  ||
+                !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
+                        (prompt.getResult()).substring(pLength-4).equals(".txt")) ||
+                !(prompt.getResult().substring(0,2).equals("./"))
+                )
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Write a correct file name.");
+            alert.showAndWait();
+            prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
+            pLength=prompt.getResult().length();
+        }
+        return prompt;
 
     }
 }
