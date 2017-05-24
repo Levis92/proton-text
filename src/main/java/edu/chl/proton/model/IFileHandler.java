@@ -21,5 +21,7 @@ public interface IFileHandler {
 
     File getLastEditedFile(String dirPath);
 
+    String getDateForLastEdited();
+
 
 }

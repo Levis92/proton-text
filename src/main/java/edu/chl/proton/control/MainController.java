@@ -204,10 +204,10 @@ public class MainController {
         @Override
         public void update(Observable o, Object arg) {
 
-            /* String text = file.getDateForLastEdited();
+            String text = file.getDateForLastEdited();
             lastSaved.setText(text);
             String path = file.getPath();
-            filePath.setText(path); */
+            filePath.setText(path);
 
         }
     }

@@ -94,6 +94,11 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
+    public String getDateForLastEdited() {
+        return currentDocument.getDateForLastEdited();
+    }
+
+    @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
         setChanged();
