@@ -16,7 +16,7 @@ import java.util.Observable;
 public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
-    private FileUtility currentDirectory;
+    private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
     public Workspace() throws IOException {
@@ -50,7 +50,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         if(!directory.isDirectory()) {
             throw new IOException("Trying to set a file as directory");
         }
-        currentDirectory = (FileUtility) directory;
+        currentDirectory = directory;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     @Override
     public void setDirectory(File folder) {
         if (folder.isDirectory()) {
-            currentDirectory = (FileUtility) folder;
+            currentDirectory = folder;
         }
     }
 

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.BufferedReader;
@@ -162,13 +163,13 @@ public class MainController {
 
     @FXML
     public void onClickChangeDirectory(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Change directory");
-        File file = fileChooser.showOpenDialog(stage.getStage());
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Change directory");
+        File file = directoryChooser.showDialog(stage.getStage());
         if (file != null && file.isDirectory()) {
-            //this.file.setCurrentDirectory(file);
-            //File currentDir = new File(this.file.getCurrentDirectory());
-            //findFiles(currentDir, null);
+            this.file.setCurrentDirectory(file);
+            File currentDir = new File(this.file.getCurrentDirectory().getPath());
+            findFiles(currentDir, null);
         }
     }
 

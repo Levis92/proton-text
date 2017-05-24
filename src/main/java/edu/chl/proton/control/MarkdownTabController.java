@@ -120,14 +120,19 @@ public class MarkdownTabController {
         });
     }
 
-    public static List<String> html2text(String html) {
+    /**
+     * Takes in a String of HTML and separates the content in each paragraph-tag into a String.
+     * Each String is added to an ArrayList that is returned.
+     * @param html
+     * @return a list of rows that is stripped of HTML-tags
+     */
+
+    private static List<String> html2text(String html) {
         ArrayList<String> rowList = new ArrayList<>();
         Document doc = Jsoup.parse(html);
         Element table = doc.select("body").get(0);
         Elements rows = table.select("p");
-
-        for (int i = 0; i < rows.size(); i++) {
-            Element row = rows.get(i);
+        for (Element row : rows) {
             rowList.add(row.text());
         }
         return rowList;
