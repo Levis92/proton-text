@@ -1,6 +1,7 @@
 package edu.chl.proton.model;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -22,7 +23,7 @@ public class Document {
 
     public Document(IDoc type, String path){
         this.docType = type;
-        file = new File(path);
+        file = new FileUtility(path);
     }
 
     /**
@@ -43,24 +44,15 @@ public class Document {
     /**
      * @return the file
      */
-    protected FileUtility getFile(){
+    protected File getFile(){
         return this.file;
     }
     /**
      * sets the file
      * @param file
      */
-    protected void setFile(FileUtility file){
-        this.file = file;
-    }
-
-    /**
-     * Adds the file to the search path.
-     * @param path
-     */
-    protected void addFile(String path){
-        file.setPath(path);
-        // setFile(rootFolder.getFileFromPath(path)); ???
+    protected void setFile(File file){
+        this.file = (FileUtility) file;
     }
 
     /**
