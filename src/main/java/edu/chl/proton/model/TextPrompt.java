@@ -33,8 +33,9 @@ public class TextPrompt {
         dialog.initOwner(owner);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initModality(Modality.WINDOW_MODAL);
+        dialog.setWidth(350.0);
         dialog.setX(owner.getX() + owner.getWidth()/2 - dialog.getWidth()/2);
-        dialog.setY(owner.getY() + 250);
+        dialog.setY(owner.getY() + 220);
 
         final JFXTextField textField = new JFXTextField();
         final JFXButton submitButton = new JFXButton("Submit");
