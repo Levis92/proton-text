@@ -29,26 +29,39 @@ public class EditableTreeCell extends TreeCell<File> {
 
         MenuItem addMenuItem = new MenuItem("Add new");
         addMenu.getItems().add(addMenuItem);
-        addMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                TreeItem newFile = new TreeItem<File>();
+        addMenuItem.setOnAction(t -> {
 
-                File f = new File("/Users/stinawerme/code/proton-text/Proton Text Directory/Föreläsningar", "hejhej");
+            TreeItem<File> currentTreeItem = getTreeItem();
+            File currentFile = currentTreeItem.getValue();
 
-                f.getParentFile().mkdirs();
+            String path = null;
+            try {
+                path = currentFile.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                try {
-                    f.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            File f = new File(path, "untitled.md");
+
+            f.getParentFile().mkdirs();
+            int number = 2;
+
+            try {
+                while (f.exists()) {
+                    f = new File(path, "untitled" + number +".md");
+                    number++;
                 }
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                newFile.setValue(f);
-                getTreeItem().getChildren().add(newFile);
+            TreeItem newTreeItem = new TreeItem<File>();
+            newTreeItem.setValue(f);
+            currentTreeItem.getChildren().add(newTreeItem);
 
-                if (!newFile.getParent().isExpanded()) {
-                    newFile.getParent().setExpanded(true);
-                }
+            if (!currentTreeItem.isExpanded()) {
+                currentTreeItem.setExpanded(true);
             }
         });
 

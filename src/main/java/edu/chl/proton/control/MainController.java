@@ -66,7 +66,7 @@ public class MainController {
         findFiles(currentDir, null);
 
         treeView.setEditable(true);
-        //treeView.setShowRoot(false);
+        treeView.setShowRoot(false);
         treeView.setCellFactory(p -> new EditableTreeCell());
     }
 
