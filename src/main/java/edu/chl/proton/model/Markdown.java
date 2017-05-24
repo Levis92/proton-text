@@ -23,14 +23,12 @@ public class Markdown implements IDoc {
      * one row at a time.
      * @return the list with the resulting HTML from the markdown text
      */
-    protected List<String> getHTML(){
-        String tmp;
-        List<String> formattedLines = new ArrayList<>();
+    public String getHTML(){
+        String tmp = "";
         for(String str : lines){
-            tmp = checkForMarkdown(str);
-            formattedLines.add(tmp);
+            tmp = tmp + " " +checkForMarkdown(str);
         }
-        return formattedLines;
+        return tmp;
     }
 
     /**

@@ -75,71 +75,6 @@ public class Document {
     }
 
     /**
-     * adds a row at the end of the text
-     * @param lines
-     */
-    protected void addLines(String lines){
-        this.lines.add(lines);
-    }
-
-    /**
-     * Removes one row in the document
-     * @param index
-     */
-    protected void removeLines(int index){
-        lines.remove(index);
-    }
-
-    /**
-     * Removes all text in the document.
-     */
-    protected void removeAllLines(){
-        lines.clear();
-    }
-
-    /**
-     * Inserts a char at the cursor's position and
-     * moves the cursor one step forward. If Enter was
-     * the key pressed, moves the cursor one row down.
-     * @param ch
-     */
-    protected void insertChar(char ch){
-
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        // check if Enter was the key pressed
-        if(ch == '\r'){
-            cursor.setPosition(row + 1, col);
-        } else {
-            String tmp = lines.get(row);
-
-            StringBuilder sb = new StringBuilder(tmp);
-            sb.insert(col, ch);
-
-            lines.set(row, sb.toString());
-            cursor.setPosition(row, col + 1);
-        }
-
-    }
-
-    /**
-     * Deletes the char at the cursor's position and
-     * moves the cursor one step back.
-     */
-    protected void deleteChar(){
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        String tmp = lines.get(row);
-        StringBuilder sb = new StringBuilder(tmp);
-        sb.deleteCharAt(col);
-
-        lines.set(row, sb.toString());
-        cursor.setPosition(row, col - 1);
-    }
-
-    /**
      * Calls on the appropriate class for getText
      * @returna list of the text
      */
@@ -153,6 +88,10 @@ public class Document {
      */
     protected void setText(List<String> text){
         docType.setText(text);
+    }
+
+    public String getHTML(){
+        return docType.getHTML();
     }
 
     /**
@@ -179,6 +118,10 @@ public class Document {
      */
     protected void remove(){
         file.remove();
+    }
+
+    protected String getDateForLastEdited(){
+        return file.getDateForlastEdited();
     }
 
     /**
