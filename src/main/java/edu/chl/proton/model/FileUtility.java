@@ -53,7 +53,7 @@ public class FileUtility extends File {
 
     /**
      * Save file
-     * @param text
+     * @param text List<String>
      * @throws IOException
      */
     protected void save(List<String> text) throws IOException {
@@ -87,7 +87,7 @@ public class FileUtility extends File {
 
     /**
      * Get last edited file
-     * @param dirPath
+     * @param dirPath String
      * @return File
      */
     private File getLastEditedFile(String dirPath) {
