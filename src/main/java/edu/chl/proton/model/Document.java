@@ -120,6 +120,10 @@ public class Document {
         file.remove();
     }
 
+    /**
+     * Returns the date of the last time the file was editet.
+     * @return string with the date of last edit
+     */
     protected String getDateForLastEdited(){
         return file.getDateForlastEdited();
     }
