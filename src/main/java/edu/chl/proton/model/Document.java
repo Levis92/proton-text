@@ -155,6 +155,10 @@ public class Document {
         docType.setText(text);
     }
 
+    public String getHTML(){
+        return docType.getHTML();
+    }
+
     /**
      * Saves the text in the file.
      * @throws IOException
