@@ -120,6 +120,10 @@ public class Document {
         file.remove();
     }
 
+    protected String getDateForLastEdited(){
+        return file.getDateForlastEdited();
+    }
+
     /**
      * Checks if the file is saved
      * @return true or false
