@@ -3,14 +3,9 @@ package edu.chl.proton.control;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import edu.chl.proton.model.*;
 import com.sun.javafx.webkit.Accessor;
 import com.sun.webkit.WebPage;
-import edu.chl.proton.event.TextUpdateEvent;
-import edu.chl.proton.model.IDocumentHandler;
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.Workspace;
-import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.model.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +19,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -195,7 +189,7 @@ public class MarkdownTabController {
         // Position.setX(0);
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "> ");
+        webPage.executeCommand("insertText", "\n> ");
     }
 
     @FXML
@@ -210,7 +204,7 @@ public class MarkdownTabController {
         // Go to new line.
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "***");
+        webPage.executeCommand("insertText", "\n     ");
         // Go to new line.
     }
 
@@ -219,7 +213,7 @@ public class MarkdownTabController {
         // Go to beginning of line
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "1.   ");
+        webPage.executeCommand("insertText", "\n1.   ");
 
         // Should it repeat itself?
     }
@@ -229,7 +223,7 @@ public class MarkdownTabController {
         // Go to beginning of line
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "*     ");
+        webPage.executeCommand("insertText", "\n*     ");
 
     }
 
@@ -238,7 +232,7 @@ public class MarkdownTabController {
         //newline
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "*****");
+        webPage.executeCommand("insertText", "\n*****\n");
         //newline
     }
 

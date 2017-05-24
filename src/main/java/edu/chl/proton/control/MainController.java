@@ -2,7 +2,6 @@ package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -171,5 +170,21 @@ public class MainController {
             treeViewPane.setMinWidth(150);
             splitPane.getStyleClass().removeAll("hide");
         }
+    }
+
+    public void onClickRenameFile(ActionEvent actionEvent) {
+        String path = "./Rename.txt";
+        String title = "Set new name";
+        TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
+        if ((path = prompt.getResult()) != null) {
+            //skicka vidare till typ av fil?
+
+        }
+    }
+
+    public void onClickSaveAs(ActionEvent actionEvent) {
+        String path = "./oldName.txt";
+        String title = "Save file as";
+        TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
     }
 }

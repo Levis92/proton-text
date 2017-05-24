@@ -57,7 +57,9 @@
                               <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
-                      <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Save as..." />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickSaveAs" text="Save as..." />
+                      <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickRenameFile" text="Rename" />
                       <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickChangeDirectory" text="Change directory..." />
                   </items>
