@@ -20,6 +20,11 @@ public class Document {
         this.docType = type;
     }
 
+    public Document(IDoc type, String path){
+        this.docType = type;
+        file = new File(path);
+    }
+
     /**
      * @return the cursor
      */
