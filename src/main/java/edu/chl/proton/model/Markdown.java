@@ -26,7 +26,7 @@ public class Markdown implements IDoc {
     public String getHTML(){
         String tmp = "";
         for(String str : lines){
-            tmp = tmp + checkForMarkdown(str);
+            tmp = tmp + " " +checkForMarkdown(str);
         }
         return tmp;
     }
