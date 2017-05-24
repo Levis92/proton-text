@@ -203,11 +203,6 @@ public class MainController {
         String message = "Are you sure you want to quit Proton Text?";
         PopupWindow popup = new PopupWindow(stage.getStage(),title,message);
         if (popup.resultIsYes()) stage.getStage().close();
-        /* if(!currentDocument.isSaved()) {
-            String title = "Filepath";
-            String input = file.getCurrentDirectory().getPath() + "/filename.md";
-            PopupWindow popup = new PopupWindow(stage.getStage(), title, input);
-        } */
     }
 
     public class UpdateFooter implements Observer {
