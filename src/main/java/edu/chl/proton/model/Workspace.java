@@ -1,17 +1,22 @@
 package edu.chl.proton.model;
 
+import edu.chl.proton.Protontext;
+import javafx.stage.Stage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
-public class Workspace implements IFileHandler, IDocumentHandler {
+
+public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
-    private Folder currentDirectory;
+    private java.io.File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
     public Workspace() {
@@ -21,35 +26,42 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     }
 
 
-    public void setCurrentDocument(Document doc) {
-        currentDocument = doc;
+    public void setCurrentDocument(int index) {
+        currentDocument = tabs.get(index);
     }
 
-    public Document getCurrentDocument() {
-        return currentDocument;
+    public int getCurrentDocument() {
+        return tabs.indexOf(currentDocument);
     }
 
     public void saveCurrentDocument() throws IOException {
        currentDocument.save();
     }
 
-    public void setCurrentDirectory(Folder folder) {
-        currentDirectory = folder;
+    public void setCurrentDirectory(FileUtility directory) throws  IOException {
+        if(!directory.isDirectory()) {
+            throw new IOException("Trying to set a file as directory");
+        }
+
+        currentDirectory = directory;
     }
 
     public String getCurrentDirectory() {
-        return currentDirectory == null ? "./" : currentDirectory.getPath();
+        return currentDirectory == null ? "./Proton Text Directory" : currentDirectory.getPath();
     }
 
 
     public void createDocument(DocumentType type) {
-        factory.createDocument(type);
+        Document doc = factory.createDocument(type);
+        currentDocument = doc;
+        tabs.add(doc);
     }
 
     @Override
     public void openDocument(String filePath) {
-        factory.getDocument(filePath);
-
+        Document doc = factory.getDocument(filePath);
+        currentDocument = doc;
+        tabs.add(doc);
     }
 
     @Override
@@ -57,9 +69,9 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     }
 
-    public void removeDocument(Document doc) {
-        if (tabs.contains(doc)) {
-            tabs.remove(doc);
+    public void removeDocument(int index) {
+        if (tabs.contains(tabs.get(index))) {
+            tabs.remove(tabs.get(index));
         }
     }
 
@@ -68,22 +80,20 @@ public class Workspace implements IFileHandler, IDocumentHandler {
 
     }
 
-    @Override
-    public String getDirectory() {
-        return null;
-    }
-
-    public void setDirectory(Folder folder) {
+    public void setDirectory(FileUtility folder) {
         currentDirectory = folder;
     }
 
-    public Folder getDirectory(Folder folder) {
+    public File getDirectory() {
         return currentDirectory;
     }
 
     @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
+        setChanged();
+        notifyObservers();
+
     }
 
     @Override
@@ -99,5 +109,10 @@ public class Workspace implements IFileHandler, IDocumentHandler {
     @Override
     public String getHTML() {
         return null;
+    }
+
+    @Override
+    public Stage getStage() {
+        return Protontext.getStage();
     }
 }

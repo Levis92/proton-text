@@ -20,7 +20,7 @@ public class FileTest {
 
     @Test
     public void saveFileTest() throws IOException {
-        File classUnderTest = new File("hej.txt");
+        FileUtility classUnderTest = new FileUtility("hej.txt");
         List<String> list = new ArrayList<>();
         for(int i = 0; i < 5; i++) {
             list.add("Line " + i);

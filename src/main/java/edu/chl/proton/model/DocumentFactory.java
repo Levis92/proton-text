@@ -6,7 +6,7 @@ package edu.chl.proton.model;
  */
 public class DocumentFactory {
     //use getShape method to get object of type shape
-    private File file; //fileName maybe is more tydlig?
+    private FileUtility file; //fileName maybe is more tydlig?
 
 
     public DocumentFactory(){
