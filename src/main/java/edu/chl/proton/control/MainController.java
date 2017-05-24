@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Boolean.TRUE;
+
 
 /**
  * Anton Levholm
@@ -176,18 +178,19 @@ public class MainController {
         String path = "./Rename.txt";
         String title = "Set new name";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        while ( prompt.getResult().length() <6 ||  ((prompt.getResult()).charAt(prompt.getResult().length()-3))
-                 )
+        int pLength = prompt.getResult().length();
+        while ( (pLength <7)==TRUE  ||
+                !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
+                        (prompt.getResult()).substring(pLength-4).equals(".txt")) ||
+                !(prompt.getResult().substring(0,2).equals("./"))
+                )
         {
-
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Write a correct file name.", ButtonType.OK);
+            alert.showAndWait();
+            prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
+            pLength=prompt.getResult().length();
         }
-            if ((!path.equals(prompt.getResult())) && 1 == 1) { // check if user has written correctly
-                //Spara som, fast endast då man skriver nytt namn
-                //System.out.println(prompt.getResult());
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Write a correct file name.", ButtonType.OK);
-                alert.showAndWait();
-                prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
-            }
+        //TODO: fånga Nullpointer när man kryssar
 
 
 
@@ -197,5 +200,7 @@ public class MainController {
         String path = "./oldName.txt";
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
+        int pLength = prompt.getResult().length();
+
     }
 }
