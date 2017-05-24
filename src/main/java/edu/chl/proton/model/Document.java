@@ -47,6 +47,15 @@ public class Document {
     protected File getFile(){
         return this.file;
     }
+
+    /**
+     *  Gets the path to the file.
+     * @return the path to the file
+     */
+    protected String getPath(){
+        return file.getPath();
+    }
+
     /**
      * sets the file
      * @param file
