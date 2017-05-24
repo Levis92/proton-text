@@ -99,6 +99,11 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
+    public String getPath() {
+        return currentDocument.getPath();
+    }
+
+    @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
         setChanged();

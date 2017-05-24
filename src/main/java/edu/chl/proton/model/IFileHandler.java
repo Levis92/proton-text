@@ -23,5 +23,7 @@ public interface IFileHandler {
 
     String getDateForLastEdited();
 
+    String getPath();
+
 
 }
