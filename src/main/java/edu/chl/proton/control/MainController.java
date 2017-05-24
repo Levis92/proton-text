@@ -2,14 +2,13 @@ package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -61,7 +60,7 @@ public class MainController {
         addNewTab("Untitled.md");
         document.createDocument(DocumentType.MARKDOWN);
 
-        File currentDir = new File(file.getCurrentDirectory()); // current directory
+        File currentDir = new File(file.getCurrentDirectory().getPath()); // current directory
         findFiles(currentDir, null);
 
         treeView.setEditable(true);
@@ -150,7 +149,14 @@ public class MainController {
 
     @FXML
     public void onClickSaveButton(ActionEvent event) throws IOException {
-        file.saveCurrentDocument();
+        if (!file.saveCurrentDocument()) {
+            String title = "Filepath";
+            String input = file.getCurrentDirectory().getPath() + "/filename.md";
+            TextPrompt prompt = new TextPrompt(stage.getStage(),title,input);
+            if ((input = prompt.getResult()) != null) {
+                file.saveCurrentDocument(input);
+            }
+        }
     }
 
     @FXML
@@ -165,13 +171,13 @@ public class MainController {
 
     @FXML
     public void onClickChangeDirectory(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Change directory");
-        File file = fileChooser.showOpenDialog(stage.getStage());
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Change directory");
+        File file = directoryChooser.showDialog(stage.getStage());
         if (file != null && file.isDirectory()) {
-            //this.file.setCurrentDirectory(file);
-            //File currentDir = new File(this.file.getCurrentDirectory());
-            //findFiles(currentDir, null);
+            this.file.setCurrentDirectory(file);
+            File currentDir = new File(this.file.getCurrentDirectory().getPath());
+            findFiles(currentDir, null);
         }
     }
 
@@ -190,7 +196,7 @@ public class MainController {
         }
     }
 
-    public void clickOnCloseApplication(ActionEvent event) {
+    public void onClickCloseApplication(ActionEvent event) {
     }
 
     public class UpdateView implements Observer {

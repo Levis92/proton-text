@@ -9,13 +9,15 @@ import java.io.File;
  */
 public interface IFileHandler {
 
-    void saveCurrentDocument() throws IOException;
+    boolean saveCurrentDocument() throws IOException;
 
-    void setCurrentDirectory(FileUtility directory) throws  IOException;
+    void saveCurrentDocument(String filepath) throws IOException;
 
-    String getCurrentDirectory();
+    void setCurrentDirectory(File directory) throws  IOException;
 
-    void setDirectory(String folderPath);
+    File getCurrentDirectory();
+
+    void setDirectory(File file);
 
     File getDirectory();
 

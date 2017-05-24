@@ -23,7 +23,7 @@ public class TextPrompt {
     }
 
     public TextPrompt(Window owner, String title) {
-        addPrompt(owner, title, "");
+        addPrompt(owner, title, null);
     }
 
     private void addPrompt(Window owner, String title, String input) {
@@ -33,8 +33,9 @@ public class TextPrompt {
         dialog.initOwner(owner);
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initModality(Modality.WINDOW_MODAL);
-        dialog.setX(owner.getX() + owner.getWidth()/2);
-        dialog.setY(owner.getY() + 50);
+        dialog.setWidth(350.0);
+        dialog.setX(owner.getX() + owner.getWidth()/2 - dialog.getWidth()/2);
+        dialog.setY(owner.getY() + 220);
 
         final JFXTextField textField = new JFXTextField();
         final JFXButton submitButton = new JFXButton("Submit");
@@ -46,7 +47,7 @@ public class TextPrompt {
         submitButton.getStylesheets().add("edu/chl/proton/view/style.css");
         submitButton.getStyleClass().add("button");
         textField.setMinHeight(JFXTextField.USE_PREF_SIZE);
-        textField.insertText(0, input);
+        if (input != null) textField.insertText(0, input);
 
         final VBox layout = new VBox(10);
         layout.setAlignment(Pos.CENTER_RIGHT);
