@@ -47,6 +47,15 @@ public class Document {
     protected File getFile(){
         return this.file;
     }
+
+    /**
+     *  Gets the path to the file.
+     * @return the path to the file
+     */
+    protected String getPath(){
+        return file.getPath();
+    }
+
     /**
      * sets the file
      * @param file
@@ -120,8 +129,12 @@ public class Document {
         file.remove();
     }
 
+    /**
+     * Returns the date of the last time the file was editet.
+     * @return string with the date of last edit
+     */
     protected String getDateForLastEdited(){
-        return file.getDateForlastEdited();
+        return file.getDateForLastEdited();
     }
 
     /**
