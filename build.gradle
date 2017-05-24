@@ -32,5 +32,11 @@ dependencies {
 
     // jsoup HTML parser library @ http://jsoup.org/
     compile 'org.jsoup:jsoup:1.10.2'
+
+    // https://mvnrepository.com/artifact/com.itextpdf/itextg
+    compile group: 'com.itextpdf', name: 'itextg', version: '5.5.10'
+
+    // https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker
+    compile group: 'com.itextpdf.tool', name: 'xmlworker', version: '5.5.11'
 }
 

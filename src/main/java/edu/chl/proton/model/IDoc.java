@@ -9,6 +9,6 @@ import java.util.List;
 public interface IDoc {
 
     String getText();
-    String setText(List<String> str);
+    void setText(List<String> str);
 
 }

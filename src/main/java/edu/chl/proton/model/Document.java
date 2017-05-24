@@ -1,6 +1,7 @@
 package edu.chl.proton.model;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -18,6 +19,11 @@ public class Document {
 
     public Document(IDoc type){
         this.docType = type;
+    }
+
+    public Document(IDoc type, File file){
+        this.docType = type;
+        this.file = (FileUtility) file;
     }
 
     /**
@@ -38,24 +44,15 @@ public class Document {
     /**
      * @return the file
      */
-    protected FileUtility getFile(){
+    protected File getFile(){
         return this.file;
     }
     /**
      * sets the file
      * @param file
      */
-    protected void setFile(FileUtility file){
-        this.file = file;
-    }
-
-    /**
-     * Adds the file to the search path.
-     * @param path
-     */
-    protected void addFile(String path){
-        file.setPath(path);
-        // setFile(rootFolder.getFileFromPath(path)); ???
+    protected void setFile(File file){
+        this.file = (FileUtility) file;
     }
 
     /**
@@ -162,8 +159,19 @@ public class Document {
      * Saves the text in the file.
      * @throws IOException
      */
-    protected void save() throws IOException{
+    protected void save(String path) throws IOException{
+        file = new FileUtility(path);
         file.save(lines);
+    }
+
+
+    protected boolean save() throws  IOException {
+        try{
+            file.save(lines);
+            return true;
+        } catch (NullPointerException ex) {
+            return false;
+        }
     }
 
     /**

@@ -36,53 +36,58 @@
             </Pane>
             <MenuBar id="menu-bar" fx:id="menuBar" layoutX="6.0" layoutY="8.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
+                  <Menu styleClass="menu" mnemonicParsing="false" text="Proton Text">
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#clickOnCloseApplication" text="Close" />
+                  </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="File">
                   <items>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickNewButton" text="New">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="N" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickOpenButton" text="Open...">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="O" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
                     <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickSaveButton" text="Save">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Save as..." />
                       <SeparatorMenuItem mnemonicParsing="false" />
-                      <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Change directory..." />
-                      <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickChangeDirectory" text="Change directory..." />
                   </items>
                 </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="Edit">
                   <items>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickUndoButton" text="Undo">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="Z" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
-                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickRedoButton" text="Redo" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickRedoButton" text="Redo">
+                          <accelerator>
+                              <KeyCodeCombination alt="UP" code="Z" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
+                          </accelerator>
+                      </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Cut">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="X" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Copy">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="C" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Paste">
                           <accelerator>
-                              <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                              <KeyCodeCombination alt="UP" code="V" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
                   </items>
@@ -91,7 +96,18 @@
                     <items>
                         <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickToggleTreeViewVisibility" text="Show/Hide filetree">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                                <KeyCodeCombination alt="UP" code="H" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickNextTab" text="Next tab">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="L" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Previous tab">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="K" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>

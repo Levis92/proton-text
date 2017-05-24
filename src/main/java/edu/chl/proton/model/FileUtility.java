@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
  */
 public class FileUtility extends File {
 
-    private java.io.File file;
+    private File file;
     private boolean isSaved;
 
 
