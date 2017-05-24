@@ -19,11 +19,12 @@ public class Document {
 
     public Document(IDoc type){
         this.docType = type;
+        file = new FileUtility();
     }
 
-    public Document(IDoc type, String path){
+    public Document(IDoc type, File file){
         this.docType = type;
-        file = new FileUtility(path);
+        this.file = (FileUtility) file;
     }
 
     /**
