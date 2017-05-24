@@ -114,6 +114,16 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
+    public boolean isSaved() {
+        return currentDocument.isSaved();
+    }
+
+    @Override
+    public boolean exists() {
+        return false;
+    }
+
+    @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
         setChanged();

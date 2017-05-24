@@ -52,7 +52,9 @@ public class MainController {
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
         observable = factory.getWorkspace();
-        new UpdateView(observable);
+        new UpdateFooter(observable);
+        filePath.setText("");
+        lastSaved.setText("Not saved");
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         treeView.managedProperty().bind(treeView.visibleProperty());
         selectionModel = tabPane.getSelectionModel();
@@ -199,9 +201,9 @@ public class MainController {
     public void onClickCloseApplication(ActionEvent event) {
     }
 
-    public class UpdateView implements Observer {
+    public class UpdateFooter implements Observer {
         Observable observable;
-        public UpdateView(Observable observable){
+        public UpdateFooter(Observable observable){
             this.observable = observable;
             observable.addObserver(this);
         }
@@ -209,11 +211,15 @@ public class MainController {
 
         @Override
         public void update(Observable o, Object arg) {
-
-            String text = file.getDateForLastEdited();
-            lastSaved.setText(text);
-            String path = file.getPath();
-            filePath.setText(path);
+            if (file.exists()) {
+                String text = file.getDateForLastEdited();
+                lastSaved.setText("Lased saved: " + text);
+                String path = file.getPath();
+                filePath.setText("Path: " + path);
+            } else {
+                filePath.setText("");
+                lastSaved.setText("Not saved");
+            }
 
         }
     }

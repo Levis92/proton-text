@@ -27,5 +27,7 @@ public interface IFileHandler {
 
     String getPath();
 
+    boolean isSaved();
 
+    boolean exists();
 }
