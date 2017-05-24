@@ -189,12 +189,12 @@ public class MainController {
     }
 
 
-    public void onClickRenameFile(ActionEvent actionEvent) {
+    public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
         String path = "./Rename.txt";
         String title = "Set new name";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        checkCorrectFileName(prompt, title);
-        //TODO: Spara
+        String newName=checkCorrectFileName(prompt, title).getResult();
+        file.saveCurrentDocument(newName);
 
     }
 
@@ -202,10 +202,8 @@ public class MainController {
         String path = "./oldName.txt";
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        path=checkCorrectFileName(prompt, title).getResult();
-        //TODO: Spara
-
-        //file.saveCurrentDocument(path);
+        String newName=checkCorrectFileName(prompt, title).getResult();
+        file.saveCurrentDocument(newName);
 
 
     }
