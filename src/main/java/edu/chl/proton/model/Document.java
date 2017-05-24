@@ -125,7 +125,7 @@ public class Document {
      * @return string with the date of last edit
      */
     protected String getDateForLastEdited(){
-        return file.getDateForlastEdited();
+        return file.getDateForLastEdited();
     }
 
     /**
