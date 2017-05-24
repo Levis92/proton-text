@@ -140,8 +140,14 @@ public class MainController {
 
     @FXML
     public void onClickSaveButton(ActionEvent event) throws IOException {
-        // if not saved then
-        file.saveCurrentDocument();
+        if (!file.saveCurrentDocument()) {
+            String title = "Filepath";
+            String input = file.getCurrentDirectory().getPath() + "/filename.md";
+            TextPrompt prompt = new TextPrompt(stage.getStage(),title,input);
+            if ((input = prompt.getResult()) != null) {
+                file.saveCurrentDocument(input);
+            }
+        }
     }
 
     @FXML
