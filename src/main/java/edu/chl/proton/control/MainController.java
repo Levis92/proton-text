@@ -176,10 +176,21 @@ public class MainController {
         String path = "./Rename.txt";
         String title = "Set new name";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        if ((path = prompt.getResult()) != null) {
-            //skicka vidare till typ av fil?
+        while ( prompt.getResult().length() <6 ||  ((prompt.getResult()).charAt(prompt.getResult().length()-3))
+                 )
+        {
 
         }
+            if ((!path.equals(prompt.getResult())) && 1 == 1) { // check if user has written correctly
+                //Spara som, fast endast då man skriver nytt namn
+                //System.out.println(prompt.getResult());
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Write a correct file name.", ButtonType.OK);
+                alert.showAndWait();
+                prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
+            }
+
+
+
     }
 
     public void onClickSaveAs(ActionEvent actionEvent) {
