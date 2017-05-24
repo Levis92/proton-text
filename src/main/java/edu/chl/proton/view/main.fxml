@@ -26,12 +26,12 @@
             <Pane id="footer-pane" layoutX="130.0" layoutY="486.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="200.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Pane prefHeight="30.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                <children>
-                  <Text fill="antiquewhite" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path: ./path/to/file.md" />
+                  <Text fx:id="filePath" fill="antiquewhite" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path: ./path/to/file.md" />
                </children>
             </Pane>
             <Pane prefHeight="30.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Text fill="antiquewhite" wrappingWidth="220.0" style="-fx-text-alignment: right" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last saved: 1 minute ago..." />
+                  <Text fx:id="lastSaved" fill="antiquewhite" wrappingWidth="220.0" style="-fx-text-alignment: right" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last saved: 1 minute ago..." />
                </children>
             </Pane>
             <MenuBar id="menu-bar" fx:id="menuBar" layoutX="6.0" layoutY="8.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

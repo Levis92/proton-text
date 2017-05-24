@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.BufferedReader;
@@ -15,6 +16,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -26,6 +29,7 @@ public class MainController {
     private static IDocumentHandler document;
     private IStageHandler stage;
     SingleSelectionModel<Tab> selectionModel;
+    private Observable observable;
 
     @FXML
     private TabPane tabPane;
@@ -37,6 +41,10 @@ public class MainController {
     private SplitPane splitPane;
     @FXML
     private MenuBar menuBar;
+    @FXML
+    private Text lastSaved;
+    @FXML
+    private Text filePath;
 
 
     public void initialize() throws IOException {
@@ -44,6 +52,8 @@ public class MainController {
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
+        observable = factory.getWorkspace();
+        new UpdateView(observable);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         treeView.managedProperty().bind(treeView.visibleProperty());
         selectionModel = tabPane.getSelectionModel();
@@ -181,5 +191,24 @@ public class MainController {
     }
 
     public void clickOnCloseApplication(ActionEvent event) {
+    }
+
+    public class UpdateView implements Observer {
+        Observable observable;
+        public UpdateView(Observable observable){
+            this.observable = observable;
+            observable.addObserver(this);
+        }
+
+
+        @Override
+        public void update(Observable o, Object arg) {
+
+            /* String text = file.getDateForLastEdited();
+            lastSaved.setText(text);
+            String path = file.getPath();
+            filePath.setText(path); */
+
+        }
     }
 }
