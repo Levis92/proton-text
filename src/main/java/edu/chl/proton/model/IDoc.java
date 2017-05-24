@@ -10,5 +10,6 @@ public interface IDoc {
 
     String getText();
     void setText(List<String> str);
+    String getHTML();
 
 }
