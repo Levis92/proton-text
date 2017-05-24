@@ -61,10 +61,10 @@ public class Markdown implements IDoc {
         Pattern quote;
 
         try {
-            boldItalic = Pattern.compile("\\*{3}([\\w\\d\\W\\D]+)\\*{3}");
-            bold = Pattern.compile("\\*{2}([\\w\\d\\W\\D]+)\\*{2}");
-            italic = Pattern.compile("\\*([\\w\\d]+)\\*");
-            quote = Pattern.compile("\\>(?<text>[^\\>]*)\\\r");
+            boldItalic = Pattern.compile("(\\*{3})(\\b(?:(?!\\\\[*]).)*?\\b)(\\*{3})");
+            bold = Pattern.compile("(?<!\\*)(\\*{2})(\\b(?:(?!\\\\[*]).)*?\\b)(\\*{2})(?!\\*)");
+            italic = Pattern.compile("(?<!\\*)(\\*)(\\b(?:(?!\\\\[*]).)*?\\b)(\\*)(?!\\*)");
+            quote = Pattern.compile("(?m)(^>)(?!>)((.*))"); // \\>(?<text>[^\\>]*)\\\r
         } catch (PatternSyntaxException ex) {
             System.out.println("checkPosture" + ex); // remove in later version
             throw (ex);
@@ -90,20 +90,29 @@ public class Markdown implements IDoc {
      */
     protected String checkPosture(String str){
 
-        // Check for italic and bold
-        Matcher match = posturePattern("boldItalic").matcher(str);
+        // check for quotes
+        Matcher match = posturePattern("quote").matcher(str);
         StringBuffer sb = new StringBuffer();
-        while (match.find()) {
-            match.appendReplacement(sb, "<i><b>$1</b></i>");
+        while(match.find()){
+            match.appendReplacement(sb, "<blockquote>$2</blockquote>");
         }
         match.appendTail(sb);
         String tmp = sb.toString();
+
+        // Check for italic and bold
+        match = posturePattern("boldItalic").matcher(tmp);
+        sb = new StringBuffer();
+        while (match.find()) {
+            match.appendReplacement(sb, "<i><b>$2</b></i>");
+        }
+        match.appendTail(sb);
+        tmp = sb.toString();
 
         // check for bold
         match = posturePattern("bold").matcher(tmp);
         sb = new StringBuffer();
         while(match.find()){
-            match.appendReplacement(sb, "<b>$1</b>");
+            match.appendReplacement(sb, "<b>$2</b>");
         }
         match.appendTail(sb);
         tmp = sb.toString();
@@ -112,16 +121,7 @@ public class Markdown implements IDoc {
         match = posturePattern("italic").matcher(tmp);
         sb = new StringBuffer();
         while(match.find()){
-            match.appendReplacement(sb, "<i>$1</i>");
-        }
-        match.appendTail(sb);
-        tmp = sb.toString();
-
-        // check for quotes
-        match = posturePattern("quote").matcher(tmp);
-        sb = new StringBuffer();
-        while(match.find()){
-            match.appendReplacement(sb, "<blockquote>$1</blockquote>");
+            match.appendReplacement(sb, "<i>$2</i>");
         }
         match.appendTail(sb);
         tmp = sb.toString();
@@ -143,12 +143,12 @@ public class Markdown implements IDoc {
         Pattern h6;
 
         try{
-            h1 = Pattern.compile("\\#(?<text>[^\\#]*)\\\r");
-            h2 = Pattern.compile("\\#{2}(?<text>[^\\#]*)\\\r");
-            h3 = Pattern.compile("\\#{3}(?<text>[^\\#]*)\\\r");
-            h4 = Pattern.compile("\\#{4}(?<text>[^\\#]*)\\\r");
-            h5 = Pattern.compile("\\#{5}(?<text>[^\\#]*)\\\r");
-            h6 = Pattern.compile("\\#{6}(?<text>[^\\#]*)\\\r");
+            h1 = Pattern.compile("(?m)(^#)(?!#)((.*))");
+            h2 = Pattern.compile("(?m)(^#{2})(?!#)((.*))");
+            h3 = Pattern.compile("(?m)(^#{3})(?!#)((.*))");
+            h4 = Pattern.compile("(?m)(^#{4})(?!#)((.*))");
+            h5 = Pattern.compile("(?m)(^#{5})(?!#)((.*))");
+            h6 = Pattern.compile("(?m)(^#{6})(?!#)((.*))");
         } catch (PatternSyntaxException ex){
             System.out.println("checkHeading: " + ex); // remove in later version
             throw(ex);
@@ -182,7 +182,7 @@ public class Markdown implements IDoc {
         Matcher match = headingPattern("h6").matcher(str);
         StringBuffer sb = new StringBuffer();
         if (match.find()) {
-            match.appendReplacement(sb, "<h6>$1</h6>");
+            match.appendReplacement(sb, "<h6>$2</h6>");
             match.appendTail(sb);
             return sb.toString();
         }
@@ -191,7 +191,7 @@ public class Markdown implements IDoc {
         match = headingPattern("h5").matcher(str);
         sb = new StringBuffer();
         if(match.find()) {
-            match.appendReplacement(sb, "<h5>$1</h5>");
+            match.appendReplacement(sb, "<h5>$2</h5>");
             match.appendTail(sb);
             return sb.toString();
         }
@@ -200,7 +200,7 @@ public class Markdown implements IDoc {
         match = headingPattern("h4").matcher(str);
         sb = new StringBuffer();
         if (match.find()){
-            match.appendReplacement(sb, "<h4>$1</h4>");
+            match.appendReplacement(sb, "<h4>$2</h4>");
             match.appendTail(sb);
             return sb.toString();
         }
@@ -209,7 +209,7 @@ public class Markdown implements IDoc {
         match = headingPattern("h3").matcher(str);
         sb = new StringBuffer();
         if (match.find()){
-            match.appendReplacement(sb, "<h3>$1</h3>");
+            match.appendReplacement(sb, "<h3>$2</h3>");
             match.appendTail(sb);
             return sb.toString();
         }
@@ -218,7 +218,7 @@ public class Markdown implements IDoc {
         match = headingPattern("h2").matcher(str);
         sb = new StringBuffer();
         if (match.find()){
-            match.appendReplacement(sb, "<h2>$1</h2>");
+            match.appendReplacement(sb, "<h2>$2</h2>");
             match.appendTail(sb);
             return sb.toString();
         }
@@ -227,7 +227,7 @@ public class Markdown implements IDoc {
         match = headingPattern("h1").matcher(str);
         sb = new StringBuffer();
         if (match.find()){
-            match.appendReplacement(sb, "<h1>$1</h1>");
+            match.appendReplacement(sb, "<h1>$2</h1>");
             match.appendTail(sb);
             return sb.toString();
         }
@@ -245,7 +245,7 @@ public class Markdown implements IDoc {
         Pattern textLink;
         Pattern picLink;
         try{
-            textLink = Pattern.compile("\\[(?<text>[^\\]]*)\\]\\((?<link>[^\\)]*)\\)");
+            textLink = Pattern.compile("(?<!\\!)\\[(?<text>[^\\]]*)\\]\\((?<link>[^\\)]*)\\)");
             picLink = Pattern.compile("\\!\\[(?<text>[^\\]]*)\\]\\((?<link>[^\\)]*)\\)");
         } catch (PatternSyntaxException ex){
             System.out.println("checkLink" + ex); // remove in later version
@@ -409,230 +409,133 @@ public class Markdown implements IDoc {
 
         for(String str : lines) {
             tmp = str;
-            // Check for italic and bold
-            Matcher match = posturePattern("boldItalic").matcher(str);
-            StringBuffer sb = new StringBuffer();
-
-            System.out.println("italicBold "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getItalicBoldStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
-            }
-
-            // check for bold
-            match = posturePattern("bold").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("bold "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getBoldStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
-            }
-
-            // check for italic
-            match = posturePattern("italic").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("italic "+match.find());
-            System.out.println("Utan stil " + match.group(0));
-            System.out.println("Med stil " + style.getItalicStyle(match.group(0)));
-
-            if(match.find()) {
-                while (match.find()) {
-                    match = match.appendReplacement(sb, style.getItalicStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
-            }
-            System.out.println("TMP " + tmp);
 
             // check for quotes
-            match = posturePattern("quote").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("quote "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getQuoteStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            Matcher match = posturePattern("quote").matcher(tmp);
+            while (match.find()) {
+                tmp = match.replaceAll(style.getQuoteStyle(match.group(0)));
             }
 
-            //check for heading 6
-            match = headingPattern("h6").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("h6 "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
-            }
-
-            // Check for h5
-            match = headingPattern("h5").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("h5 "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
-            }
-
-            // check for h4
-            match = headingPattern("h4").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("h4 "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
-            }
-
-            // check for h3
-            match = headingPattern("h3").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("h3 "+match.find());
-
-            while(match.find()){
-                match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
+            // Check for italic and bold
+            match = posturePattern("boldItalic").matcher(tmp);
+            StringBuffer sb = new StringBuffer();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getItalicBoldStyle(match.group(0)));
             }
             match.appendTail(sb);
             tmp = sb.toString();
 
+            // check for bold
+            match = posturePattern("bold").matcher(tmp);
+            sb = new StringBuffer();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            // check for italic
+            match = posturePattern("italic").matcher(tmp);
+            sb = new StringBuffer();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getItalicStyle(match.group(0)));
+            }
+            match.appendTail(sb);
+            tmp = sb.toString();
+
+            //check for heading 6
+            match = headingPattern("h6").matcher(tmp);
+            while(match.find()) {
+                tmp = match.replaceAll(style.getHeadingStyle(match.group(0)));
+            }
+            // Check for h5
+            match = headingPattern("h5").matcher(tmp);
+            while(match.find()) {
+                tmp = match.replaceAll(style.getHeadingStyle(match.group(0)));
+            }
+
+            // check for h4
+            match = headingPattern("h4").matcher(tmp);
+            while(match.find()) {
+                tmp = match.replaceAll(style.getHeadingStyle(match.group(0)));
+            }
+
+            // check for h3
+            match = headingPattern("h3").matcher(tmp);
+            while(match.find()) {
+                tmp = match.replaceAll(style.getHeadingStyle(match.group(0)));
+            }
+
             // check for h2
             match = headingPattern("h2").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("h2 "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while(match.find()) {
+                tmp = match.replaceAll(style.getHeadingStyle(match.group(0)));
             }
 
             // check for h1
             match = headingPattern("h1").matcher(tmp);
-            sb = new StringBuffer();
-
-            System.out.println("h1 "+match.find());
-
-            if (match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getHeadingStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while(match.find()) {
+                tmp = match.replaceAll(style.getHeadingStyle(match.group(0)));
             }
+            //System.out.println("h1 "+match.find());
 
             // Check for img link
             match = linkPattern("picLink").matcher(tmp);
             sb = new StringBuffer();
-
-            System.out.println("piclink "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
             }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
             // check for text link
             match = linkPattern("textLink").matcher(tmp);
             sb = new StringBuffer();
-
-            System.out.println("textlink "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getLinkStyle(match.group(0)));
             }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
             // Check for ordered list
             match = listPattern("orderedList").matcher(tmp);
+            //System.out.println("orderedList " + match.find()); // TODO HITTAR EJ PATTERN
             sb = new StringBuffer();
-
-            System.out.println("orderedlist "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getListStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
             }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
             // check for unordered list
             match = listPattern("unorderedList").matcher(tmp);
+            //System.out.println("unorderedList " + match.find()); // TODO HITTAR EJ PATTERN
             sb = new StringBuffer();
-
-            System.out.println("unorderedList "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getListStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
             }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
-            // check for unordered list
+            // check for list
             match = listPattern("list").matcher(tmp);
+            //System.out.println("List " + match.find()); // TODO HITTAR EJ PATTERN
             sb = new StringBuffer();
-
-            System.out.println("list "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getListStyle(match.group(0)));
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getListStyle(match.group(0)));
             }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
             // check for code
             match = codePattern("code").matcher(tmp);
+            System.out.println("code " + match.find()); // TODO HITTAR PATTERN, SKRIVER TRUE MEN FÅR INTE FORMATERING
             sb = new StringBuffer();
-
-            System.out.println("code "+match.find());
-
-            if(match.find()) {
-                while (match.find()) {
-                    match.appendReplacement(sb, style.getBoldStyle(match.group(0))); // TODO SHOULD BE CODE
-                }
-                match.appendTail(sb);
-                tmp = sb.toString();
+            while (match.find()) {
+                match.appendReplacement(sb, style.getBoldStyle(match.group(0))); // TODO SHOULD BE CODE
             }
+            match.appendTail(sb);
+            tmp = sb.toString();
 
             text.add(tmp);
         }
