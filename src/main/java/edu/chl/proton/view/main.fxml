@@ -37,7 +37,7 @@
             <MenuBar id="menu-bar" fx:id="menuBar" layoutX="6.0" layoutY="8.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
                   <Menu styleClass="menu" mnemonicParsing="false" text="Proton Text">
-                      <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Close" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Close" />
                   </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="File">
                   <items>
@@ -69,7 +69,11 @@
                               <KeyCodeCombination alt="UP" code="Z" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                           </accelerator>
                       </MenuItem>
-                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickRedoButton" text="Redo" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickRedoButton" text="Redo">
+                          <accelerator>
+                              <KeyCodeCombination alt="UP" code="Z" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
+                          </accelerator>
+                      </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
                       <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Cut">
                           <accelerator>

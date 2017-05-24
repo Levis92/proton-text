@@ -3,14 +3,9 @@ package edu.chl.proton.control;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
-import edu.chl.proton.model.*;
 import com.sun.javafx.webkit.Accessor;
 import com.sun.webkit.WebPage;
-import edu.chl.proton.event.TextUpdateEvent;
-import edu.chl.proton.model.IDocumentHandler;
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.Workspace;
-import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.model.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +19,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -52,7 +46,7 @@ public class MarkdownTabController {
 
 
 
-    public void initialize() {
+    public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
         observable = factory.getWorkspace();
         UpdateView view = new UpdateView(observable);
@@ -253,7 +247,7 @@ public class MarkdownTabController {
         @Override
         public void update(Observable o, Object arg) {
             String text = document.getText();
-            htmlEditor.setHtmlText(text);
+            //htmlEditor.setHtmlText(text);
             String html = document.getHTML();
             webView.getEngine().loadContent(html);
         }

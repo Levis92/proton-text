@@ -51,14 +51,20 @@ public class MainController {
         addNewTab("Untitled.md");
         document.createDocument(DocumentType.MARKDOWN);
 
-        File currentDir = new File(file.getCurrentDirectory()); // current directory
+        File currentDir = new File(file.getCurrentDirectory().getPath()); // current directory
         findFiles(currentDir, null);
+
+        treeView.setEditable(true);
+        //treeView.setShowRoot(false);
+        treeView.setCellFactory(p -> new EditableTreeCell());
     }
 
 
     private void findFiles(File dir, TreeItem<File> parent) {
         TreeItem root = new TreeItem<>(dir);
-        root.setValue(dir.getName());
+
+        root.setValue(dir);
+
         if (parent == null) {
             root.setExpanded(true);
         } else {
@@ -70,7 +76,7 @@ public class MainController {
                 findFiles(file, root);
             } else {
                 TreeItem item = new TreeItem<>(file);
-                item.setValue(file.getName());
+                item.setValue(file);
                 root.getChildren().add(item);
             }
 
@@ -134,7 +140,14 @@ public class MainController {
 
     @FXML
     public void onClickSaveButton(ActionEvent event) throws IOException {
-        file.saveCurrentDocument();
+        if (!file.saveCurrentDocument()) {
+            String title = "Filepath";
+            String input = file.getCurrentDirectory().getPath() + "/filename.md";
+            TextPrompt prompt = new TextPrompt(stage.getStage(),title,input);
+            if ((input = prompt.getResult()) != null) {
+                file.saveCurrentDocument(input);
+            }
+        }
     }
 
     @FXML
@@ -154,7 +167,8 @@ public class MainController {
         File file = fileChooser.showOpenDialog(stage.getStage());
         if (file != null && file.isDirectory()) {
             //this.file.setCurrentDirectory(file);
-
+            //File currentDir = new File(this.file.getCurrentDirectory());
+            //findFiles(currentDir, null);
         }
     }
 
@@ -171,5 +185,8 @@ public class MainController {
             treeViewPane.setMinWidth(150);
             splitPane.getStyleClass().removeAll("hide");
         }
+    }
+
+    public void onClickCloseApplication(ActionEvent event) {
     }
 }

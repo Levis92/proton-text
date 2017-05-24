@@ -1,5 +1,7 @@
 package edu.chl.proton.model;
 
+import java.io.IOException;
+
 /**
  * Anton Levholm
  * Created by antonlevholm on 2017-05-03.
@@ -7,7 +9,7 @@ package edu.chl.proton.model;
 public class WorkspaceFactory {
     private static Workspace workspace;
 
-    public WorkspaceFactory() {
+    public WorkspaceFactory() throws IOException {
         if (workspace == null) {
             synchronized (WorkspaceFactory.class) {
                 if (workspace == null) {
