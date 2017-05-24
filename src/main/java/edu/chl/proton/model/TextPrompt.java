@@ -23,7 +23,7 @@ public class TextPrompt {
     }
 
     public TextPrompt(Window owner, String title) {
-        addPrompt(owner, title, "");
+        addPrompt(owner, title, null);
     }
 
     private void addPrompt(Window owner, String title, String input) {
@@ -47,7 +47,7 @@ public class TextPrompt {
         submitButton.getStylesheets().add("edu/chl/proton/view/style.css");
         submitButton.getStyleClass().add("button");
         textField.setMinHeight(JFXTextField.USE_PREF_SIZE);
-        textField.insertText(0, input);
+        if (input != null) textField.insertText(0, input);
 
         final VBox layout = new VBox(10);
         layout.setAlignment(Pos.CENTER_RIGHT);
