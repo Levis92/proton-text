@@ -1,6 +1,7 @@
 package edu.chl.proton.model;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -11,13 +12,18 @@ import java.util.*;
 public class Document {
 
     private Cursor cursor;
-    private File file;
+    private FileUtility file;
     private List<String> lines = new ArrayList<String>();
 
     IDoc docType;
 
     public Document(IDoc type){
         this.docType = type;
+    }
+
+    public Document(IDoc type, File file){
+        this.docType = type;
+        this.file = (FileUtility) file;
     }
 
     /**
@@ -41,22 +47,12 @@ public class Document {
     protected File getFile(){
         return this.file;
     }
-
     /**
      * sets the file
      * @param file
      */
     protected void setFile(File file){
-        this.file = file;
-    }
-
-    /**
-     * Adds the file to the search path.
-     * @param path
-     */
-    protected void addFile(String path){
-        file.setPath(path);
-        // setFile(rootFolder.getFileFromPath(path)); ???
+        this.file = (FileUtility) file;
     }
 
     /**
@@ -79,71 +75,6 @@ public class Document {
     }
 
     /**
-     * adds a row at the end of the text
-     * @param lines
-     */
-    protected void addLines(String lines){
-        this.lines.add(lines);
-    }
-
-    /**
-     * Removes one row in the document
-     * @param index
-     */
-    protected void removeLines(int index){
-        lines.remove(index);
-    }
-
-    /**
-     * Removes all text in the document.
-     */
-    protected void removeAllLines(){
-        lines.clear();
-    }
-
-    /**
-     * Inserts a char at the cursor's position and
-     * moves the cursor one step forward. If Enter was
-     * the key pressed, moves the cursor one row down.
-     * @param ch
-     */
-    protected void insertChar(char ch){
-
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        // check if Enter was the key pressed
-        if(ch == '\r'){
-            cursor.setPosition(row + 1, col);
-        } else {
-            String tmp = lines.get(row);
-
-            StringBuilder sb = new StringBuilder(tmp);
-            sb.insert(col, ch);
-
-            lines.set(row, sb.toString());
-            cursor.setPosition(row, col + 1);
-        }
-
-    }
-
-    /**
-     * Deletes the char at the cursor's position and
-     * moves the cursor one step back.
-     */
-    protected void deleteChar(){
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        String tmp = lines.get(row);
-        StringBuilder sb = new StringBuilder(tmp);
-        sb.deleteCharAt(col);
-
-        lines.set(row, sb.toString());
-        cursor.setPosition(row, col - 1);
-    }
-
-    /**
      * Calls on the appropriate class for getText
      * @returna list of the text
      */
@@ -159,12 +90,27 @@ public class Document {
         docType.setText(text);
     }
 
+    public String getHTML(){
+        return docType.getHTML();
+    }
+
     /**
      * Saves the text in the file.
      * @throws IOException
      */
-    protected void save() throws IOException{
+    protected void save(String path) throws IOException{
+        file = new FileUtility(path);
         file.save(lines);
+    }
+
+
+    protected boolean save() throws  IOException {
+        try{
+            file.save(lines);
+            return true;
+        } catch (NullPointerException ex) {
+            return false;
+        }
     }
 
     /**

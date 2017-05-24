@@ -10,13 +10,37 @@ import java.text.SimpleDateFormat;
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
  */
-public class File extends FileSystemEntity {
+public class FileUtility extends File {
 
+    private File file;
     private boolean isSaved;
 
 
-    public File(String name) {
+    public FileUtility(String name, String path) {
+        super(path);
+        this.file = new File(name);
         this.setName(name);
+        this.setPath(path);
+    }
+
+    public FileUtility(String path) {
+        super(path);
+        this.file = new File(path);
+        this.setPath(path);
+    }
+
+    protected void setName(String name) {
+        File file = new File(this.file.getParentFile(), name);
+        this.file.renameTo(file);
+    }
+
+    protected void setPath(String path) {
+        File file = new File(path);
+        this.file.renameTo(file);
+    }
+
+    protected File getFile() {
+        return this.file;
     }
 
     protected void setIsSaved(boolean state) {
@@ -27,12 +51,16 @@ public class File extends FileSystemEntity {
         return isSaved;
     }
 
+    /**
+     * Save file
+     * @param text
+     * @throws IOException
+     */
     protected void save(List<String> text) throws IOException {
         try {
 
-            java.io.File file = new java.io.File(this.getPath());
+            File file = new File(this.getPath());
             BufferedWriter out = new BufferedWriter(new FileWriter(file));
-            System.out.println("hej");
             for(String line : text) {
                 out.write(line);
                 out.newLine();
@@ -44,23 +72,32 @@ public class File extends FileSystemEntity {
         }
     }
 
+    /**
+     * Returns date and time for last time edited
+     * @return String
+     */
     protected String getDateForlastEdited() {
 
-        java.io.File file = new java.io.File(getName());
+        File file = new File(getName());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         return sdf.format(file.lastModified());
     }
 
-    private java.io.File getLastEditedFile(String dirPath) {
-        java.io.File dir = new java.io.File(dirPath);
-        java.io.File[] files = dir.listFiles();
+    /**
+     * Get last edited file
+     * @param dirPath
+     * @return File
+     */
+    private File getLastEditedFile(String dirPath) {
+        File dir = new File(dirPath);
+        File[] files = dir.listFiles();
         if (files == null || files.length == 0) {
             return null;
         }
 
-        java.io.File lastModifiedFile = files[0];
+        File lastModifiedFile = files[0];
         for (int i = 1; i < files.length; i++) {
             if (lastModifiedFile.lastModified() < files[i].lastModified()) {
                 lastModifiedFile = files[i];
@@ -69,11 +106,17 @@ public class File extends FileSystemEntity {
         return lastModifiedFile;
     }
 
+    /**
+     * Delete file
+     */
     protected void remove() {
         this.getFile().delete();
     }
 
-    // Aqcuires the text from the file we opened.
+    /**
+     * Aqcuires the text from the opened file.
+     * @return List<String>
+     */
     protected List<String> aqcuireText(){
 
         // This will reference one line at a time
