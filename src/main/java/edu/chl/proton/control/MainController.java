@@ -179,23 +179,27 @@ public class MainController {
         String title = "Set new name";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
         checkCorrectFileName(prompt, title);
-        //TODO: fånga Nullpointer när man kryssar
+        //TODO: Spara
 
     }
 
-    public void onClickSaveAs(ActionEvent actionEvent) {
+    public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
         String path = "./oldName.txt";
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        checkCorrectFileName(prompt, title);
+        path=checkCorrectFileName(prompt, title).getResult();
+        //TODO: Spara
+
+        //file.saveCurrentDocument(path);
+
 
     }
     private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
         while ( (pLength <7)==TRUE  ||
                 !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
-                        (prompt.getResult()).substring(pLength-4).equals(".txt")) ||
-                !(prompt.getResult().substring(0,2).equals("./"))
+                        (prompt.getResult()).substring(pLength-4).equals(".txt"))
+                //|| !(prompt.getResult().substring(0,2).equals("./"))
                 )
         {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Write a correct file name.");
@@ -203,7 +207,15 @@ public class MainController {
             prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
             pLength=prompt.getResult().length();
         }
+
+        //TODO: fånga Nullpointer när man kryssar
         return prompt;
 
     }
+    /*
+    if(prompt.getResult()==null) {
+                TextPrompt prompt1 = new TextPrompt(stage.getStage(),title,"./tryAgain.txt");
+                checkCorrectFileName(prompt1, title);
+            }
+     */
 }
