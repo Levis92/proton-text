@@ -53,7 +53,7 @@ public class FileUtility extends File {
 
     /**
      * Save file
-     * @param text
+     * @param text List<String>
      * @throws IOException
      */
     protected void save(List<String> text) throws IOException {
@@ -73,10 +73,10 @@ public class FileUtility extends File {
     }
 
     /**
-     * Returns date and time for last time edited
+     * Returns date and time for the last time the file was modified
      * @return String
      */
-    protected String getDateForlastEdited() {
+    protected String getDateForLastEdited() {
 
         File file = new File(getName());
 
@@ -87,10 +87,10 @@ public class FileUtility extends File {
 
     /**
      * Get last edited file
-     * @param dirPath
+     * @param dirPath String
      * @return File
      */
-    private File getLastEditedFile(String dirPath) {
+    protected File getLastEditedFile(String dirPath) {
         File dir = new File(dirPath);
         File[] files = dir.listFiles();
         if (files == null || files.length == 0) {

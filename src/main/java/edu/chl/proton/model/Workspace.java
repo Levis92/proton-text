@@ -99,6 +99,11 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
+    public File getLastEditedFile(String dirPath) {
+        return null;
+    }
+
+    @Override
     public void setText(List<String> text) {
         currentDocument.setText(text);
         setChanged();

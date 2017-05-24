@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author Stina werme
@@ -17,25 +18,50 @@ import java.io.File;
  *
  * Extends java class TreeCell to make the tree editable for the user.
  */
-final class EditableTreeCell extends TreeCell<File> {
+public class EditableTreeCell extends TreeCell<File> {
 
     private TextField textField;
     private ContextMenu addMenu = new ContextMenu();
+    private TreeView treeView= new TreeView();
 
 
     public EditableTreeCell() {
 
-        MenuItem addMenuItem = new MenuItem("Add File");
+        MenuItem addMenuItem = new MenuItem("Add new");
         addMenu.getItems().add(addMenuItem);
-        addMenuItem.setOnAction(new EventHandler() {
-            public void handle(Event t) {
-                TreeItem<File> newFile =
-                        new TreeItem<>();
-                FileUtility file = new FileUtility("New.md");
-                newFile.setValue(file);
+        addMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                TreeItem newFile = new TreeItem<File>();
+
+                File f = new File("/Users/stinawerme/code/proton-text/Proton Text Directory/Föreläsningar", "hejhej");
+
+                f.getParentFile().mkdirs();
+
+                try {
+                    f.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                newFile.setValue(f);
                 getTreeItem().getChildren().add(newFile);
+
+                if (!newFile.getParent().isExpanded()) {
+                    newFile.getParent().setExpanded(true);
+                }
             }
         });
+
+        MenuItem deleteMenuItem = new MenuItem("Delete");
+        addMenu.getItems().add(deleteMenuItem);
+        deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+
+                // TreeItem item = (TreeItem)treeView.getSelectionModel().getSelectedItem();
+                // item.getParent().getChildren().remove(item);
+            }
+        });
+
     }
 
     @Override
@@ -55,12 +81,10 @@ final class EditableTreeCell extends TreeCell<File> {
         super.cancelEdit();
         File item = getItem();
 
-
         item.getName();
         setText(item.getName());
         setGraphic(getTreeItem().getGraphic());
     }
-
 
     @Override
     public void updateItem(File item, boolean empty) {
