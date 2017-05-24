@@ -51,7 +51,7 @@ public class MainController {
         addNewTab("Untitled.md");
         document.createDocument(DocumentType.MARKDOWN);
 
-        File currentDir = new File(file.getCurrentDirectory()); // current directory
+        File currentDir = new File(file.getCurrentDirectory().getPath()); // current directory
         findFiles(currentDir, null);
 
         treeView.setEditable(true);

@@ -46,7 +46,7 @@ public class MarkdownTabController {
 
 
 
-    public void initialize() {
+    public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
         observable = factory.getWorkspace();
         UpdateView view = new UpdateView(observable);

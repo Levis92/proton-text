@@ -11,7 +11,7 @@ public interface IFileHandler {
 
     boolean saveCurrentDocument() throws IOException;
 
-    boolean saveCurrentDocument(String filepath) throws IOException;
+    void saveCurrentDocument(String filepath) throws IOException;
 
     void setCurrentDirectory(File directory) throws  IOException;
 

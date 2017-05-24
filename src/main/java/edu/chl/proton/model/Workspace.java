@@ -41,8 +41,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public boolean saveCurrentDocument(String filepath) throws IOException {
-        return currentDocument.save(filepath);
+    public void saveCurrentDocument(String filepath) throws IOException {
+        currentDocument.save(filepath);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public String getHTML() {
-        return null;
+        return currentDocument.getHTML();
     }
 
     @Override
