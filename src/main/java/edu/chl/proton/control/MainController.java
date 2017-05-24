@@ -140,6 +140,7 @@ public class MainController {
 
     @FXML
     public void onClickSaveButton(ActionEvent event) throws IOException {
+        // if not saved then
         file.saveCurrentDocument();
     }
 
@@ -180,6 +181,6 @@ public class MainController {
         }
     }
 
-    public void clickOnCloseApplication(ActionEvent event) {
+    public void onClickCloseApplication(ActionEvent event) {
     }
 }
