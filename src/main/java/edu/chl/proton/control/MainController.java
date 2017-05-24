@@ -178,7 +178,7 @@ public class MainController {
         String path = "./Rename.txt";
         String title = "Set new name";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        checkCorrectfileName(prompt, title);
+        checkCorrectFileName(prompt, title);
         //TODO: fånga Nullpointer när man kryssar
 
     }
@@ -187,10 +187,10 @@ public class MainController {
         String path = "./oldName.txt";
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        checkCorrectfileName(prompt, title);
+        checkCorrectFileName(prompt, title);
 
     }
-    private TextPrompt checkCorrectfileName(TextPrompt prompt, String title) {
+    private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
         while ( (pLength <7)==TRUE  ||
                 !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
