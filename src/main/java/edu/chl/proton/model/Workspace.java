@@ -111,11 +111,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public void insertPart(String part) {
-        currentDocument.insertPart(part);
-    }
-
-    @Override
     public String getHTML() {
         return currentDocument.getHTML();
     }
