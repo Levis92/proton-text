@@ -154,7 +154,7 @@ public class MarkdownTabController {
     public void onClickLinkButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "[link](git )");
+        webPage.executeCommand("insertText", "[text about link](http://url here)");
     }
 
     @FXML
@@ -199,7 +199,7 @@ public class MarkdownTabController {
             if(isImage(file.getPath())) {
                 WebView webView = (WebView) htmlEditor.lookup("WebView");
                 WebPage webPage = Accessor.getPageFor(webView.getEngine());
-                webPage.executeCommand("insertText", "![TEXT ABOUT IMAGE](" + file.getPath() + ")");
+                webPage.executeCommand("insertText", "![text about image](" + file.getPath() + ")");
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "File choosen is not an image.");
                 alert.showAndWait();

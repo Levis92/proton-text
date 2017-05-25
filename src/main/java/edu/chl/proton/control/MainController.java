@@ -211,7 +211,8 @@ public class MainController {
         int pLength = prompt.getResult().length();
         while ( (pLength <7)==TRUE  ||
                 !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
-                        (prompt.getResult()).substring(pLength-4).equals(".txt"))
+                        (prompt.getResult()).substring(pLength-4).equals(".txt") ||
+                        (prompt.getResult()).substring(pLength-3).equals(".md"))
                 //|| !(prompt.getResult().substring(0,2).equals("./"))
                 )
         {
