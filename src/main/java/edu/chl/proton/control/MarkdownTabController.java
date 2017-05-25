@@ -10,9 +10,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.*;
+import javafx.scene.control.Tab;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import org.jsoup.Jsoup;
@@ -40,9 +42,11 @@ public class MarkdownTabController {
     private Observable observable;
 
     @FXML
-    HTMLEditor htmlEditor;
+    private HTMLEditor htmlEditor;
     @FXML
-    WebView webView;
+    private WebView webView;
+    @FXML
+    private AnchorPane root;
 
 
 
@@ -104,7 +108,6 @@ public class MarkdownTabController {
     }
 
 
-
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
     public static void hideHTMLEditorToolbars(final HTMLEditor editor)
     {
@@ -141,7 +144,7 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
-        String path = "./test.pdf";
+        String path = file.getCurrentDirectory().getPath() + "/test.pdf";
         String title = "Output filepath";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
         if ((path = prompt.getResult()) != null) {
@@ -243,6 +246,7 @@ public class MarkdownTabController {
 
     public class UpdateView implements Observer {
         Observable observable;
+
         public UpdateView(Observable observable){
             this.observable = observable;
             observable.addObserver(this);
@@ -251,10 +255,12 @@ public class MarkdownTabController {
 
         @Override
         public void update(Observable o, Object arg) {
-            String text = document.getText();
-            //htmlEditor.setHtmlText(text);
-            String html = document.getHTML();
-            webView.getEngine().loadContent(html);
+            if (MainController.getSelectionModel().getSelectedItem().getContent() == root) {
+                //String text = document.getText();
+                //htmlEditor.setHtmlText(text);
+                String html = document.getHTML();
+                webView.getEngine().loadContent(html);
+            }
         }
     }
 

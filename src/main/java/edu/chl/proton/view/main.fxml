@@ -37,7 +37,13 @@
             <MenuBar id="menu-bar" fx:id="menuBar" layoutX="6.0" layoutY="8.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
                   <Menu styleClass="menu" mnemonicParsing="false" text="Proton Text">
-                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Close" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Preferences" />
+                      <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Close">
+                          <accelerator>
+                              <KeyCodeCombination alt="UP" code="Q" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                          </accelerator>
+                      </MenuItem>
                   </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="File">
                   <items>
@@ -108,6 +114,17 @@
                         <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Previous tab">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="K" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Close current tab">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="W" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Close all open tabs">
+                            <accelerator>
+                                <KeyCodeCombination alt="DOWN" code="W" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>
