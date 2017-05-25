@@ -13,7 +13,6 @@ public class Document {
 
     private Cursor cursor;
     private FileUtility file;
-    private List<String> lines = new ArrayList<String>();
 
     IDoc docType;
 
@@ -64,6 +63,10 @@ public class Document {
         this.file = (FileUtility) file;
     }
 
+    public List<String> getLines(){
+        return docType.getLines();
+    }
+
     /**
      * Inserts a string at the cursor's position and
      * moves the cursor x step forward, where x is
@@ -74,12 +77,12 @@ public class Document {
         int row = cursor.getPosition().getY();
         int col = cursor.getPosition().getX();
 
-        String tmp = lines.get(row);
+        String tmp = getLines().get(row);
 
         StringBuilder sb = new StringBuilder(tmp);
         sb.insert(col, str);
 
-        lines.set(row, sb.toString());
+        getLines().set(row, sb.toString());
         cursor.setPosition(row, col + str.length());
     }
 
@@ -109,13 +112,13 @@ public class Document {
      */
     protected void save(String path) throws IOException{
         file = new FileUtility(path);
-        file.save(lines);
+        file.save(getLines());
     }
 
 
     protected boolean save() throws  IOException {
         try{
-            file.save(lines);
+            file.save(getLines());
             return true;
         } catch (NullPointerException ex) {
             return false;
