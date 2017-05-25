@@ -16,41 +16,49 @@ import java.util.Observable;
 public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
-    private java.io.File currentDirectory;
+    private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
-    public Workspace() {
+    public Workspace() throws IOException {
         currentDocument = factory.createDocument(DocumentType.MARKDOWN);
         tabs.add(currentDocument);
-        //setCurrentDirectory(new Folder("Root"));
+        setCurrentDirectory(new FileUtility("./Proton Text Directory"));
     }
 
-
+    @Override
     public void setCurrentDocument(int index) {
         currentDocument = tabs.get(index);
     }
 
+    @Override
     public int getCurrentDocument() {
         return tabs.indexOf(currentDocument);
     }
 
-    public void saveCurrentDocument() throws IOException {
-       currentDocument.save();
+    @Override
+    public boolean saveCurrentDocument() throws IOException {
+       return currentDocument.save();
     }
 
-    public void setCurrentDirectory(FileUtility directory) throws  IOException {
+    @Override
+    public void saveCurrentDocument(String filepath) throws IOException {
+        currentDocument.save(filepath);
+    }
+
+    @Override
+    public void setCurrentDirectory(File directory) throws  IOException {
         if(!directory.isDirectory()) {
             throw new IOException("Trying to set a file as directory");
         }
-
         currentDirectory = directory;
     }
 
-    public String getCurrentDirectory() {
-        return currentDirectory == null ? "./Proton Text Directory" : currentDirectory.getPath();
+    @Override
+    public File getCurrentDirectory() {
+        return currentDirectory;
     }
 
-
+    @Override
     public void createDocument(DocumentType type) {
         Document doc = factory.createDocument(type);
         currentDocument = doc;
@@ -66,9 +74,12 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public void removeCurrentDocument() {
-
+        if (tabs.contains(currentDocument)) {
+            tabs.remove(currentDocument);
+        }
     }
 
+    @Override
     public void removeDocument(int index) {
         if (tabs.contains(tabs.get(index))) {
             tabs.remove(tabs.get(index));
@@ -76,16 +87,40 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public void setDirectory(String folderPath) {
-
+    public void setDirectory(File folder) {
+        if (folder.isDirectory()) {
+            currentDirectory = folder;
+        }
     }
 
-    public void setDirectory(FileUtility folder) {
-        currentDirectory = folder;
-    }
-
+    @Override
     public File getDirectory() {
         return currentDirectory;
+    }
+
+    @Override
+    public File getLastEditedFile(String dirPath) {
+        return null;
+    }
+
+    @Override
+    public String getDateForLastEdited() {
+        return currentDocument.getDateForLastEdited();
+    }
+
+    @Override
+    public String getPath() {
+        return currentDocument.getPath();
+    }
+
+    @Override
+    public boolean isSaved() {
+        return currentDocument.isSaved();
+    }
+
+    @Override
+    public boolean exists() {
+        return false;
     }
 
     @Override
@@ -93,7 +128,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         currentDocument.setText(text);
         setChanged();
         notifyObservers();
-
     }
 
     @Override
@@ -102,13 +136,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public void insertPart(String part) {
-        currentDocument.insertPart(part);
-    }
-
-    @Override
     public String getHTML() {
-        return null;
+        return currentDocument.getHTML();
     }
 
     @Override

@@ -11,36 +11,20 @@ import java.text.SimpleDateFormat;
  * Created by stinawerme on 01/05/17.
  */
 public class FileUtility extends File {
-
-    private File file;
     private boolean isSaved;
 
 
-    public FileUtility(String name, String path) {
-        super(path);
-        this.file = new File(name);
-        this.setName(name);
-        this.setPath(path);
-    }
-
     public FileUtility(String path) {
         super(path);
-        this.file = new File(path);
-        this.setPath(path);
-    }
-
-    protected void setName(String name) {
-        File file = new File(this.file.getParentFile(), name);
-        this.file.renameTo(file);
     }
 
     protected void setPath(String path) {
         File file = new File(path);
-        this.file.renameTo(file);
+        this.renameTo(file);
     }
 
     protected File getFile() {
-        return this.file;
+        return this;
     }
 
     protected void setIsSaved(boolean state) {
@@ -53,7 +37,7 @@ public class FileUtility extends File {
 
     /**
      * Save file
-     * @param text
+     * @param text List<String>
      * @throws IOException
      */
     protected void save(List<String> text) throws IOException {
@@ -73,24 +57,24 @@ public class FileUtility extends File {
     }
 
     /**
-     * Returns date and time for last time edited
+     * Returns date and time for the last time the file was modified
      * @return String
      */
-    protected String getDateForlastEdited() {
+    protected String getDateForLastEdited() {
 
-        File file = new File(getName());
+        //File file = new File(getPath());
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-        return sdf.format(file.lastModified());
+        return sdf.format(this.lastModified());
     }
 
     /**
      * Get last edited file
-     * @param dirPath
+     * @param dirPath String
      * @return File
      */
-    private File getLastEditedFile(String dirPath) {
+    protected File getLastEditedFile(String dirPath) {
         File dir = new File(dirPath);
         File[] files = dir.listFiles();
         if (files == null || files.length == 0) {
