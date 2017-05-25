@@ -90,8 +90,9 @@ public class EditableTreeCell extends TreeCell<File> {
         TreeItem<File> treeItem = getTreeItem();
         contextMenu = new ContextMenu();
 
-        if (!treeItem.isLeaf() && treeItem.getParent() != null) {
-            createAddMenuItem();
+        if (treeItem.getParent() != null && treeItem.getValue().isDirectory()) {
+            createAddFileMenuItem();
+            createAddFolderMenuItem();
         }
 
         createDeleteMenuItem();
@@ -101,8 +102,8 @@ public class EditableTreeCell extends TreeCell<File> {
     /**
      * Create a context menu item for adding files.
      */
-    private void createAddMenuItem() {
-        MenuItem addMenuItem = new MenuItem("Add new");
+    private void createAddFileMenuItem() {
+        MenuItem addMenuItem = new MenuItem("New file");
         contextMenu.getItems().add(addMenuItem);
         addMenuItem.setOnAction(t -> {
 
@@ -130,6 +131,45 @@ public class EditableTreeCell extends TreeCell<File> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            TreeItem newTreeItem = new TreeItem<File>();
+            newTreeItem.setValue(f);
+            currentTreeItem.getChildren().add(newTreeItem);
+
+            if (!currentTreeItem.isExpanded()) {
+                currentTreeItem.setExpanded(true);
+            }
+        });
+    }
+
+    /**
+     * Create a context menu item for adding folders.
+     */
+    private void createAddFolderMenuItem() {
+        MenuItem addMenuItem = new MenuItem("New folder");
+        contextMenu.getItems().add(addMenuItem);
+        addMenuItem.setOnAction(t -> {
+
+            TreeItem<File> currentTreeItem = getTreeItem();
+            File currentFile = currentTreeItem.getValue();
+
+            String path = null;
+            try {
+                path = currentFile.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File f = new File(path, "untitledFolder");
+
+            f.getParentFile().mkdirs();
+            int number = 2;
+
+            while (f.exists()) {
+                f = new File(path, "untitledFolder" + number);
+                number++;
+            }
+            f.mkdir();
 
             TreeItem newTreeItem = new TreeItem<File>();
             newTreeItem.setValue(f);
