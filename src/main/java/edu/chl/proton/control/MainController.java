@@ -205,8 +205,8 @@ public class MainController {
         String newName=checkCorrectFileName(prompt, title).getResult();
         file.saveCurrentDocument(newName);
 
-
     }
+
     private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
         while ( (pLength <7)==TRUE  ||
@@ -230,6 +230,8 @@ public class MainController {
                 TextPrompt prompt1 = new TextPrompt(stage.getStage(),title,"./tryAgain.txt");
                 checkCorrectFileName(prompt1, title);
             }
+            String ext1 = FilenameUtils.getExtension("/path/to/file/foo.txt"); // returns "txt"
+            String ext2 = FilenameUtils.getExtension("bar.exe"); // returns "exe"
      */
 
     public void onClickCloseApplication(ActionEvent event) {

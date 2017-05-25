@@ -11,18 +11,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -172,8 +172,6 @@ public class MarkdownTabController {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "****");
-
-
     }
 
     @FXML
@@ -194,10 +192,25 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickImageButton(ActionEvent event) throws IOException {
-        WebView webView = (WebView) htmlEditor.lookup("WebView");
-        WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "![alt text]([url] \"Title\")");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose image");
+        File file = fileChooser.showOpenDialog(stage.getStage());
+        if (file != null && file.isFile()) {
+            if(isImage(file.getPath())) {
+                WebView webView = (WebView) htmlEditor.lookup("WebView");
+                WebPage webPage = Accessor.getPageFor(webView.getEngine());
+                webPage.executeCommand("insertText", "![TEXT ABOUT IMAGE](" + file.getPath() + ")");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "File choosen is not an image.");
+                alert.showAndWait();
+            }
+
+        }
+
     }
+    /*I onClickImageButton() så skulle du kunna implementera med FileChooser
+    (som när man öppnar en fil) så att man väljer en bild och så plockar man path:en till
+    filen och stoppar in den istället för 'url' när man insert:ar syntaxen 🙂*/
 
     @FXML
     public void onClickCodeButton(ActionEvent event) throws IOException {
@@ -251,6 +264,19 @@ public class MarkdownTabController {
             String html = document.getHTML();
             webView.getEngine().loadContent(html);
         }
+    }
+    public boolean isImage(String string){
+        if(string.substring(string.length()-4).equals(".pdf") ||
+                string.substring(string.length()-4).equals(".gif") ||
+                string.substring(string.length()-4).equals(".png") ||
+                string.substring(string.length()-4).equals(".jpg") ||
+                string.substring(string.length()-5).equals(".jpeg") ||
+                string.substring(string.length()-4).equals(".tif") ||
+                string.substring(string.length()-4).equals(".bmp")){
+            return true;
+        }
+        return false;
+
     }
 
 }
