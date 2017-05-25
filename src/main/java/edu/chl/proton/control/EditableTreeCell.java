@@ -25,6 +25,9 @@ public class EditableTreeCell extends TreeCell<File> {
 
     }
 
+    /**
+     * Start edit
+     */
     @Override
     public void startEdit() {
         super.startEdit();
@@ -37,6 +40,9 @@ public class EditableTreeCell extends TreeCell<File> {
         textField.selectAll();
     }
 
+    /**
+     * Cancel edit
+     */
     @Override
     public void cancelEdit() {
         super.cancelEdit();
@@ -47,6 +53,11 @@ public class EditableTreeCell extends TreeCell<File> {
         setGraphic(getTreeItem().getGraphic());
     }
 
+    /**
+     * Update item
+     * @param item
+     * @param empty
+     */
     @Override
     public void updateItem(File item, boolean empty) {
         super.updateItem(item, empty);
@@ -154,6 +165,10 @@ public class EditableTreeCell extends TreeCell<File> {
         });
     }
 
+    /**
+     * Create a text field to change name
+     * If user clicks enter, update name
+     */
     private void createTextField() {
         textField = new TextField(getString());
         textField.setOnKeyReleased(keyReleaseEventObject -> {
