@@ -13,7 +13,6 @@ public class Document {
 
     private Cursor cursor;
     private FileUtility file;
-    private List<String> lines = new ArrayList<String>();
 
     IDoc docType;
 
@@ -24,6 +23,13 @@ public class Document {
     public Document(IDoc type, File file){
         this.docType = type;
         this.file = (FileUtility) file;
+    }
+
+    protected boolean doesExist(){
+        if(file != null){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -47,12 +53,25 @@ public class Document {
     protected File getFile(){
         return this.file;
     }
+
+    /**
+     *  Gets the path to the file.
+     * @return the path to the file
+     */
+    protected String getPath(){
+        return file.getPath();
+    }
+
     /**
      * sets the file
      * @param file
      */
     protected void setFile(File file){
         this.file = (FileUtility) file;
+    }
+
+    public List<String> getLines(){
+        return docType.getLines();
     }
 
     /**
@@ -65,12 +84,12 @@ public class Document {
         int row = cursor.getPosition().getY();
         int col = cursor.getPosition().getX();
 
-        String tmp = lines.get(row);
+        String tmp = getLines().get(row);
 
         StringBuilder sb = new StringBuilder(tmp);
         sb.insert(col, str);
 
-        lines.set(row, sb.toString());
+        getLines().set(row, sb.toString());
         cursor.setPosition(row, col + str.length());
     }
 
@@ -100,13 +119,13 @@ public class Document {
      */
     protected void save(String path) throws IOException{
         file = new FileUtility(path);
-        file.save(lines);
+        file.save(getLines());
     }
 
 
     protected boolean save() throws  IOException {
         try{
-            file.save(lines);
+            file.save(getLines());
             return true;
         } catch (NullPointerException ex) {
             return false;
@@ -118,6 +137,14 @@ public class Document {
      */
     protected void remove(){
         file.remove();
+    }
+
+    /**
+     * Returns the date of the last time the file was editet.
+     * @return string with the date of last edit
+     */
+    protected String getDateForLastEdited(){
+        return file.getDateForLastEdited();
     }
 
     /**

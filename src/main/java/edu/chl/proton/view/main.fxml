@@ -26,18 +26,24 @@
             <Pane id="footer-pane" layoutX="130.0" layoutY="486.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" prefWidth="200.0" stylesheets="@style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Pane prefHeight="30.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                <children>
-                  <Text fill="antiquewhite" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path: ./path/to/file.md" />
+                  <Text fx:id="filePath" fill="antiquewhite" layoutX="10.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path: ./path/to/file.md" />
                </children>
             </Pane>
             <Pane prefHeight="30.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Text fill="antiquewhite" wrappingWidth="220.0" style="-fx-text-alignment: right" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last saved: 1 minute ago..." />
+                  <Text fx:id="lastSaved" fill="antiquewhite" wrappingWidth="220.0" style="-fx-text-alignment: right" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last saved: 1 minute ago..." />
                </children>
             </Pane>
             <MenuBar id="menu-bar" fx:id="menuBar" layoutX="6.0" layoutY="8.0" stylesheets="@style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <menus>
                   <Menu styleClass="menu" mnemonicParsing="false" text="Proton Text">
-                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Close" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Preferences" />
+                      <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseApplication" text="Close">
+                          <accelerator>
+                              <KeyCodeCombination alt="UP" code="Q" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                          </accelerator>
+                      </MenuItem>
                   </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="File">
                   <items>
@@ -110,6 +116,17 @@
                         <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Previous tab">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="K" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Close current tab">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="W" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Close all open tabs">
+                            <accelerator>
+                                <KeyCodeCombination alt="DOWN" code="W" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>

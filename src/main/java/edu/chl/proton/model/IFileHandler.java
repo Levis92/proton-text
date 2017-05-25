@@ -21,5 +21,13 @@ public interface IFileHandler {
 
     File getDirectory();
 
+    File getLastEditedFile(String dirPath);
 
+    String getDateForLastEdited();
+
+    String getPath();
+
+    boolean isSaved();
+
+    boolean exists();
 }

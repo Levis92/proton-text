@@ -6,14 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import static java.lang.Boolean.TRUE;
 
@@ -26,7 +29,9 @@ public class MainController {
     private static IFileHandler file;
     private static IDocumentHandler document;
     private IStageHandler stage;
-    SingleSelectionModel<Tab> selectionModel;
+    private static SingleSelectionModel<Tab> selectionModel;
+    private Observable observable;
+    private FileTree fileTree;
 
     @FXML
     private TabPane tabPane;
@@ -38,6 +43,10 @@ public class MainController {
     private SplitPane splitPane;
     @FXML
     private MenuBar menuBar;
+    @FXML
+    private Text lastSaved;
+    @FXML
+    private Text filePath;
 
 
     public void initialize() throws IOException {
@@ -45,50 +54,22 @@ public class MainController {
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
+        observable = factory.getWorkspace();
+        new UpdateFooter(observable);
+        filePath.setText("");
+        lastSaved.setText("Not saved");
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
         treeView.managedProperty().bind(treeView.visibleProperty());
         selectionModel = tabPane.getSelectionModel();
         menuBar.useSystemMenuBarProperty().set(true);
         addNewTab("Untitled.md");
         document.createDocument(DocumentType.MARKDOWN);
-
-        File currentDir = new File(file.getCurrentDirectory().getPath()); // current directory
-        findFiles(currentDir, null);
-
-        treeView.setEditable(true);
-        //treeView.setShowRoot(false);
-        treeView.setCellFactory(p -> new EditableTreeCell());
+        fileTree = new FileTree(treeView, file);
     }
 
-
-    private void findFiles(File dir, TreeItem<File> parent) {
-        TreeItem root = new TreeItem<>(dir);
-
-        root.setValue(dir);
-
-        if (parent == null) {
-            root.setExpanded(true);
-        } else {
-            root.setExpanded(false);
-        }
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                findFiles(file, root);
-            } else {
-                TreeItem item = new TreeItem<>(file);
-                item.setValue(file);
-                root.getChildren().add(item);
-            }
-
-        }
-        if(parent == null){
-            treeView.setRoot(root);
-        } else {
-            parent.getChildren().add(root);
-        }
+    public static SingleSelectionModel<Tab> getSelectionModel() {
+        return selectionModel;
     }
-
 
     public void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
@@ -163,13 +144,13 @@ public class MainController {
 
     @FXML
     public void onClickChangeDirectory(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Change directory");
-        File file = fileChooser.showOpenDialog(stage.getStage());
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Change directory");
+        File file = directoryChooser.showDialog(stage.getStage());
         if (file != null && file.isDirectory()) {
-            //this.file.setCurrentDirectory(file);
-            //File currentDir = new File(this.file.getCurrentDirectory());
-            //findFiles(currentDir, null);
+            this.file.setCurrentDirectory(file);
+            File currentDir = new File(this.file.getCurrentDirectory().getPath());
+            fileTree.populateTree(currentDir, null);
         }
     }
 
@@ -236,6 +217,33 @@ public class MainController {
      */
 
     public void onClickCloseApplication(ActionEvent event) {
+        String title = "Close application";
+        String message = "Are you sure you want to quit Proton Text?";
+        PopupWindow popup = new PopupWindow(stage.getStage(),title,message);
+        if (popup.resultIsYes()) stage.getStage().close();
+    }
+
+    public class UpdateFooter implements Observer {
+        Observable observable;
+        public UpdateFooter(Observable observable){
+            this.observable = observable;
+            observable.addObserver(this);
+        }
+
+
+        @Override
+        public void update(Observable o, Object arg) {
+            if (file.exists()) {
+                String text = file.getDateForLastEdited();
+                lastSaved.setText("Lased saved: " + text);
+                String path = file.getPath();
+                filePath.setText("Path: " + path);
+            } else {
+                filePath.setText("");
+                lastSaved.setText("Not saved");
+            }
+
+        }
     }
 
 }
