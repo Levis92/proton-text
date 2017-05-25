@@ -1,6 +1,8 @@
 package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -63,6 +63,37 @@ public class MainController {
         addNewTab("Untitled.md");
         document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
+
+        treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                TreeItem<File> selectedItem = (TreeItem<File>) newValue;
+                File file = new File(selectedItem.getValue().getPath());
+                if (file != null && file.isFile()) {
+                    document.openDocument(file.getPath());
+                    try {
+                        addNewTab(file.getName());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+                        List<String> lines = new ArrayList<>();
+                        String line;
+
+                        while ((line = br.readLine()) != null) {
+                            lines.add(line);
+                        }
+                        document.setText(lines);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        });
     }
 
     public static SingleSelectionModel<Tab> getSelectionModel() {
