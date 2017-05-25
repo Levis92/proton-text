@@ -25,6 +25,13 @@ public class Document {
         this.file = (FileUtility) file;
     }
 
+    protected boolean doesExist(){
+        if(file != null){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return the cursor
      */
