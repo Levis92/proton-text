@@ -27,7 +27,7 @@ public class MainController {
     private static IFileHandler file;
     private static IDocumentHandler document;
     private IStageHandler stage;
-    SingleSelectionModel<Tab> selectionModel;
+    private static SingleSelectionModel<Tab> selectionModel;
     private Observable observable;
 
     @FXML
@@ -68,6 +68,10 @@ public class MainController {
         treeView.setEditable(true);
         //treeView.setShowRoot(false);
         treeView.setCellFactory(p -> new EditableTreeCell());
+    }
+
+    public static SingleSelectionModel<Tab> getSelectionModel() {
+        return selectionModel;
     }
 
 
