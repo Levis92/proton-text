@@ -34,6 +34,7 @@ public class TextPrompt {
         dialog.initStyle(StageStyle.UTILITY);
         dialog.initModality(Modality.WINDOW_MODAL);
         dialog.setWidth(350.0);
+        dialog.setResizable(false);
         dialog.setX(owner.getX() + owner.getWidth()/2 - dialog.getWidth()/2);
         dialog.setY(owner.getY() + 220);
 
