@@ -1,9 +1,5 @@
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.FileUtility;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.Event;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -17,50 +13,15 @@ import java.io.IOException;
  * Created by stinawerme on 20/05/17.
  *
  * Extends java class TreeCell to make the tree editable for the user.
+ * The Treecell wraps around a treeItem and has methods to get the treeItem.
  */
 public class EditableTreeCell extends TreeCell<File> {
 
     private TextField textField;
-    private ContextMenu addMenu = new ContextMenu();
-    private TreeView treeView= new TreeView();
+    private ContextMenu contextMenu;
 
 
     public EditableTreeCell() {
-
-        MenuItem addMenuItem = new MenuItem("Add new");
-        addMenu.getItems().add(addMenuItem);
-        addMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                TreeItem newFile = new TreeItem<File>();
-
-                File f = new File("/Users/stinawerme/code/proton-text/Proton Text Directory/Föreläsningar", "hejhej");
-
-                f.getParentFile().mkdirs();
-
-                try {
-                    f.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                newFile.setValue(f);
-                getTreeItem().getChildren().add(newFile);
-
-                if (!newFile.getParent().isExpanded()) {
-                    newFile.getParent().setExpanded(true);
-                }
-            }
-        });
-
-        MenuItem deleteMenuItem = new MenuItem("Delete");
-        addMenu.getItems().add(deleteMenuItem);
-        deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-
-                // TreeItem item = (TreeItem)treeView.getSelectionModel().getSelectedItem();
-                // item.getParent().getChildren().remove(item);
-            }
-        });
 
     }
 
@@ -93,21 +54,104 @@ public class EditableTreeCell extends TreeCell<File> {
         if (empty) {
             setText(null);
             setGraphic(null);
-        } else {
-            if (isEditing()) {
-                if (textField != null) {
-                    textField.setText(getString());
-                }
-                setText(null);
-                setGraphic(textField);
-            } else {
-                setText(getString());
-                setGraphic(getTreeItem().getGraphic());
-                if (!getTreeItem().isLeaf()&&getTreeItem().getParent()!= null) {
-                    setContextMenu(addMenu);
-                }
-            }
+            return;
         }
+
+        if (isEditing()) {
+            if (textField != null) {
+                textField.setText(getString());
+            }
+
+            setText(null);
+            setGraphic(textField);
+            return;
+        }
+
+        setText(getString());
+        setGraphic(getTreeItem().getGraphic());
+        createContextMenu();
+    }
+
+    /**
+     * Create a contextMenu with varying items depending on the type of treeItem.
+     */
+    private void createContextMenu() {
+        TreeItem<File> treeItem = getTreeItem();
+        contextMenu = new ContextMenu();
+
+        if (!treeItem.isLeaf() && treeItem.getParent() != null) {
+            createAddMenuItem();
+        }
+
+        createDeleteMenuItem();
+        setContextMenu(contextMenu);
+    }
+
+    /**
+     * Create a context menu item for adding files.
+     */
+    private void createAddMenuItem() {
+        MenuItem addMenuItem = new MenuItem("Add new");
+        contextMenu.getItems().add(addMenuItem);
+        addMenuItem.setOnAction(t -> {
+
+            TreeItem<File> currentTreeItem = getTreeItem();
+            File currentFile = currentTreeItem.getValue();
+
+            String path = null;
+            try {
+                path = currentFile.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File f = new File(path, "untitled.md");
+
+            f.getParentFile().mkdirs();
+            int number = 2;
+
+            try {
+                while (f.exists()) {
+                    f = new File(path, "untitled" + number + ".md");
+                    number++;
+                }
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            TreeItem newTreeItem = new TreeItem<File>();
+            newTreeItem.setValue(f);
+            currentTreeItem.getChildren().add(newTreeItem);
+
+            if (!currentTreeItem.isExpanded()) {
+                currentTreeItem.setExpanded(true);
+            }
+        });
+    }
+
+    /**
+     * Create a context menu item for deleting files.
+     */
+    private void createDeleteMenuItem() {
+        MenuItem deleteMenuItem = new MenuItem("Delete");
+        contextMenu.getItems().add(deleteMenuItem);
+        deleteMenuItem.setOnAction(t -> {
+            TreeItem<File> currentTreeItem = getTreeItem();
+            File currentFile = currentTreeItem.getValue();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Delete " + currentFile.getName() + " ?",
+                    ButtonType.YES, ButtonType.CANCEL);
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.CANCEL) {
+                return;
+            }
+
+            currentTreeItem.getParent().getChildren().remove(currentTreeItem);
+            currentFile.delete();
+        });
     }
 
     private void createTextField() {

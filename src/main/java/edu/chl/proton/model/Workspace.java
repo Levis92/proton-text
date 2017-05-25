@@ -120,7 +120,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public boolean exists() {
-        return false;
+        return currentDocument.doesExist();
     }
 
     @Override
