@@ -27,7 +27,7 @@ public class MainController {
     private static IFileHandler file;
     private static IDocumentHandler document;
     private IStageHandler stage;
-    SingleSelectionModel<Tab> selectionModel;
+    private static SingleSelectionModel<Tab> selectionModel;
     private Observable observable;
     private FileTree fileTree;
 
@@ -63,6 +63,10 @@ public class MainController {
         addNewTab("Untitled.md");
         document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
+    }
+
+    public static SingleSelectionModel<Tab> getSelectionModel() {
+        return selectionModel;
     }
 
     public void addNewTab(String name) throws IOException {
