@@ -18,6 +18,10 @@ public class Markdown implements IDoc {
         //TODO?
     }
 
+    public List<String> getLines(){
+        return lines;
+    }
+
     /**
      * Loops through the text and checks for markdown syntax in
      * one row at a time.
@@ -26,7 +30,7 @@ public class Markdown implements IDoc {
     public String getHTML(){
         String tmp = "";
         for(String str : lines){
-            tmp = tmp + checkForMarkdown(str);
+            tmp = tmp + "<p style=\"width:100%\">" +checkForMarkdown(str) + "</p>";
         }
         return tmp;
     }
