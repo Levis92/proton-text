@@ -41,8 +41,6 @@ public class DocumentFactory {
 
     // if no document exists, create one. then send it
     public Document getDocument(String string){
-        //check filepath, if md, create markdown
-
         try {
             FileUtility docFile = new FileUtility(string);
            if (string.toLowerCase().substring(string.length()-3).equals(".md")
