@@ -5,8 +5,7 @@ package edu.chl.proton.model;
  * Created by ludvig on 2017-05-01.
  */
 public class DocumentFactory {
-    //use getShape method to get object of type shape
-    private FileUtility file; //fileName maybe is more tydlig?
+    private FileUtility file;
 
     public DocumentFactory(){
         // kolla om file redan finns, annars typ new file
@@ -35,17 +34,17 @@ public class DocumentFactory {
     // if no document exists, create one. then send it
     public Document getDocument(String string){
         try {
-            FileUtility docFile = new FileUtility(string);
+            file = new FileUtility(string);
            if (string.toLowerCase().substring(string.length()-3).equals(".md")
                     && (string.toLowerCase().contains("slide"))) {
                 IDoc slide = new Markdown();
-                return new Document(slide, docFile);
+                return new Document(slide, file);
             } else if(string.substring(string.length()-3).equals(".md")) {
                IDoc markdown = new Markdown();
-             return new Document(markdown, docFile);
+             return new Document(markdown, file);
             } else {
                IDoc plain = new Plain();
-                return new Document(plain,docFile);
+                return new Document(plain,file);
             }
 
         } catch (NullPointerException eNull) { //if no document exists

@@ -241,7 +241,8 @@ public class MainController {
 
     public void onClickAbout(ActionEvent actionEvent) {
         new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
-                "text editor created by students at Chalmers University of Technology");
+                "text editor created by students at Chalmers University of Technology. \n" +
+                "Course: TDA367");
     }
 
     public class UpdateFooter implements Observer {
