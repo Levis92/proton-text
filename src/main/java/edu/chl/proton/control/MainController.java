@@ -73,30 +73,40 @@ public class MainController {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 TreeItem<File> selectedItem = (TreeItem<File>) newValue;
                 File file = new File(selectedItem.getValue().getPath());
-                if (file != null && file.isFile()) {
-                    document.openDocument(file.getPath());
-                    try {
-                        addNewTab(file.getName());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-                        List<String> lines = new ArrayList<>();
-                        String line;
-
-                        while ((line = br.readLine()) != null) {
-                            lines.add(line);
-                        }
-                        isOpened = true;
-                        document.setText(lines);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                openFile(file);
             }
         });
+    }
+
+    /**
+     * Help method to open file
+     * @param file
+     */
+    public void openFile(File file) {
+
+        if (file != null && file.isFile()) {
+            document.openDocument(file.getPath());
+            try {
+                addNewTab(file.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+                List<String> lines = new ArrayList<>();
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    lines.add(line);
+                }
+                isOpened = true;
+                document.setText(lines);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public static SingleSelectionModel<Tab> getSelectionModel() {
@@ -146,20 +156,7 @@ public class MainController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage.getStage());
-        if (file != null && file.isFile()) {
-            document.openDocument(file.getPath());
-            addNewTab(file.getName());
-            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-                List<String> lines = new ArrayList<>();
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    lines.add(line);
-                }
-                isOpened = true;
-                document.setText(lines);
-            }
-        }
+        openFile(file);
     }
 
     @FXML
