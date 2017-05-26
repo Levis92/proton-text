@@ -77,9 +77,6 @@ public class MainController {
     }
 
 
-
-
-
     public void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
