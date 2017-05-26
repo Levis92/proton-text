@@ -256,8 +256,11 @@ public class MarkdownTabController {
         @Override
         public void update(Observable o, Object arg) {
             if (MainController.getSelectionModel().getSelectedItem().getContent() == root) {
-                //String text = document.getText();
-                //htmlEditor.setHtmlText(text);
+                if (MainController.fileIsOpened()) {
+                    String text = document.getText();
+                    htmlEditor.setHtmlText(text);
+                    MainController.fileHasOpened();
+                }
                 String html = document.getHTML();
                 webView.getEngine().loadContent(html);
             }

@@ -30,6 +30,7 @@ public class MainController {
     private static SingleSelectionModel<Tab> selectionModel;
     private Observable observable;
     private FileTree fileTree;
+    private static boolean isOpened = false;
 
     @FXML
     private TabPane tabPane;
@@ -84,6 +85,7 @@ public class MainController {
                         while ((line = br.readLine()) != null) {
                             lines.add(line);
                         }
+                        isOpened = true;
                         document.setText(lines);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -98,6 +100,14 @@ public class MainController {
 
     public static SingleSelectionModel<Tab> getSelectionModel() {
         return selectionModel;
+    }
+
+    public static boolean fileIsOpened() {
+        return isOpened;
+    }
+
+    public static void fileHasOpened() {
+        isOpened = false;
     }
 
     public void addNewTab(String name) throws IOException {
@@ -144,6 +154,7 @@ public class MainController {
                 while ((line = br.readLine()) != null) {
                     lines.add(line);
                 }
+                isOpened = true;
                 document.setText(lines);
             }
         }
