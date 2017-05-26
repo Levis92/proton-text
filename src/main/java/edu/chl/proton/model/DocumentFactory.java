@@ -39,8 +39,11 @@ public class DocumentFactory {
     }
 
     // if no document exists, create one. then send it
-    public Document getDocument(String filePath){
+    public Document getDocument(String string){
         //check filepath, if md, create markdown
+        if(string.substring(string.length()-3).equals(".md")){
+            System.out.println("Filen är .md.");
+        }
 
         return createDocument(DocumentType.MARKDOWN);
     }

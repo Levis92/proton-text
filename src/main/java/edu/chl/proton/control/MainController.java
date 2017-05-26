@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import static java.lang.Boolean.TRUE;
+
 
 /**
  * Anton Levholm
@@ -108,6 +110,7 @@ public class MainController {
 
     public static void fileHasOpened() {
         isOpened = false;
+
     }
 
     public void addNewTab(String name) throws IOException {
@@ -209,6 +212,53 @@ public class MainController {
         }
     }
 
+
+    public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
+        String path = "./Rename.txt";
+        String title = "Set new name";
+        TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
+        String newName=checkCorrectFileName(prompt, title).getResult();
+        file.saveCurrentDocument(newName);
+
+    }
+
+    public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
+        String path = "./oldName.txt";
+        String title = "Save file as";
+        TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
+        String newName=checkCorrectFileName(prompt, title).getResult();
+        file.saveCurrentDocument(newName);
+
+    }
+
+    private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
+        int pLength = prompt.getResult().length();
+        while ( (pLength <7)==TRUE  ||
+                !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
+                        (prompt.getResult()).substring(pLength-4).equals(".txt") ||
+                        (prompt.getResult()).substring(pLength-3).equals(".md"))
+                //|| !(prompt.getResult().substring(0,2).equals("./"))
+                )
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Write a correct file name.");
+            alert.showAndWait();
+            prompt = new TextPrompt(stage.getStage(), title, prompt.getResult());
+            pLength=prompt.getResult().length();
+        }
+
+        //TODO: fånga Nullpointer när man kryssar
+        return prompt;
+
+    }
+    /*
+    if(prompt.getResult()==null) {
+                TextPrompt prompt1 = new TextPrompt(stage.getStage(),title,"./tryAgain.txt");
+                checkCorrectFileName(prompt1, title);
+            }
+            String ext1 = FilenameUtils.getExtension("/path/to/file/foo.txt"); // returns "txt"
+            String ext2 = FilenameUtils.getExtension("bar.exe"); // returns "exe"
+     */
+
     public void onClickCloseApplication(ActionEvent event) {
         String title = "Close application";
         String message = "Are you sure you want to quit Proton Text?";
@@ -238,4 +288,5 @@ public class MainController {
 
         }
     }
+
 }
