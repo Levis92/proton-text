@@ -177,26 +177,36 @@ public class MainController {
 
 
     public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
-        String path = "./Rename.txt";
-        String title = "Set new name";
-        TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        String newName=checkCorrectFileName(prompt, title).getResult();
-        file.saveCurrentDocument(newName);
+        if (file.exists()) {
+            String path = "./" + file.getPath().substring(file.getPath().lastIndexOf('/')+1);
+            String title = "Set new name";
+            TextPrompt prompt = new TextPrompt(stage.getStage(), title, path);
+            String newName = checkCorrectFileName(prompt, title).getResult();
+            if (newName!=null) {
+                file.saveCurrentDocument(newName);
+            }
+        } else {
 
+        }
     }
 
     public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
-        String path = "./oldName.txt";
+        String path ="./filename.md";
+        if (file.exists()){
+            path = "./" + file.getPath().substring(file.getPath().lastIndexOf('/'));
+        }
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
         String newName=checkCorrectFileName(prompt, title).getResult();
-        file.saveCurrentDocument(newName);
+        if (newName!=null) {
+            file.saveCurrentDocument(newName);
+        }
 
     }
 
     private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
-        while ( (pLength <7)==TRUE  ||
+        while ( (pLength <6)==TRUE  ||
                 !((prompt.getResult()).substring(pLength-4).equals(".pdf") ||
                         (prompt.getResult()).substring(pLength-4).equals(".txt") ||
                         (prompt.getResult()).substring(pLength-3).equals(".md"))
