@@ -73,7 +73,7 @@ public class MainController {
      * Help method to open file
      * @param file
      */
-    public void openFile(File file) {
+    private void openFile(File file) {
 
         if (file != null && file.isFile() && !fileIsOpened()) {
             document.openDocument(file.getPath());

@@ -11,9 +11,9 @@ import java.text.SimpleDateFormat;
  * Created by stinawerme on 01/05/17.
  */
 public class FileUtility extends File {
+
     private boolean isSaved;
-
-
+    
     public FileUtility(String path) {
         super(path);
     }

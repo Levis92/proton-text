@@ -1,4 +1,4 @@
-package edu.chl.proton.model;
+package edu.chl.proton.control;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Pos;
