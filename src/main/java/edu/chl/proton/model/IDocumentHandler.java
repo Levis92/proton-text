@@ -20,6 +20,8 @@ public interface IDocumentHandler {
 
     void removeDocument(int index);
 
+    void removeAllDocuments();
+
     void setText(List<String> text);
 
     String getText();

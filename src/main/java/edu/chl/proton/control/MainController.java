@@ -1,8 +1,6 @@
 package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +11,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 import static java.lang.Boolean.TRUE;
 
@@ -30,7 +25,7 @@ public class MainController {
     private static IDocumentHandler document;
     private IStageHandler stage;
     private static SingleSelectionModel<Tab> selectionModel;
-    private Observable observable;
+    private static Observable observable;
     private FileTree fileTree;
     private static boolean isOpened = false;
 
@@ -67,14 +62,10 @@ public class MainController {
         document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
 
-        treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                TreeItem<File> selectedItem = (TreeItem<File>) newValue;
-                File file = new File(selectedItem.getValue().getPath());
-                openFile(file);
-            }
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            TreeItem<File> selectedItem = newValue;
+            File file = new File(selectedItem.getValue().getPath());
+            openFile(file);
         });
     }
 
@@ -109,20 +100,20 @@ public class MainController {
 
     }
 
-    public static SingleSelectionModel<Tab> getSelectionModel() {
+    static SingleSelectionModel<Tab> getSelectionModel() {
         return selectionModel;
     }
 
-    public static boolean fileIsOpened() {
+    static boolean fileIsOpened() {
         return isOpened;
     }
 
-    public static void fileHasOpened() {
+    static void fileHasOpened() {
         isOpened = false;
 
     }
 
-    public void addNewTab(String name) throws IOException {
+    private void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
         tab.getStyleClass().add("tab");
@@ -187,8 +178,8 @@ public class MainController {
         directoryChooser.setTitle("Change directory");
         File file = directoryChooser.showDialog(stage.getStage());
         if (file != null && file.isDirectory()) {
-            this.file.setCurrentDirectory(file);
-            File currentDir = new File(this.file.getCurrentDirectory().getPath());
+            MainController.file.setCurrentDirectory(file);
+            File currentDir = new File(MainController.file.getCurrentDirectory().getPath());
             fileTree.populateTree(currentDir, null);
         }
     }
@@ -208,7 +199,7 @@ public class MainController {
         }
     }
 
-
+    //TODO: Save new file as newFileName and make currentDocument=newfile, remove old file
     public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
         if (file.exists()) {
             String path = file.getPath();
@@ -220,7 +211,7 @@ public class MainController {
                     file.saveCurrentDocument(newName);
                 }
             } catch (NullPointerException eNull) {
-                System.err.println("Exited TextPromt without choosing file");
+                System.err.println("Exited TextPromt without creating new file name");
             }
 
         } else {
@@ -228,7 +219,7 @@ public class MainController {
 
         }
     }
-
+    //TODO: Save new file as newFileName and make currentDocument=newfile
     public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
         String path ="./filename1.md";
         if (file.exists()){
@@ -281,10 +272,23 @@ public class MainController {
                 "\nAuthors: Ludvig Ekman, Anton Levholm, Mickaela Södergren and Stina Werme.\n" +
                 "\nCourse: TDA367");
     }
+    @FXML
+    public void onClickCloseCurrentTab(ActionEvent event) {
+        document.removeCurrentDocument();
+        tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
+    }
+
+    @FXML
+    public void onClickCloseAllTabs(ActionEvent event) {
+        document.removeAllDocuments();
+        int count = tabPane.getTabs().size();
+        tabPane.getTabs().remove(0, count-1);
+    }
 
     public class UpdateFooter implements Observer {
         Observable observable;
-        public UpdateFooter(Observable observable){
+
+        UpdateFooter(Observable observable){
             this.observable = observable;
             observable.addObserver(this);
         }

@@ -3,6 +3,8 @@ package edu.chl.proton.model;
 
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -10,7 +12,11 @@ import static org.junit.Assert.assertTrue;
  * Created by antonlevholm on 2017-05-02.
  */
 public class WorkspaceTest {
-    private Workspace workspace = (new WorkspaceFactory()).getWorkspace();
+    private Workspace workspace;
+
+    public WorkspaceTest() throws IOException {
+        workspace = new WorkspaceFactory().getWorkspace();
+    }
 
     @Test
     public void InstanceTest() {

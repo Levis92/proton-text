@@ -27,7 +27,9 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public void setCurrentDocument(int index) {
-        currentDocument = tabs.get(index);
+        if (tabs.contains(tabs.get(index))) {
+            currentDocument = tabs.get(index);
+        }
     }
 
     @Override
@@ -76,6 +78,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeCurrentDocument() {
         if (tabs.contains(currentDocument)) {
             tabs.remove(currentDocument);
+            if (tabs.isEmpty()) currentDocument = null;
         }
     }
 
@@ -83,7 +86,14 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeDocument(int index) {
         if (tabs.contains(tabs.get(index))) {
             tabs.remove(tabs.get(index));
+            if (tabs.isEmpty()) currentDocument = null;
+            System.out.println("Index: " + index);
         }
+    }
+
+    @Override
+    public void removeAllDocuments() {
+        tabs.removeAll(tabs);
     }
 
     @Override

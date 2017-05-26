@@ -18,5 +18,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="module" module-name="main" scope="TEST" />
   </component>
 </module>

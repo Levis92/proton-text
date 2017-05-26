@@ -119,14 +119,14 @@
                             </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Close current tab">
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseCurrentTab" text="Close current tab">
                             <accelerator>
                                 <KeyCodeCombination alt="UP" code="W" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
-                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickPreviousTab" text="Close all open tabs">
+                        <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickCloseAllTabs" text="Close all open tabs">
                             <accelerator>
-                                <KeyCodeCombination alt="DOWN" code="W" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                <KeyCodeCombination alt="UP" code="W" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
                             </accelerator>
                         </MenuItem>
                     </items>
