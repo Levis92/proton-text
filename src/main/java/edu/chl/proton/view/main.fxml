@@ -133,7 +133,7 @@
                   </Menu>
                 <Menu styleClass="menu" mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem styleClass="menu-item" mnemonicParsing="false" text="About" />
+                    <MenuItem styleClass="menu-item" mnemonicParsing="false" onAction="#onClickAbout" text="About" />
                   </items>
                 </Menu>
               </menus>
