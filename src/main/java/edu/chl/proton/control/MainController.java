@@ -97,7 +97,6 @@ public class MainController {
                 e.printStackTrace();
             }
         }
-
     }
 
     static SingleSelectionModel<Tab> getSelectionModel() {
