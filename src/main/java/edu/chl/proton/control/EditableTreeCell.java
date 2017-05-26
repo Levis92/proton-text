@@ -90,12 +90,17 @@ public class EditableTreeCell extends TreeCell<File> {
         TreeItem<File> treeItem = getTreeItem();
         contextMenu = new ContextMenu();
 
-        if (treeItem.getParent() != null && treeItem.getValue().isDirectory()) {
+        if (treeItem.getParent() == null) {
             createAddFileMenuItem();
             createAddFolderMenuItem();
         }
 
-        createDeleteMenuItem();
+        if (treeItem.getParent() != null && treeItem.getValue().isDirectory()) {
+            createAddFileMenuItem();
+            createAddFolderMenuItem();
+            createDeleteMenuItem();
+        }
+
         setContextMenu(contextMenu);
     }
 

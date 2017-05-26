@@ -1,6 +1,8 @@
 package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -32,6 +32,7 @@ public class MainController {
     private static SingleSelectionModel<Tab> selectionModel;
     private Observable observable;
     private FileTree fileTree;
+    private static boolean isOpened = false;
 
     @FXML
     private TabPane tabPane;
@@ -66,9 +67,45 @@ public class MainController {
         document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
 
-        treeView.setEditable(true);
-        //treeView.setShowRoot(false);
-        treeView.setCellFactory(p -> new EditableTreeCell());
+        treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                TreeItem<File> selectedItem = (TreeItem<File>) newValue;
+                File file = new File(selectedItem.getValue().getPath());
+                openFile(file);
+            }
+        });
+    }
+
+    /**
+     * Help method to open file
+     * @param file
+     */
+    private void openFile(File file) {
+
+        if (file != null && file.isFile() && !fileIsOpened()) {
+            document.openDocument(file.getPath());
+            try {
+                addNewTab(file.getName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+                List<String> lines = new ArrayList<>();
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    lines.add(line);
+                }
+                isOpened = true;
+                document.setText(lines);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -76,6 +113,14 @@ public class MainController {
         return selectionModel;
     }
 
+    public static boolean fileIsOpened() {
+        return isOpened;
+    }
+
+    public static void fileHasOpened() {
+        isOpened = false;
+
+    }
 
     public void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
@@ -111,19 +156,7 @@ public class MainController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage.getStage());
-        if (file != null && file.isFile()) {
-            document.openDocument(file.getPath());
-            addNewTab(file.getName());
-            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-                List<String> lines = new ArrayList<>();
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    lines.add(line);
-                }
-                document.setText(lines);
-            }
-        }
+        openFile(file);
     }
 
     @FXML
