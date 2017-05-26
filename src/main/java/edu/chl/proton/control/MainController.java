@@ -30,7 +30,7 @@ public class MainController {
     private static IDocumentHandler document;
     private IStageHandler stage;
     private static SingleSelectionModel<Tab> selectionModel;
-    private Observable observable;
+    private static Observable observable;
     private FileTree fileTree;
     private static boolean isOpened = false;
 
@@ -105,20 +105,20 @@ public class MainController {
 
     }
 
-    public static SingleSelectionModel<Tab> getSelectionModel() {
+    static SingleSelectionModel<Tab> getSelectionModel() {
         return selectionModel;
     }
 
-    public static boolean fileIsOpened() {
+    static boolean fileIsOpened() {
         return isOpened;
     }
 
-    public static void fileHasOpened() {
+    static void fileHasOpened() {
         isOpened = false;
 
     }
 
-    public void addNewTab(String name) throws IOException {
+    private void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
         tab.getStyleClass().add("tab");
@@ -183,8 +183,8 @@ public class MainController {
         directoryChooser.setTitle("Change directory");
         File file = directoryChooser.showDialog(stage.getStage());
         if (file != null && file.isDirectory()) {
-            this.file.setCurrentDirectory(file);
-            File currentDir = new File(this.file.getCurrentDirectory().getPath());
+            MainController.file.setCurrentDirectory(file);
+            File currentDir = new File(MainController.file.getCurrentDirectory().getPath());
             fileTree.populateTree(currentDir, null);
         }
     }
@@ -260,7 +260,8 @@ public class MainController {
 
     public class UpdateFooter implements Observer {
         Observable observable;
-        public UpdateFooter(Observable observable){
+
+        UpdateFooter(Observable observable){
             this.observable = observable;
             observable.addObserver(this);
         }
