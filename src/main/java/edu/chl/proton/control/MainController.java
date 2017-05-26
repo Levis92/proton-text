@@ -84,7 +84,7 @@ public class MainController {
      */
     public void openFile(File file) {
 
-        if (file != null && file.isFile()) {
+        if (file != null && file.isFile() && !fileIsOpened()) {
             document.openDocument(file.getPath());
             try {
                 addNewTab(file.getName());
