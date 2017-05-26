@@ -27,7 +27,9 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public void setCurrentDocument(int index) {
-        currentDocument = tabs.get(index);
+        if (tabs.contains(tabs.get(index))) {
+            currentDocument = tabs.get(index);
+        }
     }
 
     @Override

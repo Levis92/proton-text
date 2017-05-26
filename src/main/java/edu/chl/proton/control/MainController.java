@@ -272,7 +272,8 @@ public class MainController {
     @FXML
     public void onClickCloseAllTabs(ActionEvent event) {
         document.removeAllDocuments();
-        while (!tabPane.getTabs().isEmpty()) tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
+        int count = tabPane.getTabs().size();
+        tabPane.getTabs().remove(0, count-1);
     }
 
     public class UpdateFooter implements Observer {
