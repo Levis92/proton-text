@@ -96,7 +96,6 @@ public class MainController {
                     }
                 }
             }
-
         });
     }
 
@@ -272,7 +271,6 @@ public class MainController {
             this.observable = observable;
             observable.addObserver(this);
         }
-
 
         @Override
         public void update(Observable o, Object arg) {

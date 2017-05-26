@@ -24,14 +24,15 @@ public class DocumentFactory {
         }
         //TODO: Create classes Plain and so on
         if(documentType==DocumentType.PLAIN){
-            //return new PlainDocument(file); // Start with nothing
+            IDoc plain = new Plain();
+            return new Document(plain);
 
-        } if(documentType==DocumentType.MARKDOWN){
+        } else if(documentType==DocumentType.MARKDOWN){
             IDoc markdown = new Markdown();
             return new Document(markdown);
         } else if(documentType==DocumentType.SLIDE){
-            //return new SlideDocument(file); // Mode where you can do some notes on each slide (MAIN POINT, DETAILS, PICTURE)
-
+            IDoc slide = new Markdown(); //TODO: Implement template for slide view, maybe that we create a button for new Slide?
+            return new Document(slide);
         } else if(documentType==DocumentType.ASSIGNMENT){
             //return new AssignmentDocument(file); // Template for assaignments, i.e. front page and subsections for each assignment.
         }
@@ -41,11 +42,32 @@ public class DocumentFactory {
     // if no document exists, create one. then send it
     public Document getDocument(String string){
         //check filepath, if md, create markdown
-        if(string.substring(string.length()-3).equals(".md")){
-            System.out.println("Filen är .md.");
+
+        try {
+            FileUtility docFile = new FileUtility(string);
+           if (string.toLowerCase().substring(string.length()-3).equals(".md")
+                    && (string.toLowerCase().contains("slide"))) {
+                IDoc slide = new Markdown();
+                return new Document(slide, docFile);
+            } else if(string.substring(string.length()-3).equals(".md")) {
+               IDoc markdown = new Markdown();
+             return new Document(markdown, docFile);
+            } else {
+               IDoc plain = new Plain();
+                return new Document(plain,docFile);
+            }
+
+        } catch (NullPointerException eNull) { //if no document exists
+            if (string.toLowerCase().substring(string.length()-3).equals(".md")
+                    && (string.toLowerCase().contains("slide"))) {
+                return createDocument(DocumentType.SLIDE);
+            } else if(string.substring(string.length()-3).equals(".md")) {
+                return createDocument(DocumentType.MARKDOWN);
+            } else {
+                return createDocument(DocumentType.PLAIN);
+            }
         }
 
-        return createDocument(DocumentType.MARKDOWN);
     }
 
 }
