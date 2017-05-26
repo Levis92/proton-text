@@ -1,8 +1,6 @@
 package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +11,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 import static java.lang.Boolean.TRUE;
 
@@ -266,6 +261,18 @@ public class MainController {
         String message = "Are you sure you want to quit Proton Text?";
         PopupWindow popup = new PopupWindow(stage.getStage(),title,message);
         if (popup.resultIsYes()) stage.getStage().close();
+    }
+
+    @FXML
+    public void onClickCloseCurrentTab(ActionEvent event) {
+        document.removeCurrentDocument();
+        tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
+    }
+
+    @FXML
+    public void onClickCloseAllTabs(ActionEvent event) {
+        document.removeAllDocuments();
+        while (!tabPane.getTabs().isEmpty()) tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
     }
 
     public class UpdateFooter implements Observer {
