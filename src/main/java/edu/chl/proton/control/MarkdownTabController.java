@@ -146,7 +146,7 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
-        String path = file.getCurrentDirectory().getPath() + "/test.pdf";
+        String path = file.getCurrentDirectory().getPath() + "/untitled.pdf";
         String title = "Output filepath";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
         if ((path = prompt.getResult()) != null) {
