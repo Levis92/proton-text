@@ -9,6 +9,8 @@ import java.io.File;
 /**
  * @Author Stina Werme
  * Created by stinawerme on 24/05/17.
+ *
+ * Create file tree for the sidebar
  */
 public class FileTree {
 
@@ -24,6 +26,11 @@ public class FileTree {
         treeView.setCellFactory(p -> new EditableTreeCell());
     }
 
+    /**
+     * Create file tree
+     * @param dir
+     * @param parent
+     */
     public void populateTree(File dir, TreeItem<File> parent) {
         TreeItem root = new TreeItem<>(dir);
 
