@@ -5,14 +5,11 @@ import java.util.List;
 
 /**
  * Created by ludvig on 2017-05-26.
+ * Plain document type, which do not follow markdown standard or any other standard.
  */
 public class Plain implements IDoc {
 
     private List<String> lines = new ArrayList<>();
-
-    public Plain(){
-        //TODO?
-    }
 
     public List<String> getLines(){
         return lines;
