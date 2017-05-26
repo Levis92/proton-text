@@ -246,14 +246,6 @@ public class MainController {
         return prompt;
 
     }
-    /*
-    if(prompt.getResult()==null) {
-                TextPrompt prompt1 = new TextPrompt(stage.getStage(),title,"./tryAgain.txt");
-                checkCorrectFileName(prompt1, title);
-            }
-            String ext1 = FilenameUtils.getExtension("/path/to/file/foo.txt"); // returns "txt"
-            String ext2 = FilenameUtils.getExtension("bar.exe"); // returns "exe"
-     */
 
     public void onClickCloseApplication(ActionEvent event) {
         String title = "Close application";
@@ -279,7 +271,8 @@ public class MainController {
     public void onClickAbout(ActionEvent actionEvent) {
         new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
                 "text editor created by students at Chalmers University of Technology. \n" +
-                "Course: TDA367");
+                "\nAuthors: Ludvig Ekman, Anton Levholm, Mickaela Södergren and Stina Werme.\n" +
+                "\nCourse: TDA367");
     }
 
     public class UpdateFooter implements Observer {

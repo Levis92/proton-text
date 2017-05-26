@@ -9,11 +9,12 @@ package edu.chl.proton.model;
 public class FontStyle {
     public FontStyle(){
     }
-
     protected String getItalicStyle(String makeStyle){
+
         return "<i>"+makeStyle+"</i>";
     }
     protected String getItalicBoldStyle(String makeStyle){
+
         return "<b><i>"+makeStyle+"</i></b>";
     }
     protected String getHeadingStyle(String makeStyle){
@@ -40,5 +41,4 @@ public class FontStyle {
 
         return "<b>"+makeStyle+"</b>";
     }
-
 }

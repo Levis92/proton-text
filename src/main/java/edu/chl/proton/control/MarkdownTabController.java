@@ -23,7 +23,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -211,36 +214,25 @@ public class MarkdownTabController {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "File choosen is not an image.");
                 alert.showAndWait();
             }
-
         }
-
     }
-    /*I onClickImageButton() så skulle du kunna implementera med FileChooser
-    (som när man öppnar en fil) så att man väljer en bild och så plockar man path:en till
-    filen och stoppar in den istället för 'url' när man insert:ar syntaxen 🙂*/
 
     @FXML
     public void onClickCodeButton(ActionEvent event) throws IOException {
-        // Go to new line.
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n     ");
-        // Go to new line.
     }
 
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
-        // Go to beginning of line
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n1.   ");
-
-        // Should it repeat itself?
     }
 
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
-        // Go to beginning of line
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n*     ");
@@ -249,11 +241,9 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
-        //newline
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n*****\n");
-        //newline
     }
 
     public class UpdateView implements Observer {
