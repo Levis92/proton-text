@@ -200,29 +200,40 @@ public class MainController {
 
     public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
         if (file.exists()) {
-            String path = "./" + file.getPath().substring(file.getPath().lastIndexOf('/')+1);
+            String path = file.getPath();
             String title = "Set new name";
             TextPrompt prompt = new TextPrompt(stage.getStage(), title, path);
-            String newName = checkCorrectFileName(prompt, title).getResult();
-            if (newName!=null) {
-                file.saveCurrentDocument(newName);
+            try {
+                String newName=checkCorrectFileName(prompt, title).getResult();
+                if (newName!=null) {
+                    file.saveCurrentDocument(newName);
+                }
+            } catch (NullPointerException eNull) {
+                System.err.println("Exited TextPromt without choosing file");
             }
+
         } else {
+            System.out.println("Varför fungerar det inte :(");
 
         }
     }
 
     public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
-        String path ="./filename.md";
+        String path ="./filename1.md";
         if (file.exists()){
-            path = "./" + file.getPath().substring(file.getPath().lastIndexOf('/'));
+            path = file.getPath();
         }
         String title = "Save file as";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
-        String newName=checkCorrectFileName(prompt, title).getResult();
-        if (newName!=null) {
-            file.saveCurrentDocument(newName);
+        try {
+            String newName=checkCorrectFileName(prompt, title).getResult();
+            if (newName!=null) {
+                file.saveCurrentDocument(newName);
+            }
+        } catch (NullPointerException eNull) {
+            System.err.println("Exited TextPromt without choosing file");
         }
+
 
     }
 
