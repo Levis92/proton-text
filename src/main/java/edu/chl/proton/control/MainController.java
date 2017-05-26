@@ -239,6 +239,11 @@ public class MainController {
         if (popup.resultIsYes()) stage.getStage().close();
     }
 
+    public void onClickAbout(ActionEvent actionEvent) {
+        new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
+                "text editor created by students at Chalmers University of Technology");
+    }
+
     public class UpdateFooter implements Observer {
         Observable observable;
         public UpdateFooter(Observable observable){
