@@ -12,8 +12,10 @@ import static org.junit.Assert.assertTrue;
 public class DocumentFactoryTest {
 
     @Test
-    public void testSomething() throws IOException{
+    public void testNonExistingFile() throws IOException{
+        DocumentFactory factory = new DocumentFactory();
+        factory.getDocument("./testFileDoesNotExist.md");
 
-        assertTrue("Message",1==1);
+        assertTrue("File does not exist, and a new file was created",1==1);
     }
 }

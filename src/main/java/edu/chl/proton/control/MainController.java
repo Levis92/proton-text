@@ -263,6 +263,7 @@ public class MainController {
         if (popup.resultIsYes()) stage.getStage().close();
     }
 
+
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {
         document.removeCurrentDocument();
@@ -273,6 +274,12 @@ public class MainController {
     public void onClickCloseAllTabs(ActionEvent event) {
         document.removeAllDocuments();
         while (!tabPane.getTabs().isEmpty()) tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
+    }
+
+    public void onClickAbout(ActionEvent actionEvent) {
+        new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
+                "text editor created by students at Chalmers University of Technology. \n" +
+                "Course: TDA367");
     }
 
     public class UpdateFooter implements Observer {
