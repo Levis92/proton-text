@@ -8,14 +8,8 @@ public class DocumentFactory {
     //use getShape method to get object of type shape
     private FileUtility file; //fileName maybe is more tydlig?
 
-
     public DocumentFactory(){
         // kolla om file redan finns, annars typ new file
-    }
-
-    //TODO: Checker for existing document file, if exist -> send file to documentClass (oklart om vi verkligen ska ha detta)
-    private void checkExistingFile(){
-
     }
 
     public Document createDocument(DocumentType documentType){
@@ -26,7 +20,6 @@ public class DocumentFactory {
         if(documentType==DocumentType.PLAIN){
             IDoc plain = new Plain();
             return new Document(plain);
-
         } else if(documentType==DocumentType.MARKDOWN){
             IDoc markdown = new Markdown();
             return new Document(markdown);
@@ -41,8 +34,6 @@ public class DocumentFactory {
 
     // if no document exists, create one. then send it
     public Document getDocument(String string){
-        //check filepath, if md, create markdown
-
         try {
             FileUtility docFile = new FileUtility(string);
            if (string.toLowerCase().substring(string.length()-3).equals(".md")
