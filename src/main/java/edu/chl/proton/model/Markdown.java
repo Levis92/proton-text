@@ -274,7 +274,7 @@ public class Markdown implements IDoc {
         Matcher match = linkPattern("picLink").matcher(str);
         StringBuffer sb = new StringBuffer();
         while (match.find()) {
-            match.appendReplacement(sb, "<img src=\"$2\" alt=\"$1\">");
+            match.appendReplacement(sb, "<img style=\"max-width:100%\" src=\"$2\" alt=\"$1\">");
         }
         match.appendTail(sb);
         String tmp = sb.toString();
