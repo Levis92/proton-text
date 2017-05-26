@@ -25,6 +25,9 @@ public class EditableTreeCell extends TreeCell<File> {
 
     }
 
+    /**
+     * Start edit
+     */
     @Override
     public void startEdit() {
         super.startEdit();
@@ -37,6 +40,9 @@ public class EditableTreeCell extends TreeCell<File> {
         textField.selectAll();
     }
 
+    /**
+     * Cancel edit
+     */
     @Override
     public void cancelEdit() {
         super.cancelEdit();
@@ -47,6 +53,11 @@ public class EditableTreeCell extends TreeCell<File> {
         setGraphic(getTreeItem().getGraphic());
     }
 
+    /**
+     * Update item
+     * @param item
+     * @param empty
+     */
     @Override
     public void updateItem(File item, boolean empty) {
         super.updateItem(item, empty);
@@ -79,8 +90,9 @@ public class EditableTreeCell extends TreeCell<File> {
         TreeItem<File> treeItem = getTreeItem();
         contextMenu = new ContextMenu();
 
-        if (!treeItem.isLeaf() && treeItem.getParent() != null) {
-            createAddMenuItem();
+        if (treeItem.getParent() != null && treeItem.getValue().isDirectory()) {
+            createAddFileMenuItem();
+            createAddFolderMenuItem();
         }
 
         createDeleteMenuItem();
@@ -90,8 +102,8 @@ public class EditableTreeCell extends TreeCell<File> {
     /**
      * Create a context menu item for adding files.
      */
-    private void createAddMenuItem() {
-        MenuItem addMenuItem = new MenuItem("Add new");
+    private void createAddFileMenuItem() {
+        MenuItem addMenuItem = new MenuItem("New file");
         contextMenu.getItems().add(addMenuItem);
         addMenuItem.setOnAction(t -> {
 
@@ -131,6 +143,45 @@ public class EditableTreeCell extends TreeCell<File> {
     }
 
     /**
+     * Create a context menu item for adding folders.
+     */
+    private void createAddFolderMenuItem() {
+        MenuItem addMenuItem = new MenuItem("New folder");
+        contextMenu.getItems().add(addMenuItem);
+        addMenuItem.setOnAction(t -> {
+
+            TreeItem<File> currentTreeItem = getTreeItem();
+            File currentFile = currentTreeItem.getValue();
+
+            String path = null;
+            try {
+                path = currentFile.getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File f = new File(path, "untitledFolder");
+
+            f.getParentFile().mkdirs();
+            int number = 2;
+
+            while (f.exists()) {
+                f = new File(path, "untitledFolder" + number);
+                number++;
+            }
+            f.mkdir();
+
+            TreeItem newTreeItem = new TreeItem<File>();
+            newTreeItem.setValue(f);
+            currentTreeItem.getChildren().add(newTreeItem);
+
+            if (!currentTreeItem.isExpanded()) {
+                currentTreeItem.setExpanded(true);
+            }
+        });
+    }
+
+    /**
      * Create a context menu item for deleting files.
      */
     private void createDeleteMenuItem() {
@@ -154,6 +205,10 @@ public class EditableTreeCell extends TreeCell<File> {
         });
     }
 
+    /**
+     * Create a text field to change name
+     * If user clicks enter, update name
+     */
     private void createTextField() {
         textField = new TextField(getString());
         textField.setOnKeyReleased(keyReleaseEventObject -> {

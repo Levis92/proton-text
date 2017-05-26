@@ -24,7 +24,8 @@ public class DocumentFactory {
         }
         //TODO: Create classes Plain and so on
         if(documentType==DocumentType.PLAIN){
-            //return new PlainDocument(file); // Start with nothing
+            IDoc markdown = new Markdown();
+            return new Document(markdown);
 
         } if(documentType==DocumentType.MARKDOWN){
             IDoc markdown = new Markdown();
@@ -41,9 +42,19 @@ public class DocumentFactory {
     // if no document exists, create one. then send it
     public Document getDocument(String string){
         //check filepath, if md, create markdown
-        if(string.substring(string.length()-3).equals(".md")){
-            System.out.println("Filen är .md.");
+
+        try {
+            FileUtility docFile = new FileUtility(string);
+
+
+        } catch (NullPointerException eNull) {
+            if(string.substring(string.length()-3).equals(".md")){
+                return createDocument(DocumentType.MARKDOWN);
+            } else {
+
+            }
         }
+
 
         return createDocument(DocumentType.MARKDOWN);
     }

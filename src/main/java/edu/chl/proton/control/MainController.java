@@ -66,9 +66,6 @@ public class MainController {
         document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
 
-        File currentDir = new File(file.getCurrentDirectory().getPath()); // current directory
-        findFiles(currentDir, null);
-
         treeView.setEditable(true);
         //treeView.setShowRoot(false);
         treeView.setCellFactory(p -> new EditableTreeCell());
@@ -81,33 +78,7 @@ public class MainController {
 
 
 
-    private void findFiles(File dir, TreeItem<File> parent) {
-        TreeItem root = new TreeItem<>(dir);
 
-        root.setValue(dir);
-
-        if (parent == null) {
-            root.setExpanded(true);
-        } else {
-            root.setExpanded(false);
-        }
-        File[] files = dir.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                findFiles(file, root);
-            } else {
-                TreeItem item = new TreeItem<>(file);
-                item.setValue(file);
-                root.getChildren().add(item);
-            }
-
-        }
-        if(parent == null){
-            treeView.setRoot(root);
-        } else {
-            parent.getChildren().add(root);
-        }
-    }
 
     public void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
@@ -267,7 +238,6 @@ public class MainController {
             this.observable = observable;
             observable.addObserver(this);
         }
-
 
         @Override
         public void update(Observable o, Object arg) {
