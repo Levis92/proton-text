@@ -67,14 +67,10 @@ public class MainController {
         document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
 
-        treeView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            
-            @Override
-            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                TreeItem<File> selectedItem = (TreeItem<File>) newValue;
-                File file = new File(selectedItem.getValue().getPath());
-                openFile(file);
-            }
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            TreeItem<File> selectedItem = newValue;
+            File file = new File(selectedItem.getValue().getPath());
+            openFile(file);
         });
     }
 
