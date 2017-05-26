@@ -59,7 +59,6 @@ public class MainController {
         selectionModel = tabPane.getSelectionModel();
         menuBar.useSystemMenuBarProperty().set(true);
         addNewTab("Untitled.md");
-        document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -287,7 +286,7 @@ public class MainController {
         public void update(Observable o, Object arg) {
             if (file.exists()) {
                 String text = file.getDateForLastEdited();
-                lastSaved.setText("Lased saved: " + text);
+                lastSaved.setText("Last saved: " + text);
                 String path = file.getPath();
                 filePath.setText("Path: " + path);
             } else {
