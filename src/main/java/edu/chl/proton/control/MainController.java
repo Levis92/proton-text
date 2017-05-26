@@ -268,14 +268,15 @@ public class MainController {
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {
         document.removeCurrentDocument();
-        tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
+        int index = selectionModel.getSelectedIndex();
+        tabPane.getTabs().remove(index);
     }
 
     @FXML
     public void onClickCloseAllTabs(ActionEvent event) {
         document.removeAllDocuments();
         int count = tabPane.getTabs().size();
-        tabPane.getTabs().remove(0, count-1);
+        tabPane.getTabs().remove(0, count);
     }
 
     public void onClickAbout(ActionEvent actionEvent) {
