@@ -11,16 +11,14 @@ import java.util.*;
  */
 public class Document {
 
-    private Cursor cursor;
     private FileUtility file;
+    private IDoc docType;
 
-    IDoc docType;
-
-    public Document(IDoc type){
+    Document(IDoc type){
         this.docType = type;
     }
 
-    public Document(IDoc type, File file){
+    Document(IDoc type, File file){
         this.docType = type;
         this.file = (FileUtility) file;
     }
@@ -30,21 +28,6 @@ public class Document {
             return true;
         }
         return false;
-    }
-
-    /**
-     * @return the cursor
-     */
-    protected Cursor getCursor(){
-        return this.cursor;
-    }
-
-    /**
-     * sets the cursor
-     * @param cursor
-     */
-    protected void setCursor(Cursor cursor){
-        this.cursor = cursor;
     }
 
     /**
@@ -72,25 +55,6 @@ public class Document {
 
     public List<String> getLines(){
         return docType.getLines();
-    }
-
-    /**
-     * Inserts a string at the cursor's position and
-     * moves the cursor x step forward, where x is
-     * the length of the string.
-     * @param str
-     */
-    protected void insertPart(String str){
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        String tmp = getLines().get(row);
-
-        StringBuilder sb = new StringBuilder(tmp);
-        sb.insert(col, str);
-
-        getLines().set(row, sb.toString());
-        cursor.setPosition(row, col + str.length());
     }
 
     /**
