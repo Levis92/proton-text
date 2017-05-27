@@ -27,6 +27,7 @@ public class MainController {
     private IStageHandler stage;
     private static SingleSelectionModel<Tab> selectionModel;
     private static Observable observable;
+    private Observer observer;
     private FileTree fileTree;
     private static boolean isOpened = false;
 
@@ -52,7 +53,7 @@ public class MainController {
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
         observable = factory.getWorkspace();
-        new UpdateFooter(observable);
+        observer = new UpdateFooter(observable);
         filePath.setText("");
         lastSaved.setText("Not saved");
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
@@ -304,6 +305,8 @@ public class MainController {
         document.removeAllDocuments();
         int count = tabPane.getTabs().size();
         tabPane.getTabs().remove(0, count);
+        observable.deleteObservers();
+        observable.addObserver(observer);
     }
 
     public void onClickAbout(ActionEvent actionEvent) {

@@ -46,6 +46,7 @@ public class MarkdownTabController {
     private static IDocumentHandler document;
     private IStageHandler stage;
     private Observable observable;
+    private UpdateView observer;
 
     @FXML
     private HTMLEditor htmlEditor;
@@ -59,7 +60,7 @@ public class MarkdownTabController {
     public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
         observable = factory.getWorkspace();
-        UpdateView view = new UpdateView(observable);
+        observer = new UpdateView(observable);
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
@@ -110,7 +111,7 @@ public class MarkdownTabController {
      */
 
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
-    public static void hideHTMLEditorToolbars(final HTMLEditor editor) {
+    private static void hideHTMLEditorToolbars(final HTMLEditor editor) {
         editor.setVisible(false);
         Platform.runLater(() -> {
             Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
@@ -264,7 +265,7 @@ public class MarkdownTabController {
     public class UpdateView implements Observer {
         Observable observable;
 
-        public UpdateView(Observable observable){
+        UpdateView(Observable observable){
             this.observable = observable;
             observable.addObserver(this);
         }
