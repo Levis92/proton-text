@@ -37,27 +37,17 @@ public class MarkdownTest {
         markdown = new Markdown();
         markdown.setText(lines);
 
-        String outcome = "<h2>The story of an hour</h2>\rIt was her sister <i>Josephine</i> who told her, " +
-                "in broken sentences; veiled <b>hints</b> that revealed in half " +
-                "concealing.\r Her husband's friend <i>Richards</i> was there, too, " +
-                "near her.\r<blockquote>> It was he who had been in the newspaper office</blockquote>\r " +
-                "when intelligence of the railroad disaster was received, " +
-                "with Brently Mallard's name leading <i><b>the list of killed:</b></i>\r" +
-                "He had only taken the time to assure himself of its truth by a " +
-                "second <a href=\"link to stuff\">telegram</a>, and had <img src=\"dunno\" alt=\"hastened\"> to forestall any less careful," +
-                " less tender friend in bearing the sad message.\r";
+        String outcome = "<p style=\"width:100%\"><h2>The story of an hour</h2></p>" +
+                "<p style=\"width:100%\">It was her sister <i>Josephine</i> who told her, in broken sentences; " +
+                "veiled <b>hints</b> that revealed in half concealing.</p><p style=\"width:100%\">Her husband's " +
+                "friend <i>Richards</i> was there, too, near her.</p><p style=\"width:100%\"><blockquote> It was " +
+                "he who had been in the newspaper office when intelligence of the railroad disaster was received, " +
+                "with Brently Mallard's name leading ***the list of killed:***</blockquote></p>" +
+                "<p style=\"width:100%\">He had only taken the time to assure himself of its truth by a second " +
+                "<a href=\"link to stuff\">telegram</a>, and had " +
+                "<img style=\"max-width:100%\" src=\"dunno\" alt=\"hastened\"> to forestall any less careful, less " +
+                "tender friend in bearing the sad message.</p>";
 
-        String[] withStyling = outcome.split("\r");
-        List<String> tmp = new ArrayList<>();
-
-        for(String s : withStyling){
-            tmp.add(s);
-        }
-
-        assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(tmp));
-
+        assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(outcome));
     }
-
-
-
 }
