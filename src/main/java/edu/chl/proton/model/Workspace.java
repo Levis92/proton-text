@@ -19,7 +19,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
-    public Workspace() throws IOException {
+    Workspace() throws IOException {
         currentDocument = factory.createDocument(DocumentType.MARKDOWN);
         tabs.add(currentDocument);
         setCurrentDirectory(new FileUtility("./Proton Text Directory"));
