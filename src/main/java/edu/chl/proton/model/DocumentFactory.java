@@ -8,14 +8,17 @@ public class DocumentFactory {
     private FileUtility file;
 
     public DocumentFactory(){
-        // kolla om file redan finns, annars typ new file
     }
 
+    /**
+     * Creates a document to write in.
+     * @param documentType decides what type of document will be created, and what rules that document has.
+     * @return Document with writing rules.
+     */
     public Document createDocument(DocumentType documentType){
         if(documentType == null){
             return null;
         }
-        //TODO: Create classes Plain and so on
         if(documentType==DocumentType.PLAIN){
             IDoc plain = new Plain();
             return new Document(plain);
@@ -31,15 +34,19 @@ public class DocumentFactory {
         return null;
     }
 
-    // if no document exists, create one. then send it
-    public Document getDocument(String string){
+    /**
+     * Opens the existing document, if document does not exist, creates one.
+     * @param fileName is the file path to the file.
+     * @return a document, and a new if it doesn't already exist.
+     */
+    public Document getDocument(String fileName){
         try {
-            file = new FileUtility(string);
-           if (string.toLowerCase().substring(string.length()-3).equals(".md")
-                    && (string.toLowerCase().contains("slide"))) {
+            file = new FileUtility(fileName);
+           if (fileName.toLowerCase().substring(fileName.length()-3).equals(".md")
+                    && (fileName.toLowerCase().contains("slide"))) {
                 IDoc slide = new Markdown();
                 return new Document(slide, file);
-            } else if(string.substring(string.length()-3).equals(".md")) {
+            } else if(fileName.substring(fileName.length()-3).equals(".md")) {
                IDoc markdown = new Markdown();
              return new Document(markdown, file);
             } else {
@@ -48,10 +55,11 @@ public class DocumentFactory {
             }
 
         } catch (NullPointerException eNull) { //if no document exists
-            if (string.toLowerCase().substring(string.length()-3).equals(".md")
-                    && (string.toLowerCase().contains("slide"))) {
+            if (fileName.toLowerCase().substring(fileName.length()-3).equals(".md")
+                    && (fileName.toLowerCase().contains("slide"))) {
                 return createDocument(DocumentType.SLIDE);
-            } else if(string.substring(string.length()-3).equals(".md")) {
+            } else if(fileName.substring(fileName.length()-3).equals(".md") ||
+                    fileName.substring(fileName.length()-3).equals(".txt")) {
                 return createDocument(DocumentType.MARKDOWN);
             } else {
                 return createDocument(DocumentType.PLAIN);

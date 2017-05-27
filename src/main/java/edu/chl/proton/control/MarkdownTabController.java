@@ -110,7 +110,6 @@ public class MarkdownTabController {
                 }
             }
         });
-
     }
 
 
@@ -164,6 +163,11 @@ public class MarkdownTabController {
         }
     }
 
+    /**
+     * Creates text template for inserting of links
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickLinkButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
@@ -171,6 +175,11 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "[text about link](http://url here)");
     }
 
+    /**
+     * Creates text template for inserting of headers
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickHeadingButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
@@ -178,6 +187,11 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "#");
     }
 
+    /**
+     * Creates text template for inserting of bolding code
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
             // Four asterixes and move cursor two steps back. Method in Document that takes in
@@ -188,13 +202,19 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "****");
     }
 
+    /**
+     * Creates text template for inserting of italic text
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickItalicButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "**");
     }
-        // 1. Cursors plats 2. setText, med htmltext
+
+
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
         // Go to beginning of line. Set cursor?
@@ -204,6 +224,12 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "\n> ");
     }
 
+    /**
+     * Inserts image from file directory with help from user through file choosing,
+     * or if image from web: creates text template.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickImageButton(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
@@ -232,6 +258,11 @@ public class MarkdownTabController {
         }
     }
 
+    /**
+     * Creates text template for inserting of code text
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickCodeButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
@@ -239,6 +270,11 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "´´´´´´");
     }
 
+    /**
+     * Creates text template for inserting of ordered listing
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickOrderedListButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
@@ -246,14 +282,23 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "\n1.   ");
     }
 
+    /**
+     * Creates text template for inserting of unordered listing
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickUnorderedListButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n*     ");
-
     }
 
+    /**
+     * Creates markdown text for horizontal line
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
