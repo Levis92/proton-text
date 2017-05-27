@@ -200,7 +200,6 @@ public class MainController {
         }
     }
 
-    //TODO: Save new file as newFileName and make currentDocument=newfile, remove old file
     public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
         if (file.exists()) {
             String path = file.getPath();
@@ -224,7 +223,8 @@ public class MainController {
 
         }
     }
-    //TODO: Save new file as newFileName and make currentDocument=newfile
+
+
     public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
         String path ="./filename1.md";
         if (file.exists()){
