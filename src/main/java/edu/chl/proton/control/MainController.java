@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.*;
 import java.util.*;
 
@@ -220,7 +221,6 @@ public class MainController {
         }
     }
 
-
     public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
         if (file.exists()) {
             String path = file.getPath();
@@ -230,16 +230,21 @@ public class MainController {
                 String newName=checkCorrectFileName(prompt, title).getResult();
                 if (newName!=null) {
                     file.saveCurrentDocument(newName);
+                    File newer = new File(newName);
+                    File older = new File(path);
+                    older.renameTo(newer);
                 }
+
             } catch (NullPointerException eNull) {
-                System.err.println("Exited TextPromt without choosing file");
+                System.err.println("Exited TextPromt without creating new file name");
             }
 
         } else {
-            System.out.println("Varför fungerar det inte :(");
+            System.out.println("Does not find file.");
 
         }
     }
+
 
     public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
         String path ="./filename1.md";
@@ -286,7 +291,6 @@ public class MainController {
         PopupWindow popup = new PopupWindow(stage.getStage(),title,message);
         if (popup.resultIsYes()) stage.getStage().close();
     }
-
 
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {

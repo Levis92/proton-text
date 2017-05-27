@@ -200,11 +200,9 @@ public class EditableTreeCell extends TreeCell<File> {
                     "Delete " + currentFile.getName() + " ?",
                     ButtonType.YES, ButtonType.CANCEL);
             alert.showAndWait();
-
             if (alert.getResult() == ButtonType.CANCEL) {
                 return;
             }
-
             currentTreeItem.getParent().getChildren().remove(currentTreeItem);
             currentFile.delete();
         });
