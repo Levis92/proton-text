@@ -210,13 +210,17 @@ public class MainController {
                 String newName=checkCorrectFileName(prompt, title).getResult();
                 if (newName!=null) {
                     file.saveCurrentDocument(newName);
+                    File newer = new File(newName);
+                    File older = new File(path);
+                    older.renameTo(newer);
                 }
+
             } catch (NullPointerException eNull) {
                 System.err.println("Exited TextPromt without creating new file name");
             }
 
         } else {
-            System.out.println("Varför fungerar det inte :(");
+            System.out.println("Does not find file.");
 
         }
     }

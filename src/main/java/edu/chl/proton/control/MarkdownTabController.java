@@ -204,7 +204,7 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "\n> ");
     }
 
-    @FXML //TODO: DialogBox som frågar om url eller fil
+    @FXML
     public void onClickImageButton(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "Is the image in your file system?",
