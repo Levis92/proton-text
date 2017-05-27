@@ -116,18 +116,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public void setDirectory(File folder) {
-        if (folder.isDirectory()) {
-            currentDirectory = folder;
-        }
-    }
-
-    @Override
-    public File getDirectory() {
-        return currentDirectory;
-    }
-
-    @Override
     public File getLastEditedFile(String dirPath) {
         return null;
     }

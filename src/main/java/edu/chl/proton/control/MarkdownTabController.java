@@ -61,13 +61,10 @@ public class MarkdownTabController {
         stage = factory.getWorkspace();
         hideHTMLEditorToolbars(htmlEditor);
 
-        htmlEditor.setOnKeyReleased(new EventHandler<KeyEvent>()
-        {
+        htmlEditor.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
-            public void handle(KeyEvent event)
-            {
-                if (isValidEvent(event))
-                {
+            public void handle(KeyEvent event) {
+                if (isValidEvent(event)) {
                     String text = htmlEditor.getHtmlText();
                     List<String> doc;
                     doc = html2text(text);
@@ -75,27 +72,22 @@ public class MarkdownTabController {
                 }
             }
 
-            private boolean isValidEvent(KeyEvent event)
-            {
+            private boolean isValidEvent(KeyEvent event) {
                 return !isSelectAllEvent(event)
                         && ((isPasteEvent(event)) || isCharacterKeyReleased(event));
             }
 
-            private boolean isSelectAllEvent(KeyEvent event)
-            {
+            private boolean isSelectAllEvent(KeyEvent event) {
                 return event.isShortcutDown() && event.getCode() == KeyCode.A;
             }
 
-            private boolean isPasteEvent(KeyEvent event)
-            {
+            private boolean isPasteEvent(KeyEvent event) {
                 return event.isShortcutDown() && event.getCode() == KeyCode.V;
             }
 
-            private boolean isCharacterKeyReleased(KeyEvent event)
-            {
+            private boolean isCharacterKeyReleased(KeyEvent event) {
                 // Make custom changes here..
-                switch (event.getCode())
-                {
+                switch (event.getCode()) {
                     case ALT:
                     case COMMAND:
                     case CONTROL:
@@ -106,13 +98,15 @@ public class MarkdownTabController {
                 }
             }
         });
-
     }
 
+    /**
+     * Hides the default toolbar in HTMLEditor.
+     * @param editor
+     */
 
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
-    public static void hideHTMLEditorToolbars(final HTMLEditor editor)
-    {
+    public static void hideHTMLEditorToolbars(final HTMLEditor editor) {
         editor.setVisible(false);
         Platform.runLater(() -> {
             Node[] nodes = editor.lookupAll(".tool-bar").toArray(new Node[0]);
@@ -143,6 +137,12 @@ public class MarkdownTabController {
         return rowList;
     }
 
+    /**
+     * Generates a PDF from the HTML String that getHTML() in IDocumentHandler returns.
+     * @param event
+     * @throws IOException
+     * @throws DocumentException
+     */
 
     @FXML
     public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
