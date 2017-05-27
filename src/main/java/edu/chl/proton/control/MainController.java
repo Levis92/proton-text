@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.*;
 import java.util.*;
 

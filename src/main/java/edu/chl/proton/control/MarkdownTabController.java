@@ -5,13 +5,17 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.sun.javafx.webkit.Accessor;
 import com.sun.webkit.WebPage;
-import edu.chl.proton.model.*;
+import edu.chl.proton.model.IDocumentHandler;
+import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.IStageHandler;
+import edu.chl.proton.model.WorkspaceFactory;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -200,19 +204,30 @@ public class MarkdownTabController {
         webPage.executeCommand("insertText", "\n> ");
     }
 
-    @FXML
+    @FXML //TODO: DialogBox som frågar om url eller fil
     public void onClickImageButton(ActionEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose image");
-        File file = fileChooser.showOpenDialog(stage.getStage());
-        if (file != null && file.isFile()) {
-            if(isImage(file.getPath())) {
-                WebView webView = (WebView) htmlEditor.lookup("WebView");
-                WebPage webPage = Accessor.getPageFor(webView.getEngine());
-                webPage.executeCommand("insertText", "![text about image](" + file.getPath() + ")");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "File choosen is not an image.");
-                alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Is the image in your file system?",
+                ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.NO) {
+            WebView webView = (WebView) htmlEditor.lookup("WebView");
+            WebPage webPage = Accessor.getPageFor(webView.getEngine());
+            webPage.executeCommand("insertText", "![text about image](Image URL)");
+        } else {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose image");
+            File file = fileChooser.showOpenDialog(stage.getStage());
+            if (file != null && file.isFile()) {
+                if (isImage(file.getPath())) {
+                    WebView webView = (WebView) htmlEditor.lookup("WebView");
+                    WebPage webPage = Accessor.getPageFor(webView.getEngine());
+                    webPage.executeCommand("insertText", "![text about image](" + file.toURI() + ")");
+                } else {
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR, "File choosen is not an image.");
+                    alert2.showAndWait();
+                }
             }
         }
     }
@@ -221,7 +236,7 @@ public class MarkdownTabController {
     public void onClickCodeButton(ActionEvent event) throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "\n     ");
+        webPage.executeCommand("insertText", "´´´´´´");
     }
 
     @FXML
