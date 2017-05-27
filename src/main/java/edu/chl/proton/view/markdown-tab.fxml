@@ -19,7 +19,7 @@
                   <JFXButton onAction="#onClickOrderedListButton" styleClass="buttons" stylesheets="@style.css" text="&lt;ol&gt;" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <JFXButton onAction="#onClickHeadingButton" styleClass="buttons" stylesheets="@style.css" text="&lt;h1-2&gt;" BorderPane.alignment="CENTER" />
+                  <JFXButton onAction="#onClickHeadingButton" styleClass="buttons" stylesheets="@style.css" text="&lt;h1-6&gt;" BorderPane.alignment="CENTER" />
                </right>
                <padding>
                   <Insets left="5.0" top="5.0" />

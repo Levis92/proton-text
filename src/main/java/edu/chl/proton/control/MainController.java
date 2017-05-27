@@ -60,7 +60,6 @@ public class MainController {
         selectionModel = tabPane.getSelectionModel();
         menuBar.useSystemMenuBarProperty().set(true);
         addNewTab("Untitled.md");
-        document.createDocument(DocumentType.MARKDOWN);
         fileTree = new FileTree(treeView, file);
 
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -98,8 +97,12 @@ public class MainController {
                 e.printStackTrace();
             }
         }
-
     }
+
+    /**
+     * Makes the SingleSelectionModel for the TabPane available to other controllers.
+     * @return
+     */
 
     static SingleSelectionModel<Tab> getSelectionModel() {
         return selectionModel;
@@ -113,6 +116,12 @@ public class MainController {
         isOpened = false;
 
     }
+
+    /**
+     * Adds a new tab to the TabPane and makes it the selected one.
+     * @param name
+     * @throws IOException
+     */
 
     private void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
@@ -173,6 +182,12 @@ public class MainController {
 
     }
 
+    /**
+     * Changes the current directory and displays the new file tree.
+     * @param event
+     * @throws IOException
+     */
+
     @FXML
     public void onClickChangeDirectory(ActionEvent event) throws IOException {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -184,6 +199,12 @@ public class MainController {
             fileTree.populateTree(currentDir, null);
         }
     }
+
+    /**
+     * Toggle between showing and hiding the file tree view.
+     * @param event
+     * @throws IOException
+     */
 
     @FXML
     public void onClickToggleTreeViewVisibility(ActionEvent event) throws IOException {
@@ -271,24 +292,31 @@ public class MainController {
         if (popup.resultIsYes()) stage.getStage().close();
     }
 
-    public void onClickAbout(ActionEvent actionEvent) {
-        new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
-                "text editor created by students at Chalmers University of Technology. \n" +
-                "\nAuthors: Ludvig Ekman, Anton Levholm, Mickaela Södergren and Stina Werme.\n" +
-                "\nCourse: TDA367");
-    }
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {
         document.removeCurrentDocument();
-        tabPane.getTabs().removeAll(selectionModel.getSelectedItem());
+        int index = selectionModel.getSelectedIndex();
+        tabPane.getTabs().remove(index);
     }
 
     @FXML
     public void onClickCloseAllTabs(ActionEvent event) {
         document.removeAllDocuments();
         int count = tabPane.getTabs().size();
-        tabPane.getTabs().remove(0, count-1);
+        tabPane.getTabs().remove(0, count);
     }
+
+    public void onClickAbout(ActionEvent actionEvent) {
+        new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
+                "text editor created by students at Chalmers University of Technology. \n" +
+                "\nAuthors: Ludvig Ekman, Anton Levholm, Mickaela Södergren and Stina Werme.\n" +
+                "\nCourse: TDA367");
+    }
+
+    /**
+     * Inner class that handles the updating of the footer bar. It updates displayed path and
+     * last save of the current file.
+     */
 
     public class UpdateFooter implements Observer {
         Observable observable;
@@ -302,7 +330,7 @@ public class MainController {
         public void update(Observable o, Object arg) {
             if (file.exists()) {
                 String text = file.getDateForLastEdited();
-                lastSaved.setText("Lased saved: " + text);
+                lastSaved.setText("Last saved: " + text);
                 String path = file.getPath();
                 filePath.setText("Path: " + path);
             } else {

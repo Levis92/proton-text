@@ -19,7 +19,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
-    public Workspace() throws IOException {
+    Workspace() throws IOException {
         currentDocument = factory.createDocument(DocumentType.MARKDOWN);
         tabs.add(currentDocument);
         setCurrentDirectory(new FileUtility("./Proton Text Directory"));
@@ -27,8 +27,10 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public void setCurrentDocument(int index) {
-        if (tabs.contains(tabs.get(index))) {
+        if (tabs.size() > index && tabs.contains(tabs.get(index))) {
             currentDocument = tabs.get(index);
+            setChanged();
+            notifyObservers();
         }
     }
 
@@ -39,12 +41,20 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public boolean saveCurrentDocument() throws IOException {
-       return currentDocument.save();
+        boolean isSaved = currentDocument.save();
+        if (isSaved) {
+            setChanged();
+            notifyObservers();
+        }
+        return isSaved;
+
     }
 
     @Override
     public void saveCurrentDocument(String filepath) throws IOException {
         currentDocument.save(filepath);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -65,6 +75,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         Document doc = factory.createDocument(type);
         currentDocument = doc;
         tabs.add(doc);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -72,6 +84,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         Document doc = factory.getDocument(filePath);
         currentDocument = doc;
         tabs.add(doc);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -79,6 +93,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         if (tabs.contains(currentDocument)) {
             tabs.remove(currentDocument);
             if (tabs.isEmpty()) currentDocument = null;
+            setChanged();
+            notifyObservers();
         }
     }
 
@@ -87,25 +103,16 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         if (tabs.contains(tabs.get(index))) {
             tabs.remove(tabs.get(index));
             if (tabs.isEmpty()) currentDocument = null;
-            System.out.println("Index: " + index);
+            setChanged();
+            notifyObservers();
         }
     }
 
     @Override
     public void removeAllDocuments() {
         tabs.removeAll(tabs);
-    }
-
-    @Override
-    public void setDirectory(File folder) {
-        if (folder.isDirectory()) {
-            currentDirectory = folder;
-        }
-    }
-
-    @Override
-    public File getDirectory() {
-        return currentDirectory;
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -135,9 +142,11 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
 
     @Override
     public void setText(List<String> text) {
-        currentDocument.setText(text);
-        setChanged();
-        notifyObservers();
+        if (currentDocument != null) {
+            currentDocument.setText(text);
+            setChanged();
+            notifyObservers();
+        }
     }
 
     @Override
