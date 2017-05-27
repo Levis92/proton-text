@@ -175,7 +175,7 @@ public class MainController {
 
     @FXML
     public void onClickUndoButton(ActionEvent event) throws IOException {
-        // Can be really hard to implement.
+
     }
 
     @FXML

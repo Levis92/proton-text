@@ -3,9 +3,10 @@ package edu.chl.proton.model;
 /**
  * @author Ludvig Ekman
  * Created by ludvig on 2017-05-01.
+ * Each method returns the given text with a html code around it,
+ * marking that the text has a style of some sort.
+ * Used in html-view.
  */
-// TODO: Take in a Part to change, or have a public CurrentPart? Or otherwise solve problem with referencing to a
-// non-static object from a static method.
 public class FontStyle {
     public FontStyle(){
     }
