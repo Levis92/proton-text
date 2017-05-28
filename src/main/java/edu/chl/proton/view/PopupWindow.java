@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.control;
+package edu.chl.proton.view;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Pos;
@@ -30,18 +30,20 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 /**
- * @Author Ludvig Ekman
- * Created by luddevig on 26/05/17.
+ * @Author Stina Werme
+ * Created by stinawerme on 24/05/17.
  *
- * Open dialog window
+ * Open popup window when user tries to close the application
  */
-public class MessageDialog {
+public class PopupWindow {
 
-    public MessageDialog(Window owner, String title, String text) {
-        addDialog(owner, title, text);
+    private boolean clicked = false;
+
+    public PopupWindow(Window owner, String title, String text) {
+        addPrompt(owner, title, text);
     }
 
-    private void addDialog(Window owner, String title, String text) {
+    private void addPrompt(Window owner, String title, String text) {
         final Stage dialog = new Stage();
 
         dialog.setTitle(title);
@@ -57,23 +59,45 @@ public class MessageDialog {
         message.setText(text);
         message.setWrappingWidth(220.0);
 
-        final JFXButton okButton = new JFXButton("Ok");
-        okButton.setDefaultButton(true);
-        okButton.setOnAction(t -> dialog.close());
 
-        okButton.getStylesheets().add("edu/chl/proton/view/style.css");
-        okButton.getStyleClass().add("button");
+        final JFXButton noButton = new JFXButton("No");
+        noButton.setDefaultButton(true);
+        noButton.setOnAction(t -> {
+            dialog.close();
+        });
+
+        final JFXButton yesButton = new JFXButton("Yes");
+        yesButton.setDefaultButton(true);
+        yesButton.setOnAction(t -> {
+            clicked();
+            dialog.close();
+        });
+
+        noButton.getStylesheets().add("edu/chl/proton/view/style.css");
+        noButton.getStyleClass().add("button");
+
+        yesButton.getStylesheets().add("edu/chl/proton/view/style.css");
+        yesButton.getStyleClass().add("button");
 
         final VBox layout = new VBox(10);
         layout.setAlignment(Pos.CENTER_RIGHT);
         layout.setStyle("-fx-background-color: azure; -fx-padding: 10;");
         layout.getChildren().setAll(
                 message,
-                okButton
+                noButton,
+                yesButton
         );
 
         dialog.setScene(new Scene(layout));
         dialog.showAndWait();
 
+    }
+
+    private void clicked() {
+        clicked = true;
+    }
+
+    public boolean resultIsYes() {
+        return clicked;
     }
 }

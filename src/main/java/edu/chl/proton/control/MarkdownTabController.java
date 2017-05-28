@@ -28,6 +28,7 @@ import edu.chl.proton.model.IDocumentHandler;
 import edu.chl.proton.model.IFileHandler;
 import edu.chl.proton.model.IStageHandler;
 import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.view.TextPrompt;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
