@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.control;
+package edu.chl.proton.view;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;

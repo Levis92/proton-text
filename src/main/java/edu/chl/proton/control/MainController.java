@@ -20,6 +20,9 @@
 package edu.chl.proton.control;
 
 import edu.chl.proton.model.*;
+import edu.chl.proton.view.MessageDialog;
+import edu.chl.proton.view.PopupWindow;
+import edu.chl.proton.view.TextPrompt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
