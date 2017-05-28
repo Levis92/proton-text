@@ -451,9 +451,9 @@ public class Markdown implements IDoc {
     protected String checkList(String str){
         // Check for ordered list
         Matcher match = listPattern("orderedList").matcher(str);
-        char nbr = str.charAt(match.regionStart());
         StringBuffer sb = new StringBuffer();
         while (match.find()) {
+            char nbr = str.charAt(match.regionStart());
             match.appendReplacement(sb, "<ol style=\"margin-bottom:2px; margin-top:2px;\" start=\"" + nbr + "\"><li>$2</li></ol>");
         }
         match.appendTail(sb);
