@@ -55,16 +55,20 @@ public class MarkdownTest {
         markdown = new Markdown();
         markdown.setText(lines);
 
-        String outcome = "<p style=\"width:100%\"><h2>The story of an hour</h2></p>" +
-                "<p style=\"width:100%\">It was her sister <i>Josephine</i> who told her, in broken sentences; " +
-                "veiled <b>hints</b> that revealed in half concealing.</p><p style=\"width:100%\">Her husband's " +
-                "friend <i>Richards</i> was there, too, near her.</p><p style=\"width:100%\"><blockquote> It was " +
-                "he who had been in the newspaper office when intelligence of the railroad disaster was received, " +
-                "with Brently Mallard's name leading ***the list of killed:***</blockquote></p>" +
-                "<p style=\"width:100%\">He had only taken the time to assure himself of its truth by a second " +
-                "<a href=\"link to stuff\">telegram</a>, and had " +
+        String outcome = "<p style=\"width:100%; font-family: helvetica; color: #444\">" +
+                "<h2 style=\"font-family: helvetica; color: #444; border-bottom: 1px solid lightgrey; " +
+                "padding-bottom: 0.2em\">The story of an hour</h2></p><p style=\"width:100%; font-family: helvetica; " +
+                "color: #444\">It was her sister <i>Josephine</i> who told her, in broken sentences; veiled <b>hints</b> " +
+                "that revealed in half concealing.</p><p style=\"width:100%; font-family: helvetica; color: #444\">" +
+                "Her husband's friend <i>Richards</i> was there, too, near her.</p><p style=\"width:100%; " +
+                "font-family: helvetica; color: #444\"><blockquote style=\"border-left: 3px solid lightgrey; " +
+                "padding-left: 15px; color: #555\"> It was he who had been in the newspaper office when intelligence " +
+                "of the railroad disaster was received, with Brently Mallard's name leading ***the list of killed:***" +
+                "</blockquote></p><p style=\"width:100%; font-family: helvetica; color: #444\">He had only taken the " +
+                "time to assure himself of its truth by a second <a href=\"link to stuff\">telegram</a>, and had " +
                 "<img style=\"max-width:100%\" src=\"dunno\" alt=\"hastened\"> to forestall any less careful, less " +
                 "tender friend in bearing the sad message.</p>";
+        
 
         assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(outcome));
     }
