@@ -16,7 +16,6 @@ public class MarkdownTest {
     private List<String> lines = new ArrayList<>();
     private Markdown markdown;
 
-
     @Test public void getHTMLTest() {
         String str = "##The story of an hour\rIt was her sister *Josephine* who told her, " +
                 "in broken sentences; veiled **hints** that revealed in half " +
