@@ -1,54 +1,101 @@
+/*
+ * Proton Text - A Markdown text editor
+ * Copyright (C) 2017  Anton Levholm, Ludvig Ekman, Mickaela Södergren
+ * and Stina Werme
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package edu.chl.proton.model;
 
 import edu.chl.proton.Protontext;
 import javafx.stage.Stage;
-
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
  */
-public class Workspace implements IFileHandler, IDocumentHandler, IStageHandler {
+
+public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
     private List<Document> tabs = new ArrayList<>();
     private Document currentDocument;
-    private Folder currentDirectory;
+    private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
-    public Workspace() {
+    Workspace() throws IOException {
         currentDocument = factory.createDocument(DocumentType.MARKDOWN);
         tabs.add(currentDocument);
-        //setCurrentDirectory(new Folder("Root"));
+        setCurrentDirectory(new FileUtility("./Proton Text Directory"));
     }
 
-
+    @Override
     public void setCurrentDocument(int index) {
-        currentDocument = tabs.get(index);
+        if (tabs.size() > index && tabs.contains(tabs.get(index))) {
+            currentDocument = tabs.get(index);
+            setChanged();
+            notifyObservers();
+        }
     }
 
+    @Override
     public int getCurrentDocument() {
         return tabs.indexOf(currentDocument);
     }
 
-    public void saveCurrentDocument() throws IOException {
-       currentDocument.save();
+    @Override
+    public boolean saveCurrentDocument() throws IOException {
+        boolean isSaved = currentDocument.save();
+        if (isSaved) {
+            setChanged();
+            notifyObservers();
+        }
+        return isSaved;
+
     }
 
-    public void setCurrentDirectory(Folder folder) {
-        currentDirectory = folder;
+    @Override
+    public void saveCurrentDocument(String filepath) throws IOException {
+        currentDocument.save(filepath);
+        setChanged();
+        notifyObservers();
     }
 
-    public String getCurrentDirectory() {
-        return currentDirectory == null ? "./" : currentDirectory.getPath();
+    @Override
+    public void setCurrentDirectory(File directory) throws  IOException {
+        if(!directory.isDirectory()) {
+            throw new IOException("Trying to set a file as directory");
+        }
+        currentDirectory = directory;
     }
 
+    @Override
+    public File getCurrentDirectory() {
+        return currentDirectory;
+    }
 
+    @Override
     public void createDocument(DocumentType type) {
         Document doc = factory.createDocument(type);
         currentDocument = doc;
         tabs.add(doc);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -56,40 +103,69 @@ public class Workspace implements IFileHandler, IDocumentHandler, IStageHandler 
         Document doc = factory.getDocument(filePath);
         currentDocument = doc;
         tabs.add(doc);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
     public void removeCurrentDocument() {
-
-    }
-
-    public void removeDocument(int index) {
-        if (tabs.contains(tabs.get(index))) {
-            tabs.remove(tabs.get(index));
+        if (tabs.contains(currentDocument)) {
+            tabs.remove(currentDocument);
+            if (tabs.isEmpty()) currentDocument = null;
+            setChanged();
+            notifyObservers();
         }
     }
 
     @Override
-    public void setDirectory(String folderPath) {
-
+    public void removeDocument(int index) {
+        if (tabs.contains(tabs.get(index))) {
+            tabs.remove(tabs.get(index));
+            if (tabs.isEmpty()) currentDocument = null;
+            setChanged();
+            notifyObservers();
+        }
     }
 
     @Override
-    public String getDirectory() {
+    public void removeAllDocuments() {
+        tabs.removeAll(tabs);
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public File getLastEditedFile(String dirPath) {
         return null;
     }
 
-    public void setDirectory(Folder folder) {
-        currentDirectory = folder;
+    @Override
+    public String getDateForLastEdited() {
+        return currentDocument.getDateForLastEdited();
     }
 
-    public Folder getDirectory(Folder folder) {
-        return currentDirectory;
+    @Override
+    public String getPath() {
+        return currentDocument.getPath();
+    }
+
+    @Override
+    public boolean isSaved() {
+        return currentDocument.isSaved();
+    }
+
+    @Override
+    public boolean exists() {
+        return currentDocument.doesExist();
     }
 
     @Override
     public void setText(List<String> text) {
-        currentDocument.setText(text);
+        if (currentDocument != null) {
+            currentDocument.setText(text);
+            setChanged();
+            notifyObservers();
+        }
     }
 
     @Override
@@ -98,13 +174,8 @@ public class Workspace implements IFileHandler, IDocumentHandler, IStageHandler 
     }
 
     @Override
-    public void insertPart(String part) {
-        currentDocument.insertPart(part);
-    }
-
-    @Override
     public String getHTML() {
-        return null;
+        return currentDocument.getHTML();
     }
 
     @Override

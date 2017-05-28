@@ -19,40 +19,36 @@
 
 package edu.chl.proton.model;
 
-import org.junit.Test;
-
-import java.io.IOException;
-
-import static org.junit.Assert.assertTrue;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Anton Levholm
- * Created by antonlevholm on 2017-05-02.
+ * Created by ludvig on 2017-05-26.
+ * Plain document type, which do not follow markdown standard or any other standard.
  */
-public class WorkspaceTest {
-    private Workspace workspace;
+public class Plain implements IDoc {
 
-    public WorkspaceTest() throws IOException {
-        workspace = new WorkspaceFactory().getWorkspace();
+    private List<String> lines = new ArrayList<>();
+
+    public List<String> getLines(){
+        return lines;
     }
 
-    @Test
-    public void InstanceTest() {
-        Workspace classUnderTest = workspace;
-        assertTrue("Instance of Workspace should not be null", classUnderTest != null);
+    public void setText(List<String> str){
+        this.lines = str;
     }
 
-    @Test public void createDocumentTest() {
-        Workspace classUnderTest = workspace;
-        classUnderTest.createDocument(DocumentType.MARKDOWN);
-        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() != 0);
+    @Override
+    public String getHTML(){
+        String tmp = "";
+        for(String str : lines){
+            tmp = tmp + "<p style=\"width:100%\">" +str + "</p>";
+        }
+        return tmp;
     }
 
-    @Test public void openDocumentTest() {
-
-    }
-
-    @Test public void removeDocumentTest() {
-
+    @Override
+    public String getText(){
+        return getHTML();
     }
 }

@@ -1,6 +1,25 @@
+/*
+ * Proton Text - A Markdown text editor
+ * Copyright (C) 2017  Anton Levholm, Ludvig Ekman, Mickaela Södergren
+ * and Stina Werme
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package edu.chl.proton.model;
 
-
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -10,29 +29,23 @@ import java.util.*;
  */
 public class Document {
 
-    private Cursor cursor;
-    private File file;
-    private List<String> lines = new ArrayList<String>();
+    private FileUtility file;
+    private IDoc docType;
 
-    IDoc docType;
-
-    public Document(IDoc type){
+    Document(IDoc type){
         this.docType = type;
     }
 
-    /**
-     * @return the cursor
-     */
-    protected Cursor getCursor(){
-        return this.cursor;
+    Document(IDoc type, File file){
+        this.docType = type;
+        this.file = (FileUtility) file;
     }
 
-    /**
-     * sets the cursor
-     * @param cursor
-     */
-    protected void setCursor(Cursor cursor){
-        this.cursor = cursor;
+    protected boolean doesExist(){
+        if(file != null){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -43,104 +56,23 @@ public class Document {
     }
 
     /**
+     *  Gets the path to the file.
+     * @return the path to the file
+     */
+    protected String getPath(){
+        return file.getPath();
+    }
+
+    /**
      * sets the file
      * @param file
      */
     protected void setFile(File file){
-        this.file = file;
+        this.file = (FileUtility) file;
     }
 
-    /**
-     * Adds the file to the search path.
-     * @param path
-     */
-    protected void addFile(String path){
-        file.setPath(path);
-        // setFile(rootFolder.getFileFromPath(path)); ???
-    }
-
-    /**
-     * Inserts a string at the cursor's position and
-     * moves the cursor x step forward, where x is
-     * the length of the string.
-     * @param str
-     */
-    protected void insertPart(String str){
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        String tmp = lines.get(row);
-
-        StringBuilder sb = new StringBuilder(tmp);
-        sb.insert(col, str);
-
-        lines.set(row, sb.toString());
-        cursor.setPosition(row, col + str.length());
-    }
-
-    /**
-     * adds a row at the end of the text
-     * @param lines
-     */
-    protected void addLines(String lines){
-        this.lines.add(lines);
-    }
-
-    /**
-     * Removes one row in the document
-     * @param index
-     */
-    protected void removeLines(int index){
-        lines.remove(index);
-    }
-
-    /**
-     * Removes all text in the document.
-     */
-    protected void removeAllLines(){
-        lines.clear();
-    }
-
-    /**
-     * Inserts a char at the cursor's position and
-     * moves the cursor one step forward. If Enter was
-     * the key pressed, moves the cursor one row down.
-     * @param ch
-     */
-    protected void insertChar(char ch){
-
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        // check if Enter was the key pressed
-        if(ch == '\r'){
-            cursor.setPosition(row + 1, col);
-        } else {
-            String tmp = lines.get(row);
-
-            StringBuilder sb = new StringBuilder(tmp);
-            sb.insert(col, ch);
-
-            lines.set(row, sb.toString());
-            cursor.setPosition(row, col + 1);
-        }
-
-    }
-
-    /**
-     * Deletes the char at the cursor's position and
-     * moves the cursor one step back.
-     */
-    protected void deleteChar(){
-        int row = cursor.getPosition().getY();
-        int col = cursor.getPosition().getX();
-
-        String tmp = lines.get(row);
-        StringBuilder sb = new StringBuilder(tmp);
-        sb.deleteCharAt(col);
-
-        lines.set(row, sb.toString());
-        cursor.setPosition(row, col - 1);
+    public List<String> getLines(){
+        return docType.getLines();
     }
 
     /**
@@ -159,12 +91,27 @@ public class Document {
         docType.setText(text);
     }
 
+    public String getHTML(){
+        return docType.getHTML();
+    }
+
     /**
      * Saves the text in the file.
      * @throws IOException
      */
-    protected void save() throws IOException{
-        file.save(lines);
+    protected void save(String path) throws IOException{
+        file = new FileUtility(path);
+        file.save(getLines());
+    }
+
+
+    protected boolean save() throws  IOException {
+        try{
+            file.save(getLines());
+            return true;
+        } catch (NullPointerException ex) {
+            return false;
+        }
     }
 
     /**
@@ -172,6 +119,14 @@ public class Document {
      */
     protected void remove(){
         file.remove();
+    }
+
+    /**
+     * Returns the date of the last time the file was editet.
+     * @return string with the date of last edit
+     */
+    protected String getDateForLastEdited(){
+        return file.getDateForLastEdited();
     }
 
     /**

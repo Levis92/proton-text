@@ -11,5 +11,7 @@
     <orderEntry type="library" name="Gradle: org.jsoup:jsoup:1.10.2" level="project" />
     <orderEntry type="library" name="Gradle: com.itextpdf:itextg:5.5.10" level="project" />
     <orderEntry type="library" name="Gradle: com.itextpdf.tool:xmlworker:5.5.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.greenrobot:eventbus:3.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:20.0" level="project" />
   </component>
 </module>

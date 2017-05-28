@@ -1,3 +1,22 @@
+/*
+ * Proton Text - A Markdown text editor
+ * Copyright (C) 2017  Anton Levholm, Ludvig Ekman, Mickaela Södergren
+ * and Stina Werme
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package edu.chl.proton.model;
 
 import org.junit.Test;
@@ -20,14 +39,10 @@ public class MarkdownTest {
     @Test public void getHTMLTest() {
         String str = "##The story of an hour\rIt was her sister *Josephine* who told her, " +
                 "in broken sentences; veiled **hints** that revealed in half " +
-                "concealing.\r Her husband's friend *Richards* was there, too, " +
-                "near her.\r > It was he who had been in the newspaper office " +
+                "concealing.\rHer husband's friend *Richards* was there, too, " +
+                "near her.\r> It was he who had been in the newspaper office " +
                 "when intelligence of the railroad disaster was received, " +
                 "with Brently Mallard's name leading ***the list of killed:***\r" +
-                "* Anthony Meier\r" +
-                "*Ron Swanson\r" +
-                "- Bethany Swanson\r" +
-                "-Sarah Clarksson\r" +
                 "He had only taken the time to assure himself of its truth by a " +
                 "second [telegram](link to stuff), and had ![hastened](dunno) to forestall any less careful," +
                 " less tender friend in bearing the sad message.\r";
@@ -38,33 +53,20 @@ public class MarkdownTest {
             this.lines.add(s);
         }
 
-        markdown = new Markdown(lines);
+        markdown = new Markdown();
+        markdown.setText(lines);
 
-        String outcome = "<h2>The story of an hour</h2>\rIt was her sister <i>Josephine</i> who told her, " +
-                "in broken sentences; veiled <b>hints</b> that revealed in half " +
-                "concealing.\r Her husband's friend <i>Richards</i> was there, too, " +
-                "near her.\r > It was he who had been in the newspaper office " +
-                "when intelligence of the railroad disaster was received, " +
-                "with Brently Mallard's name leading <i><b>the list of killed:</b></i>\r" +
-                "<ul><li> Anthony Meier</li>\r" +
-                "<li>Ron Swanson</li>\r" +
-                "<li> Bethany Swanson</li>\r" +
-                "<li>Sarah Clarksson</li></ul>\r" +
-                "He had only taken the time to assure himself of its truth by a " +
-                "second <a href=\"link to stuff\">telegram</a>, and had <img src=\"dunno\" alt=\"hastened\"> to forestall any less careful," +
-                " less tender friend in bearing the sad message.\r";
+        String outcome = "<p style=\"width:100%\"><h2>The story of an hour</h2></p>" +
+                "<p style=\"width:100%\">It was her sister <i>Josephine</i> who told her, in broken sentences; " +
+                "veiled <b>hints</b> that revealed in half concealing.</p><p style=\"width:100%\">Her husband's " +
+                "friend <i>Richards</i> was there, too, near her.</p><p style=\"width:100%\"><blockquote> It was " +
+                "he who had been in the newspaper office when intelligence of the railroad disaster was received, " +
+                "with Brently Mallard's name leading ***the list of killed:***</blockquote></p>" +
+                "<p style=\"width:100%\">He had only taken the time to assure himself of its truth by a second " +
+                "<a href=\"link to stuff\">telegram</a>, and had " +
+                "<img style=\"max-width:100%\" src=\"dunno\" alt=\"hastened\"> to forestall any less careful, less " +
+                "tender friend in bearing the sad message.</p>";
 
-        String[] withStyling = outcome.split("\r");
-        List<String> tmp = new ArrayList<>();
-
-        for(String s : withStyling){
-            tmp.add(s);
-        }
-
-        assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(tmp));
-
+        assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(outcome));
     }
-
-
-
 }

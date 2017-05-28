@@ -10,7 +10,7 @@
 <?import javafx.scene.web.HTMLEditor?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.chl.proton.control.MarkdownTabController">
+<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.chl.proton.control.MarkdownTabController">
    <children>
       <Pane prefHeight="43.0" prefWidth="533.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -19,7 +19,7 @@
                   <JFXButton onAction="#onClickOrderedListButton" styleClass="buttons" stylesheets="@style.css" text="&lt;ol&gt;" BorderPane.alignment="CENTER" />
                </left>
                <right>
-                  <JFXButton onAction="#onClickHeadingButton" styleClass="buttons" stylesheets="@style.css" text="&lt;h1-2&gt;" BorderPane.alignment="CENTER" />
+                  <JFXButton onAction="#onClickHeadingButton" styleClass="buttons" stylesheets="@style.css" text="&lt;h1-6&gt;" BorderPane.alignment="CENTER" />
                </right>
                <padding>
                   <Insets left="5.0" top="5.0" />
