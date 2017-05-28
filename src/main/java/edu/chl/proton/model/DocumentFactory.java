@@ -5,9 +5,8 @@ package edu.chl.proton.model;
  * Created by ludvig on 2017-05-01.
  */
 public class DocumentFactory {
-    private FileUtility file;
 
-    public DocumentFactory(){
+    DocumentFactory(){
     }
 
     /**
@@ -15,7 +14,7 @@ public class DocumentFactory {
      * @param documentType decides what type of document will be created, and what rules that document has.
      * @return Document with writing rules.
      */
-    public Document createDocument(DocumentType documentType){
+    Document createDocument(DocumentType documentType){
         if(documentType == null){
             return null;
         }
@@ -39,9 +38,9 @@ public class DocumentFactory {
      * @param fileName is the file path to the file.
      * @return a document, and a new if it doesn't already exist.
      */
-    public Document getDocument(String fileName){
+    Document getDocument(String fileName){
         try {
-            file = new FileUtility(fileName);
+            FileUtility file = new FileUtility(fileName);
            if (fileName.toLowerCase().substring(fileName.length()-3).equals(".md")
                     && (fileName.toLowerCase().contains("slide"))) {
                 IDoc slide = new Markdown();
