@@ -68,7 +68,6 @@ public class MarkdownTest {
                 "time to assure himself of its truth by a second <a href=\"link to stuff\">telegram</a>, and had " +
                 "<img style=\"max-width:100%\" src=\"dunno\" alt=\"hastened\"> to forestall any less careful, less " +
                 "tender friend in bearing the sad message.</p>";
-        
 
         assertTrue("Text should get HTML tags: ", markdown.getHTML().equals(outcome));
     }
