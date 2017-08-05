@@ -38,21 +38,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -66,21 +59,17 @@ public class MarkdownTabController {
     private static IDocumentHandler document;
     private IStageHandler stage;
     private Observable observable;
-    private UpdateView observer;
 
     @FXML
     private HTMLEditor htmlEditor;
     @FXML
     private WebView webView;
-    @FXML
-    private AnchorPane root;
-
 
 
     public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
-        observable = factory.getWorkspace();
-        observer = new UpdateView(observable);
+        observable = factory.getWorkspace().getCurrentDocument();
+        new UpdateView(observable);
         file = factory.getWorkspace();
         document = factory.getWorkspace();
         stage = factory.getWorkspace();
@@ -90,10 +79,7 @@ public class MarkdownTabController {
             @Override
             public void handle(KeyEvent event) {
                 if (isValidEvent(event)) {
-                    String text = htmlEditor.getHtmlText();
-                    List<String> doc;
-                    doc = html2text(text);
-                    document.setText(doc);
+                    document.setText(htmlEditor.getHtmlText());
                 }
             }
 
@@ -142,24 +128,6 @@ public class MarkdownTabController {
             }
             editor.setVisible(true);
         });
-    }
-
-    /**
-     * Takes in a String of HTML and separates the content in each paragraph-tag into a String.
-     * Each String is added to an ArrayList that is returned.
-     * @param html
-     * @return a list of rows that is stripped of HTML-tags
-     */
-
-    private static List<String> html2text(String html) {
-        ArrayList<String> rowList = new ArrayList<>();
-        Document doc = Jsoup.parse(html);
-        Element table = doc.select("body").get(0);
-        Elements rows = table.select("p");
-        for (Element row : rows) {
-            rowList.add(row.text());
-        }
-        return rowList;
     }
 
     /**
@@ -339,7 +307,6 @@ public class MarkdownTabController {
 
         @Override
         public void update(Observable o, Object arg) {
-            if (MainController.getSelectionModel().getSelectedItem().getContent() == root) {
                 if (MainController.fileIsOpened()) {
                     String text = document.getText();
                     htmlEditor.setHtmlText(text);
@@ -347,7 +314,6 @@ public class MarkdownTabController {
                 }
                 String html = document.getHTML();
                 webView.getEngine().loadContent(html);
-            }
         }
     }
     public boolean isImage(String string){

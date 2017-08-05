@@ -21,6 +21,9 @@ package edu.chl.proton.model;
 
 import edu.chl.proton.Protontext;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,8 +56,12 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         }
     }
 
+    public Observable getCurrentDocument() {
+        return currentDocument;
+    }
+
     @Override
-    public int getCurrentDocument() {
+    public int getCurrentDocumentIndex() {
         return tabs.indexOf(currentDocument);
     }
 
@@ -77,8 +84,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public void setCurrentDirectory(File directory) throws  IOException {
-        if(!directory.isDirectory()) {
+    public void setCurrentDirectory(File directory) throws IOException {
+        if (!directory.isDirectory()) {
             throw new IOException("Trying to set a file as directory");
         }
         currentDirectory = directory;
@@ -103,6 +110,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         Document doc = factory.getDocument(filePath);
         currentDocument = doc;
         tabs.add(doc);
+        doc.notifyObservers();
         setChanged();
         notifyObservers();
     }
@@ -160,6 +168,17 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
+    public void setText(String text) {
+        if (currentDocument != null) {
+            List<String> doc;
+            doc = html2text(text);
+            currentDocument.setText(doc);
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+    @Override
     public void setText(List<String> text) {
         if (currentDocument != null) {
             currentDocument.setText(text);
@@ -181,5 +200,25 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     @Override
     public Stage getStage() {
         return Protontext.getStage();
+    }
+
+
+    /**
+     * Takes in a String of HTML and separates the content in each paragraph-tag into a String.
+     * Each String is added to an ArrayList that is returned.
+     *
+     * @param html
+     * @return a list of rows that is stripped of HTML-tags
+     */
+
+    private static List<String> html2text(String html) {
+        ArrayList<String> rowList = new ArrayList<>();
+        org.jsoup.nodes.Document doc = Jsoup.parse(html);
+        Element table = doc.select("body").get(0);
+        Elements rows = table.select("p");
+        for (Element row : rows) {
+            rowList.add(row.text());
+        }
+        return rowList;
     }
 }

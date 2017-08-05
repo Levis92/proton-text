@@ -20,6 +20,7 @@
 package edu.chl.proton.model;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Anton Levholm
@@ -32,7 +33,14 @@ public interface IDocumentHandler {
      * @return
      */
 
-    int getCurrentDocument();
+    int getCurrentDocumentIndex();
+
+    /**
+     * Returns the current Document that is observable
+     * @return
+     */
+
+    Observable getCurrentDocument();
 
     /**
      * Sets the current document based on an index.
@@ -73,6 +81,13 @@ public interface IDocumentHandler {
      */
 
     void removeAllDocuments();
+
+    /**
+     * Takes in a String and adds it to the document.
+     * @param text
+     */
+
+    void setText(String text);
 
     /**
      * Takes in a List of Strings and adds them to the document.

@@ -122,15 +122,6 @@ public class MainController {
         }
     }
 
-    /**
-     * Makes the SingleSelectionModel for the TabPane available to other controllers.
-     * @return
-     */
-
-    static SingleSelectionModel<Tab> getSelectionModel() {
-        return selectionModel;
-    }
-
     static boolean fileIsOpened() {
         return isOpened;
     }
@@ -155,6 +146,7 @@ public class MainController {
         tabPane.getTabs().add(tab);
         tab.setOnSelectionChanged(e -> document.setCurrentDocument(selectionModel.getSelectedIndex()));
         tab.setOnCloseRequest(e -> document.removeDocument(tabPane.getTabs().indexOf(e.getTarget())));
+        document.setCurrentDocument(selectionModel.getSelectedIndex());
     }
 
     @FXML
@@ -181,6 +173,7 @@ public class MainController {
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage.getStage());
         openFile(file);
+        document.getCurrentDocument().notifyObservers();
     }
 
     @FXML

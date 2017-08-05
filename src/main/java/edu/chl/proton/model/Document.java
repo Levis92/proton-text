@@ -27,18 +27,20 @@ import java.util.*;
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
  */
-public class Document {
+public class Document extends Observable {
 
     private FileUtility file;
     private IDoc docType;
 
     Document(IDoc type){
         this.docType = type;
+        setChanged();
     }
 
     Document(IDoc type, File file){
         this.docType = type;
         this.file = (FileUtility) file;
+        setChanged();
     }
 
     protected boolean doesExist(){
@@ -89,6 +91,8 @@ public class Document {
      */
     protected void setText(List<String> text){
         docType.setText(text);
+        setChanged();
+        notifyObservers();
     }
 
     public String getHTML(){
