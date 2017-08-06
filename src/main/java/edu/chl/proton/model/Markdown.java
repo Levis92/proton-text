@@ -28,6 +28,9 @@ import java.util.regex.PatternSyntaxException;
 /**
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
+ * A type of document where markdown syntax is used.
+ * The text is checked for any type of markdown syntax . Whenever a match is found,
+ * the match is formatted with appropriate HTML styling for both the preview view and the editor view.
  */
 public class Markdown implements IDoc {
 
