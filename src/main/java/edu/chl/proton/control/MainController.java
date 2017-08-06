@@ -126,7 +126,6 @@ public class MainController {
      * Makes the SingleSelectionModel for the TabPane available to other controllers.
      * @return
      */
-
     static SingleSelectionModel<Tab> getSelectionModel() {
         return selectionModel;
     }
@@ -145,7 +144,6 @@ public class MainController {
      * @param name
      * @throws IOException
      */
-
     private void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
         Tab tab = new Tab(name);
@@ -157,24 +155,45 @@ public class MainController {
         tab.setOnCloseRequest(e -> document.removeDocument(tabPane.getTabs().indexOf(e.getTarget())));
     }
 
+    /**
+     * Change to the next tab when choosing "Next tab" in the menu bar.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickNextTab(ActionEvent event) throws IOException {
         selectionModel.selectNext();
         document.setCurrentDocument(selectionModel.getSelectedIndex());
     }
 
+    /**
+     * Change to the previous tab when choosing "Previous tab" in the manu bar.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickPreviousTab(ActionEvent event) throws IOException {
         selectionModel.selectPrevious();
         document.setCurrentDocument(selectionModel.getSelectedIndex());
     }
 
+    /**
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickNewButton(ActionEvent event) throws IOException {
         document.createDocument(DocumentType.MARKDOWN);
         addNewTab("Untitled.md");
     }
 
+    /**
+     * Open the file manager when clicking on open in the menu bar.
+     * Open the chosen file.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickOpenButton(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
@@ -183,6 +202,11 @@ public class MainController {
         openFile(file);
     }
 
+    /**
+     * Save current file when clicking on save in the menu bar.
+     * @param event
+     * @throws IOException
+     */
     @FXML
     public void onClickSaveButton(ActionEvent event) throws IOException {
         if (!file.saveCurrentDocument()) {
@@ -244,6 +268,11 @@ public class MainController {
         }
     }
 
+    /**
+     * When choosing rename file a window is opened and the user can then choose to change the name.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
         if (file.exists()) {
             String path = file.getPath();
@@ -268,7 +297,11 @@ public class MainController {
         }
     }
 
-
+    /**
+     * When the user clicks on "Save as" a window opens and the user can then save the file with the current name or change it.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
         String path ="./filename1.md";
         if (file.exists()){
@@ -288,6 +321,13 @@ public class MainController {
 
     }
 
+    /**
+     * Check so that the file name is correct.
+     * If wrong the user is told to write the name in the right format.
+     * @param prompt
+     * @param title
+     * @return
+     */
     private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
         while ( (pLength <6)==TRUE  ||
@@ -308,6 +348,10 @@ public class MainController {
 
     }
 
+    /**
+     * Show popup window when trying to close the application
+     * @param event
+     */
     public void onClickCloseApplication(ActionEvent event) {
         String title = "Close application";
         String message = "Are you sure you want to quit Proton Text?";
@@ -315,6 +359,10 @@ public class MainController {
         if (popup.resultIsYes()) stage.getStage().close();
     }
 
+    /**
+     * Close tab
+     * @param event
+     */
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {
         document.removeCurrentDocument();
@@ -322,6 +370,10 @@ public class MainController {
         tabPane.getTabs().remove(index);
     }
 
+    /**
+     * Close all tabs
+     * @param event
+     */
     @FXML
     public void onClickCloseAllTabs(ActionEvent event) {
         document.removeAllDocuments();
@@ -331,6 +383,10 @@ public class MainController {
         observable.addObserver(observer);
     }
 
+    /**
+     * Show information about the application when clicking on "about".
+     * @param actionEvent
+     */
     public void onClickAbout(ActionEvent actionEvent) {
         new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
                 "text editor created by students at Chalmers University of Technology. \n" +
