@@ -121,15 +121,6 @@ public class MainController {
             }
         }
     }
-    
-    /**
-     * Makes the SingleSelectionModel for the TabPane available to other controllers.
-     * @return
-     */
-
-    static SingleSelectionModel<Tab> getSelectionModel() {
-        return selectionModel;
-    }
 
     static boolean isAlreadyOpen(File targetFile){
         int selected = file.isAlreadyOpen(targetFile);
