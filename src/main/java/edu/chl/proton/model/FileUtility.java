@@ -28,6 +28,8 @@ import java.text.SimpleDateFormat;
 /**
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
+ *
+ * Extends Java's own file class and adds more functionality to a file.
  */
 public class FileUtility extends File {
 
@@ -37,19 +39,21 @@ public class FileUtility extends File {
         super(path);
     }
 
-    protected void setPath(String path) {
-        File file = new File(path);
-        this.renameTo(file);
-    }
-
     protected File getFile() {
         return this;
     }
 
+    /**
+     * Change isSaved to true if saved or false if not saved.
+     * @param state
+     */
     protected void setIsSaved(boolean state) {
         isSaved = state;
     }
 
+    /**
+     * @return true if saved and false if not saved.
+     */
     protected boolean isSaved() {
         return isSaved;
     }
@@ -76,7 +80,7 @@ public class FileUtility extends File {
     }
 
     /**
-     * Returns date and time for the last time the file was modified
+     * Returns date and time for the last time the file was modified.
      * @return String
      */
     protected String getDateForLastEdited() {
@@ -89,9 +93,9 @@ public class FileUtility extends File {
     }
 
     /**
-     * Get last edited file
+     * Get last edited file.
      * @param dirPath String
-     * @return File
+     * @return the last edited file.
      */
     protected File getLastEditedFile(String dirPath) {
         File dir = new File(dirPath);
@@ -110,7 +114,7 @@ public class FileUtility extends File {
     }
 
     /**
-     * Delete file
+     * Delete file.
      */
     protected void remove() {
         this.getFile().delete();

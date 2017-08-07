@@ -120,6 +120,9 @@ public class EditableTreeCell extends TreeCell<File> {
             createDeleteMenuItem();
         }
 
+        if (!treeItem.getValue().isDirectory()) {
+            createDeleteMenuItem();
+        }
         setContextMenu(contextMenu);
     }
 
