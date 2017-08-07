@@ -310,9 +310,10 @@ public class MainController {
 
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {
-        document.removeCurrentDocument();
         int index = selectionModel.getSelectedIndex();
         tabPane.getTabs().remove(index);
+        document.removeCurrentDocument();
+        document.setCurrentDocument(index);
     }
 
     @FXML

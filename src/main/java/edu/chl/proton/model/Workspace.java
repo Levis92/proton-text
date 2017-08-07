@@ -119,7 +119,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeCurrentDocument() {
         if (tabs.contains(currentDocument)) {
             tabs.remove(currentDocument);
-            if (tabs.isEmpty()) currentDocument = null;
             setChanged();
             notifyObservers();
         }
