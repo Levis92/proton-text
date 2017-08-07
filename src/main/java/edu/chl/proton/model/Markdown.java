@@ -28,13 +28,15 @@ import java.util.regex.PatternSyntaxException;
 /**
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
+ * A type of document where markdown syntax is used.
+ * The text is checked for any type of markdown syntax . Whenever a match is found,
+ * the match is formatted with appropriate HTML styling for both the preview view and the editor view.
  */
 public class Markdown implements IDoc {
 
     private List<String> lines = new ArrayList<>();
 
     public Markdown(){
-        //TODO?
     }
 
     public List<String> getLines(){
@@ -548,7 +550,7 @@ public class Markdown implements IDoc {
         Matcher match = codePattern("code").matcher(tmp);
         StringBuffer sb = new StringBuffer();
         while (match.find()) {
-            match.appendReplacement(sb, style.getBoldStyle(match.group(0))); // TODO SHOULD BE CODE
+            match.appendReplacement(sb, style.getCodeStyle(match.group(0)));
         }
         match.appendTail(sb);
         tmp = sb.toString();
