@@ -60,7 +60,6 @@ public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
     private IStageHandler stage;
-    private Observable observable;
 
     @FXML
     private HTMLEditor htmlEditor;
@@ -70,7 +69,7 @@ public class MarkdownTabController {
 
     public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
-        observable = factory.getWorkspace().getCurrentDocument();
+        Observable observable = factory.getWorkspace().getCurrentDocument();
         new UpdateView(observable);
         file = factory.getWorkspace();
         document = factory.getWorkspace();
@@ -313,6 +312,7 @@ public class MarkdownTabController {
                 webView.getEngine().loadContent(html);
         }
     }
+
     public boolean isImage(String string){
         if(string.substring(string.length()-4).equals(".pdf") ||
                 string.substring(string.length()-4).equals(".gif") ||
@@ -324,7 +324,6 @@ public class MarkdownTabController {
             return true;
         }
         return false;
-
     }
 
 }

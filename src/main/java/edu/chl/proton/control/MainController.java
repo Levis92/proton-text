@@ -116,29 +116,19 @@ public class MainController {
                 }
                 isOpened = true;
                 document.setText(lines);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    static boolean isAlreadyOpen(File targetFile){
+    private boolean isAlreadyOpen(File targetFile){
         int selected = file.isAlreadyOpen(targetFile);
         if(selected != -1) {
             selectionModel.select(selected);
             return true;
         }
         return false;
-    }
-
-    /**
-     * Makes the SingleSelectionModel for the TabPane available to other controllers.
-     * @return
-     */
-    static SingleSelectionModel<Tab> getSelectionModel() {
-        return selectionModel;
     }
 
     static boolean fileIsOpened() {
