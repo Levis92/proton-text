@@ -53,6 +53,8 @@ import java.util.Observer;
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class controls all functionality of open tabs (Markdown documents).
  */
 public class MarkdownTabController {
     private static IFileHandler file;
@@ -184,9 +186,6 @@ public class MarkdownTabController {
      */
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
-            // Four asterixes and move cursor two steps back. Method in Document that takes in
-            // this and updates the aktuella line?
-            // Position.setX(Position.getX()-2)?
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "****");
@@ -207,8 +206,6 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
-        // Go to beginning of line. Set cursor?
-        // Position.setX(0);
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n> ");
