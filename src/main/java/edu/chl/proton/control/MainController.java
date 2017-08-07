@@ -153,6 +153,7 @@ public class MainController {
         tabPane.getTabs().add(tab);
         tab.setOnSelectionChanged(e -> document.setCurrentDocument(selectionModel.getSelectedIndex()));
         tab.setOnCloseRequest(e -> document.removeDocument(tabPane.getTabs().indexOf(e.getTarget())));
+        document.setCurrentDocument(selectionModel.getSelectedIndex());
     }
 
     /**
@@ -200,6 +201,7 @@ public class MainController {
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage.getStage());
         openFile(file);
+        document.getCurrentDocument().notifyObservers();
     }
 
     /**
