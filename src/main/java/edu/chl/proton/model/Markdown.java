@@ -37,7 +37,6 @@ public class Markdown implements IDoc {
     private List<String> lines = new ArrayList<>();
 
     public Markdown(){
-        //TODO?
     }
 
     public List<String> getLines(){
@@ -551,7 +550,7 @@ public class Markdown implements IDoc {
         Matcher match = codePattern("code").matcher(tmp);
         StringBuffer sb = new StringBuffer();
         while (match.find()) {
-            match.appendReplacement(sb, style.getBoldStyle(match.group(0))); // TODO SHOULD BE CODE
+            match.appendReplacement(sb, style.getCodeStyle(match.group(0)));
         }
         match.appendTail(sb);
         tmp = sb.toString();
