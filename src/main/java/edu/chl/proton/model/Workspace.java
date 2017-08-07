@@ -168,6 +168,17 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         }
     }
 
+    public int isAlreadyOpen(File file) {
+        for(Document doc : tabs){
+            if (doc.getFile() != null) {
+                if (file.getPath().equals(doc.getPath())) {
+                    return tabs.indexOf(doc);
+                }
+            }
+        }
+        return -1;
+    }
+
     @Override
     public String getText() {
         return currentDocument.getText();

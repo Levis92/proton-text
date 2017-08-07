@@ -94,4 +94,7 @@ public interface IFileHandler {
      */
 
     boolean exists();
+
+    int isAlreadyOpen(File file);
+
 }

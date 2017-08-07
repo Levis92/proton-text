@@ -98,7 +98,7 @@ public class MainController {
      */
     private void openFile(File file) {
 
-        if (file != null && file.isFile() && !fileIsOpened()) {
+        if (file != null && file.isFile() && !isAlreadyOpen(file)) {
             document.openDocument(file.getPath());
             try {
                 addNewTab(file.getName());
@@ -129,6 +129,15 @@ public class MainController {
 
     static SingleSelectionModel<Tab> getSelectionModel() {
         return selectionModel;
+    }
+
+    static boolean isAlreadyOpen(File targetFile){
+        int selected = file.isAlreadyOpen(targetFile);
+        if(selected != -1) {
+            selectionModel.select(selected);
+            return true;
+        }
+        return false;
     }
 
     static boolean fileIsOpened() {
