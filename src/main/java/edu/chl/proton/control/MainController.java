@@ -42,6 +42,8 @@ import static java.lang.Boolean.TRUE;
 /**
  * Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class controls the functionality of the main GUI.
  */
 public class MainController {
     private static IFileHandler file;
@@ -226,6 +228,7 @@ public class MainController {
             TextPrompt prompt = new TextPrompt(stage.getStage(),title,input);
             if ((input = prompt.getResult()) != null) {
                 file.saveCurrentDocument(input);
+                fileTree.populateTree(file.getCurrentDirectory(), null);
             }
         }
     }
@@ -296,6 +299,8 @@ public class MainController {
                     File newer = new File(newName);
                     File older = new File(path);
                     older.renameTo(newer);
+                    selectionModel.getSelectedItem().setText(newer.getName());
+                    fileTree.populateTree(file.getCurrentDirectory(), null);
                 }
 
             } catch (NullPointerException eNull) {

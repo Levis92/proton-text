@@ -26,7 +26,8 @@ import java.util.*;
 /**
  * @author Mickaela
  * Created by Mickaela on 2017-05-01.
- * Keeps track of every tab's property and handles the text. Provides
+ *
+ * Keeps track of every tab's properties and handles the text. Provides
  * implementation of those methods that are the same no matter which
  * document type. Uses strategy patternt o delegate the methods that
  * differ in implementation to the correct document type.
@@ -127,6 +128,10 @@ public class Document extends Observable {
      */
     protected void remove(){
         file.remove();
+    }
+
+    void removeFile() {
+        file = null;
     }
 
     /**

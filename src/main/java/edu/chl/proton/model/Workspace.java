@@ -33,6 +33,8 @@ import java.util.Observable;
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class is responsible for keeping track of all currently opened documents and the current directory.
  */
 
 public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
@@ -194,6 +196,11 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
             }
         }
         return -1;
+    }
+
+    @Override
+    public void removeFile(int index) {
+        tabs.get(index).removeFile();
     }
 
     @Override

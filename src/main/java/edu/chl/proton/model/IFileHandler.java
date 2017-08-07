@@ -97,4 +97,6 @@ public interface IFileHandler {
 
     int isAlreadyOpen(File file);
 
+    void removeFile(int index);
+
 }

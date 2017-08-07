@@ -19,6 +19,8 @@
 
 package edu.chl.proton.control;
 
+import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.WorkspaceFactory;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -38,10 +40,11 @@ public class EditableTreeCell extends TreeCell<File> {
 
     private TextField textField;
     private ContextMenu contextMenu;
+    private IFileHandler fileHandler;
 
 
-    public EditableTreeCell() {
-
+    public EditableTreeCell() throws IOException {
+        fileHandler = new WorkspaceFactory().getWorkspace();
     }
 
     /**
@@ -227,6 +230,10 @@ public class EditableTreeCell extends TreeCell<File> {
             }
             currentTreeItem.getParent().getChildren().remove(currentTreeItem);
             currentFile.delete();
+            int selected = fileHandler.isAlreadyOpen(currentFile);
+            if (selected != -1) {
+                fileHandler.removeFile(selected);
+            }
         });
     }
 
