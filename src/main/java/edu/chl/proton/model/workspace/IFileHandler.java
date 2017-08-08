@@ -17,10 +17,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
-import java.io.*;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Anton Levholm
@@ -94,4 +94,9 @@ public interface IFileHandler {
      */
 
     boolean exists();
+
+    int isAlreadyOpen(File file);
+
+    void removeFile(int index);
+
 }

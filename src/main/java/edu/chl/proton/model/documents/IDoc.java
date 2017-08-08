@@ -17,13 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.documents;
 
 import java.util.List;
 
 /**
  * @author Mickaela
  * Created by Mickaela on 2017-05-04.
+ * A document interface with the all methods that differ
+ * in implementation between different types of documents.
  */
 public interface IDoc {
 

@@ -19,6 +19,7 @@
 
 package edu.chl.proton.model;
 
+import edu.chl.proton.model.documents.Markdown;
 import org.junit.Test;
 
 import java.util.ArrayList;

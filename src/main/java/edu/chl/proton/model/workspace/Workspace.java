@@ -17,13 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
 import edu.chl.proton.Protontext;
+import edu.chl.proton.model.documents.Document;
+import edu.chl.proton.model.documents.DocumentFactory;
+import edu.chl.proton.model.documents.DocumentType;
+import edu.chl.proton.model.documents.FileUtility;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +38,8 @@ import java.util.Observable;
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class is responsible for keeping track of all currently opened documents and the current directory.
  */
 
 public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
@@ -119,7 +126,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeCurrentDocument() {
         if (tabs.contains(currentDocument)) {
             tabs.remove(currentDocument);
-            if (tabs.isEmpty()) currentDocument = null;
             setChanged();
             notifyObservers();
         }
@@ -129,7 +135,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeDocument(int index) {
         if (tabs.contains(tabs.get(index))) {
             tabs.remove(tabs.get(index));
-            if (tabs.isEmpty()) currentDocument = null;
             setChanged();
             notifyObservers();
         }
@@ -185,6 +190,22 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
             setChanged();
             notifyObservers();
         }
+    }
+
+    public int isAlreadyOpen(File file) {
+        for(Document doc : tabs){
+            if (doc.getFile() != null) {
+                if (file.getPath().equals(doc.getPath())) {
+                    return tabs.indexOf(doc);
+                }
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void removeFile(int index) {
+        tabs.get(index).removeFile();
     }
 
     @Override

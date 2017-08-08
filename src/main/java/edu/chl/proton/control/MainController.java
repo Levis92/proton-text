@@ -19,10 +19,14 @@
 
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.*;
-import edu.chl.proton.view.MessageDialog;
-import edu.chl.proton.view.PopupWindow;
-import edu.chl.proton.view.TextPrompt;
+import edu.chl.proton.model.documents.DocumentType;
+import edu.chl.proton.model.workspace.IDocumentHandler;
+import edu.chl.proton.model.workspace.IFileHandler;
+import edu.chl.proton.model.workspace.IStageHandler;
+import edu.chl.proton.model.workspace.WorkspaceFactory;
+import edu.chl.proton.view.popup.MessageDialog;
+import edu.chl.proton.view.popup.PopupWindow;
+import edu.chl.proton.view.popup.TextPrompt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,6 +46,8 @@ import static java.lang.Boolean.TRUE;
 /**
  * Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class controls the functionality of the main GUI.
  */
 public class MainController {
     private static IFileHandler file;
@@ -98,7 +104,7 @@ public class MainController {
      */
     private void openFile(File file) {
 
-        if (file != null && file.isFile() && !fileIsOpened()) {
+        if (file != null && file.isFile() && !isAlreadyOpen(file)) {
             document.openDocument(file.getPath());
             try {
                 addNewTab(file.getName());
@@ -114,20 +120,19 @@ public class MainController {
                 }
                 isOpened = true;
                 document.setText(lines);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    /**
-     * Makes the SingleSelectionModel for the TabPane available to other controllers.
-     * @return
-     */
-    static SingleSelectionModel<Tab> getSelectionModel() {
-        return selectionModel;
+    private boolean isAlreadyOpen(File targetFile){
+        int selected = file.isAlreadyOpen(targetFile);
+        if(selected != -1) {
+            selectionModel.select(selected);
+            return true;
+        }
+        return false;
     }
 
     static boolean fileIsOpened() {
@@ -217,6 +222,7 @@ public class MainController {
             TextPrompt prompt = new TextPrompt(stage.getStage(),title,input);
             if ((input = prompt.getResult()) != null) {
                 file.saveCurrentDocument(input);
+                fileTree.populateTree(file.getCurrentDirectory(), null);
             }
         }
     }
@@ -287,6 +293,8 @@ public class MainController {
                     File newer = new File(newName);
                     File older = new File(path);
                     older.renameTo(newer);
+                    selectionModel.getSelectedItem().setText(newer.getName());
+                    fileTree.populateTree(file.getCurrentDirectory(), null);
                 }
 
             } catch (NullPointerException eNull) {
@@ -367,9 +375,10 @@ public class MainController {
      */
     @FXML
     public void onClickCloseCurrentTab(ActionEvent event) {
-        document.removeCurrentDocument();
         int index = selectionModel.getSelectedIndex();
         tabPane.getTabs().remove(index);
+        document.removeCurrentDocument();
+        document.setCurrentDocument(index);
     }
 
     /**

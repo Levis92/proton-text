@@ -19,6 +19,9 @@
 
 package edu.chl.proton.model;
 
+import edu.chl.proton.model.documents.DocumentType;
+import edu.chl.proton.model.workspace.Workspace;
+import edu.chl.proton.model.workspace.WorkspaceFactory;
 import org.junit.Test;
 
 import java.io.IOException;

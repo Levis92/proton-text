@@ -24,11 +24,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.sun.javafx.webkit.Accessor;
 import com.sun.webkit.WebPage;
-import edu.chl.proton.model.IDocumentHandler;
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.IStageHandler;
-import edu.chl.proton.model.WorkspaceFactory;
-import edu.chl.proton.view.TextPrompt;
+import edu.chl.proton.model.workspace.IDocumentHandler;
+import edu.chl.proton.model.workspace.IFileHandler;
+import edu.chl.proton.model.workspace.IStageHandler;
+import edu.chl.proton.model.workspace.WorkspaceFactory;
+import edu.chl.proton.view.popup.TextPrompt;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,12 +53,13 @@ import java.util.Observer;
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class controls all functionality of open tabs (Markdown documents).
  */
 public class MarkdownTabController {
     private static IFileHandler file;
     private static IDocumentHandler document;
     private IStageHandler stage;
-    private Observable observable;
 
     @FXML
     private HTMLEditor htmlEditor;
@@ -68,7 +69,7 @@ public class MarkdownTabController {
 
     public void initialize() throws IOException {
         WorkspaceFactory factory = new WorkspaceFactory();
-        observable = factory.getWorkspace().getCurrentDocument();
+        Observable observable = factory.getWorkspace().getCurrentDocument();
         new UpdateView(observable);
         file = factory.getWorkspace();
         document = factory.getWorkspace();
@@ -184,9 +185,6 @@ public class MarkdownTabController {
      */
     @FXML
     public void onClickBoldButton(ActionEvent event) throws IOException {
-            // Four asterixes and move cursor two steps back. Method in Document that takes in
-            // this and updates the aktuella line?
-            // Position.setX(Position.getX()-2)?
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "****");
@@ -207,8 +205,6 @@ public class MarkdownTabController {
 
     @FXML
     public void onClickQuoteButton(ActionEvent event) throws IOException {
-        // Go to beginning of line. Set cursor?
-        // Position.setX(0);
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n> ");
@@ -316,6 +312,7 @@ public class MarkdownTabController {
                 webView.getEngine().loadContent(html);
         }
     }
+
     public boolean isImage(String string){
         if(string.substring(string.length()-4).equals(".pdf") ||
                 string.substring(string.length()-4).equals(".gif") ||
@@ -327,7 +324,6 @@ public class MarkdownTabController {
             return true;
         }
         return false;
-
     }
 
 }
