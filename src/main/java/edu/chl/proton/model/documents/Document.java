@@ -84,7 +84,7 @@ public class Document extends Observable implements IDocument {
 
     /**
      * Calls on the appropriate class for getText
-     * @returna list of the text
+     * @return list of the text
      */
     public String getText(){
         return docType.getText();
@@ -135,7 +135,7 @@ public class Document extends Observable implements IDocument {
     }
 
     /**
-     * Returns the date of the last time the file was editet.
+     * Returns the date of the last time the file was edited.
      * @return string with the date of last edit
      */
     public String getDateForLastEdited(){
