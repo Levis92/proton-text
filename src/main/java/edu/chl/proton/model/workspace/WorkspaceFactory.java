@@ -17,14 +17,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
+import java.io.IOException;
 
 /**
  * Anton Levholm
- * Created by antonlevholm on 2017-05-02.
+ * Created by antonlevholm on 2017-05-03.
  */
-public enum DocumentType {
-    PLAIN, MARKDOWN, SLIDE, ASSIGNMENT
+public class WorkspaceFactory {
+    private static Workspace workspace;
 
+    public WorkspaceFactory() throws IOException {
+        if (workspace == null) {
+            synchronized (WorkspaceFactory.class) {
+                if (workspace == null) {
+                    workspace = new Workspace();
+                }
+            }
+        }
+    }
+
+    public Workspace getWorkspace() {
+        return workspace;
+    }
 }

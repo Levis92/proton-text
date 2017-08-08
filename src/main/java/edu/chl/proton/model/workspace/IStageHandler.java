@@ -17,38 +17,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
-import java.util.ArrayList;
-import java.util.List;
+import javafx.stage.Stage;
 
 /**
- * Created by ludvig on 2017-05-26.
- * Plain document type, which do not follow markdown standard or any other standard.
+ * @author Anton Levholm
+ * Created by antonlevholm on 2017-05-22.
  */
-public class Plain implements IDoc {
+public interface IStageHandler {
 
-    private List<String> lines = new ArrayList<>();
+    /**
+     * Returns the Stage of the current instance of the application.
+     * @return
+     */
 
-    public List<String> getLines(){
-        return lines;
-    }
-
-    public void setText(List<String> str){
-        this.lines = str;
-    }
-
-    @Override
-    public String getHTML(){
-        String tmp = "";
-        for(String str : lines){
-            tmp = tmp + "<p style=\"width:100%\">" +str + "</p>";
-        }
-        return tmp;
-    }
-
-    @Override
-    public String getText(){
-        return getHTML();
-    }
+    Stage getStage();
 }

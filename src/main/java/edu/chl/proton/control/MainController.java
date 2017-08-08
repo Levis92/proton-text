@@ -19,7 +19,11 @@
 
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.*;
+import edu.chl.proton.model.documents.DocumentType;
+import edu.chl.proton.model.workspace.IDocumentHandler;
+import edu.chl.proton.model.workspace.IFileHandler;
+import edu.chl.proton.model.workspace.IStageHandler;
+import edu.chl.proton.model.workspace.WorkspaceFactory;
 import edu.chl.proton.view.MessageDialog;
 import edu.chl.proton.view.PopupWindow;
 import edu.chl.proton.view.TextPrompt;

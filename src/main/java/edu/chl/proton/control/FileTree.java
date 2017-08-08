@@ -19,7 +19,7 @@
 
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.workspace.IFileHandler;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 

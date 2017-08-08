@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.documents;
 
 /**
  * @author Ludvig Ekman
@@ -25,7 +25,7 @@ package edu.chl.proton.model;
  */
 public class DocumentFactory {
 
-    DocumentFactory(){
+    public DocumentFactory(){
     }
 
     /**
@@ -33,7 +33,7 @@ public class DocumentFactory {
      * @param documentType decides what type of document will be created, and what rules that document has.
      * @return Document with writing rules.
      */
-    Document createDocument(DocumentType documentType){
+    public Document createDocument(DocumentType documentType){
         if(documentType == null){
             return null;
         }
@@ -57,7 +57,7 @@ public class DocumentFactory {
      * @param fileName is the file path to the file.
      * @return a document, and a new if it doesn't already exist.
      */
-    Document getDocument(String fileName){
+    public Document getDocument(String fileName){
         try {
             FileUtility file = new FileUtility(fileName);
            if (fileName.toLowerCase().substring(fileName.length()-3).equals(".md")

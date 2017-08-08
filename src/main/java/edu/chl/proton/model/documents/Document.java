@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.documents;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +48,7 @@ public class Document extends Observable {
         setChanged();
     }
 
-    protected boolean doesExist(){
+    public boolean doesExist(){
         if(file != null){
             return true;
         }
@@ -58,7 +58,7 @@ public class Document extends Observable {
     /**
      * @return the file
      */
-    protected File getFile(){
+    public File getFile(){
         return this.file;
     }
 
@@ -66,7 +66,7 @@ public class Document extends Observable {
      *  Gets the path to the file.
      * @return the path to the file
      */
-    protected String getPath(){
+    public String getPath(){
         return file.getPath();
     }
 
@@ -78,7 +78,7 @@ public class Document extends Observable {
         this.file = (FileUtility) file;
     }
 
-    public List<String> getLines(){
+    private List<String> getLines(){
         return docType.getLines();
     }
 
@@ -94,7 +94,7 @@ public class Document extends Observable {
      * Calls on the appropriate class for setText
      * @param text
      */
-    protected void setText(List<String> text){
+    public void setText(List<String> text){
         docType.setText(text);
         setChanged();
         notifyObservers();
@@ -108,13 +108,13 @@ public class Document extends Observable {
      * Saves the text in the file.
      * @throws IOException
      */
-    protected void save(String path) throws IOException{
+    public void save(String path) throws IOException{
         file = new FileUtility(path);
         file.save(getLines());
     }
 
 
-    protected boolean save() throws  IOException {
+    public boolean save() throws  IOException {
         try{
             file.save(getLines());
             return true;
@@ -130,7 +130,7 @@ public class Document extends Observable {
         file.remove();
     }
 
-    void removeFile() {
+    public void removeFile() {
         file = null;
     }
 
@@ -138,7 +138,7 @@ public class Document extends Observable {
      * Returns the date of the last time the file was editet.
      * @return string with the date of last edit
      */
-    protected String getDateForLastEdited(){
+    public String getDateForLastEdited(){
         return file.getDateForLastEdited();
     }
 
@@ -146,14 +146,14 @@ public class Document extends Observable {
      * Checks if the file is saved
      * @return true or false
      */
-    protected boolean isSaved(){
+    public boolean isSaved(){
         return file.isSaved();
     }
 
     /**
      * Aqcuires the text from the opened file.
      */
-    protected void aqcuireText() {
+    public void aqcuireText() {
         file.aqcuireText();
     }
 

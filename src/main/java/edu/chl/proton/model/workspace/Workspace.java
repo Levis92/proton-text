@@ -17,13 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
 import edu.chl.proton.Protontext;
+import edu.chl.proton.model.documents.Document;
+import edu.chl.proton.model.documents.DocumentFactory;
+import edu.chl.proton.model.documents.DocumentType;
+import edu.chl.proton.model.documents.FileUtility;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

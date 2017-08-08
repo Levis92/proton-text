@@ -19,8 +19,8 @@
 
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.IFileHandler;
-import edu.chl.proton.model.WorkspaceFactory;
+import edu.chl.proton.model.workspace.IFileHandler;
+import edu.chl.proton.model.workspace.WorkspaceFactory;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
