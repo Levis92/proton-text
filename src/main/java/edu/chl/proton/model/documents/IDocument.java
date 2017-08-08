@@ -14,7 +14,7 @@ public interface IDocument {
     String getText();
     void setText(List<String> text);
     String getHTML();
-    void save(String path);
+    void save(String path) throws IOException;
     boolean save() throws IOException;
     void removeFile();
     String getDateForLastEdited();

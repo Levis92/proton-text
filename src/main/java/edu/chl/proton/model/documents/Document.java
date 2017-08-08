@@ -32,7 +32,7 @@ import java.util.*;
  * document type. Uses strategy patternt o delegate the methods that
  * differ in implementation to the correct document type.
  */
-public class Document extends Observable {
+public class Document extends Observable implements IDocument {
 
     private FileUtility file;
     private IDoc docType;

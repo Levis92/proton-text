@@ -20,10 +20,7 @@
 package edu.chl.proton.model.workspace;
 
 import edu.chl.proton.Protontext;
-import edu.chl.proton.model.documents.Document;
-import edu.chl.proton.model.documents.DocumentFactory;
-import edu.chl.proton.model.documents.DocumentType;
-import edu.chl.proton.model.documents.FileUtility;
+import edu.chl.proton.model.documents.*;
 import javafx.stage.Stage;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -43,8 +40,8 @@ import java.util.Observable;
  */
 
 public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
-    private List<Document> tabs = new ArrayList<>();
-    private Document currentDocument;
+    private List<IDocument> tabs = new ArrayList<>();
+    private IDocument currentDocument;
     private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
@@ -64,7 +61,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     public Observable getCurrentDocument() {
-        return currentDocument;
+        return (Observable) currentDocument;
     }
 
     @Override
@@ -193,7 +190,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     public int isAlreadyOpen(File file) {
-        for(Document doc : tabs){
+        for(IDocument doc : tabs){
             if (doc.getFile() != null) {
                 if (file.getPath().equals(doc.getPath())) {
                     return tabs.indexOf(doc);
