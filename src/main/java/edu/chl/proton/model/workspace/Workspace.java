@@ -171,7 +171,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void setText(String text) {
         if (currentDocument != null) {
             List<String> doc;
-            doc = TextFormat.html2text(text);
+            doc = TextFormat.htmlToText(text);
             currentDocument.setText(doc);
             setChanged();
             notifyObservers();

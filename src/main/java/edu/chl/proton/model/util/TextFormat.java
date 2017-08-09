@@ -43,7 +43,7 @@ public class TextFormat {
      * @return a list of rows that is stripped of HTML-tags
      */
 
-    public static List<String> html2text(String html) {
+    public static List<String> htmlToText(String html) {
         ArrayList<String> rowList = new ArrayList<>();
         org.jsoup.nodes.Document doc = Jsoup.parse(html);
         Element table = doc.select("body").get(0);
