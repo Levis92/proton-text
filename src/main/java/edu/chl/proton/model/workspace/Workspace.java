@@ -21,10 +21,8 @@ package edu.chl.proton.model.workspace;
 
 import edu.chl.proton.Protontext;
 import edu.chl.proton.model.documents.*;
+import edu.chl.proton.model.util.TextFormat;
 import javafx.stage.Stage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
@@ -173,7 +171,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void setText(String text) {
         if (currentDocument != null) {
             List<String> doc;
-            doc = html2text(text);
+            doc = TextFormat.html2text(text);
             currentDocument.setText(doc);
             setChanged();
             notifyObservers();
@@ -220,23 +218,4 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         return Protontext.getStage();
     }
 
-
-    /**
-     * Takes in a String of HTML and separates the content in each paragraph-tag into a String.
-     * Each String is added to an ArrayList that is returned.
-     *
-     * @param html
-     * @return a list of rows that is stripped of HTML-tags
-     */
-
-    private static List<String> html2text(String html) {
-        ArrayList<String> rowList = new ArrayList<>();
-        org.jsoup.nodes.Document doc = Jsoup.parse(html);
-        Element table = doc.select("body").get(0);
-        Elements rows = table.select("p");
-        for (Element row : rows) {
-            rowList.add(row.text());
-        }
-        return rowList;
-    }
 }
