@@ -1,8 +1,4 @@
-package edu.chl.proton.model.documents;
-
-import java.util.regex.*;
-
-/**
+/*
  * Proton Text - A Markdown text editor
  * Copyright (C) 2017  Anton Levholm, Ludvig Ekman, Mickaela Södergren
  * and Stina Werme
@@ -19,8 +15,13 @@ import java.util.regex.*;
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- *
+ */
+
+package edu.chl.proton.model.documents;
+
+import java.util.regex.*;
+
+/**
  * Created by Mickaela on 2017-08-08.
  * Responsible for finding and formatting matches of the pattern group "Postures".
  */
