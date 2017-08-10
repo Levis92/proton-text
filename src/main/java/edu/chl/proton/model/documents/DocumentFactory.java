@@ -19,6 +19,8 @@
 
 package edu.chl.proton.model.documents;
 
+import edu.chl.proton.model.documents.markdown.Markdown;
+
 /**
  * @author Ludvig Ekman
  * Created by ludvig on 2017-05-01.

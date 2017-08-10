@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model.documents;
+package edu.chl.proton.model.documents.markdown;
 
+import edu.chl.proton.model.documents.IDoc;
 import edu.chl.proton.model.util.FontStyle;
 
 import java.util.ArrayList;
