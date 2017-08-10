@@ -19,6 +19,8 @@
 
 package edu.chl.proton.model.documents;
 
+import edu.chl.proton.model.util.FontStyle;
+
 import java.util.ArrayList;
 import java.util.List;
 
