@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model.documents;
+package edu.chl.proton.model.util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class FileUtility extends File {
     /**
      * @return true if saved and false if not saved.
      */
-    protected boolean isSaved() {
+    public boolean isSaved() {
         return isSaved;
     }
 
@@ -63,7 +63,7 @@ public class FileUtility extends File {
      * @param text List<String>
      * @throws IOException
      */
-    protected void save(List<String> text) throws IOException {
+    public void save(List<String> text) throws IOException {
         try {
 
             File file = new File(this.getPath());
@@ -83,7 +83,7 @@ public class FileUtility extends File {
      * Returns date and time for the last time the file was modified.
      * @return String
      */
-    protected String getDateForLastEdited() {
+    public String getDateForLastEdited() {
 
         //File file = new File(getPath());
 
@@ -116,7 +116,7 @@ public class FileUtility extends File {
     /**
      * Delete file.
      */
-    protected void remove() {
+    public void remove() {
         this.getFile().delete();
     }
 
@@ -124,7 +124,7 @@ public class FileUtility extends File {
      * Aqcuires the text from the opened file.
      * @return List<String>
      */
-    protected List<String> aqcuireText(){
+    public List<String> aqcuireText(){
 
         // This will reference one line at a time
         String line;

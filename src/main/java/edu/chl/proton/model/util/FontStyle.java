@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model.documents;
+package edu.chl.proton.model.util;
 
 /**
  * @author Ludvig Ekman
@@ -27,38 +27,38 @@ package edu.chl.proton.model.documents;
  * Used in html-view.
  */
 public class FontStyle {
-    FontStyle(){
+    public FontStyle(){
     }
-    String getItalicStyle(String makeStyle){
-
+    public String getItalicStyle(String makeStyle){
         return "<i>"+makeStyle+"</i>";
     }
-    String getItalicBoldStyle(String makeStyle){
 
+    public String getItalicBoldStyle(String makeStyle){
         return "<b><i>"+makeStyle+"</i></b>";
     }
-    String getHeadingStyle(String makeStyle){
 
+    public String getHeadingStyle(String makeStyle){
         return "<b><span style=\"color:#007E73\">" + makeStyle + "</span></b>";
     }
-    String getLinkStyle(String makeStyle){
 
+    public String getLinkStyle(String makeStyle){
         return "<span style=\"text-decoration:underline;color:blue\">"+makeStyle+"</span>";
     }
-    String getListStyle(String makeStyle){
 
+    public String getListStyle(String makeStyle){
         return "<span style=\"color:#007E73\">" + makeStyle + "</span>";
     }
-    String getBoldStyle(String makeStyle){
 
+    public String getBoldStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
-    String getQuoteStyle(String makeStyle){
 
+    public String getQuoteStyle(String makeStyle){
         return "<span style=\"color:#007E73\">" + makeStyle + "</span>";
     }
-    String getCodeStyle(String makeStyle){
 
+    public String getCodeStyle(String makeStyle){
         return "<b>"+makeStyle+"</b>";
     }
+
 }
