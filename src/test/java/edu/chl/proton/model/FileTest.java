@@ -19,7 +19,7 @@
 
 package edu.chl.proton.model;
 
-import edu.chl.proton.model.documents.FileUtility;
+import edu.chl.proton.model.util.FileUtility;
 import org.junit.Test;
 
 import java.io.BufferedReader;

@@ -21,6 +21,7 @@ package edu.chl.proton.model.workspace;
 
 import edu.chl.proton.Protontext;
 import edu.chl.proton.model.documents.*;
+import edu.chl.proton.model.util.FileUtility;
 import edu.chl.proton.model.util.TextFormat;
 import javafx.stage.Stage;
 
