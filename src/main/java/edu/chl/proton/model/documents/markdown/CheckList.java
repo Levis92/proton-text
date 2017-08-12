@@ -32,7 +32,7 @@ public class CheckList implements ICheckPattern{
     /**
      * Compiles a pattern and returns it. Throws
      * PatternSyntaxException if it fails.
-     * @param pattern
+     * @param pattern is the name of the pattern
      * @return the specified pattern
      */
     @Override
@@ -55,7 +55,7 @@ public class CheckList implements ICheckPattern{
 
     /**
      * Adds styling for the preview window
-     * @param text
+     * @param text is the text to check for pattern matches.
      * @return the string with the proper HTML styling
      */
     @Override
