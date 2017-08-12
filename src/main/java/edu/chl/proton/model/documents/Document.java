@@ -50,6 +50,10 @@ public class Document extends Observable implements IDocument {
         setChanged();
     }
 
+    /**
+     * Check to see if there is an existing file yet.
+     * @return true if the does exist, otherwise false
+     */
     public boolean doesExist(){
         if(file != null){
             return true;
@@ -57,25 +61,14 @@ public class Document extends Observable implements IDocument {
         return false;
     }
 
-    /**
-     * @return the file
-     */
     public File getFile(){
         return this.file;
     }
 
-    /**
-     *  Gets the path to the file.
-     * @return the path to the file
-     */
     public String getPath(){
         return file.getPath();
     }
 
-    /**
-     * sets the file
-     * @param file
-     */
     protected void setFile(File file){
         this.file = (FileUtility) file;
     }
@@ -84,18 +77,10 @@ public class Document extends Observable implements IDocument {
         return docType.getLines();
     }
 
-    /**
-     * Calls on the appropriate class for getText
-     * @return list of the text
-     */
     public String getText(){
         return docType.getText();
     }
 
-    /**
-     * Calls on the appropriate class for setText
-     * @param text
-     */
     public void setText(List<String> text){
         docType.setText(text);
         setChanged();
@@ -107,15 +92,19 @@ public class Document extends Observable implements IDocument {
     }
 
     /**
-     * Saves the text in the file.
-     * @throws IOException
+     * Saves the file.
+     * @throws IOException if operation fails.
      */
     public void save(String path) throws IOException{
         file = new FileUtility(path);
         file.save(getLines());
     }
 
-
+    /**
+     * Saves the file.
+     * @return true if file was successfully saved
+     * @throws IOException if operation fails.
+     */
     public boolean save() throws  IOException {
         try{
             file.save(getLines());
@@ -126,12 +115,15 @@ public class Document extends Observable implements IDocument {
     }
 
     /**
-     * removes the file.
+     * Removes the file.
      */
     protected void remove(){
         file.remove();
     }
 
+    /**
+     * Removes the file.
+     */
     public void removeFile() {
         file = null;
     }
