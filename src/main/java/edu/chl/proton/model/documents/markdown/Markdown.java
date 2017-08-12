@@ -72,7 +72,7 @@ public class Markdown implements IDoc {
     /**
      * Calls on different methods to give the string
      * the appropriate styling
-     * @param str
+     * @param str is the string to style
      * @return the formatted string
      */
     protected String checkForMarkdown(String str){
@@ -121,8 +121,6 @@ public class Markdown implements IDoc {
     /**
      * Takes every row in the text and wraps it with basic HTML tags.
      * @param str the text, where every item is a row
-     * @return returns the whole text as a string with HTML tags
-     * wrapped around it.
      */
     public void setText(List<String> str){
         this.lines = str;
