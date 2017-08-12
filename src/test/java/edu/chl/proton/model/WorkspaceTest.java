@@ -80,4 +80,17 @@ public class WorkspaceTest {
         assertTrue("isAlreadyOpen() should return -1", classUnderTest.isAlreadyOpen(file) == -1);
 
     }
+
+    @Test public void isAlreadyOpenTest() {
+        Workspace classUnderTest = workspace;
+        classUnderTest.createDocument(DocumentType.MARKDOWN);
+        String path = "./Proton Text Directory/testFile";
+        try {
+            classUnderTest.saveCurrentDocument(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File(path);
+        assertTrue("isAlreadyOpen() should not return -1", classUnderTest.isAlreadyOpen(file) != -1);
+    }
 }
