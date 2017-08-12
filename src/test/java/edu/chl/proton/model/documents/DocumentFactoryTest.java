@@ -36,6 +36,7 @@ public class DocumentFactoryTest {
         DocumentFactory factory = new DocumentFactory();
         factory.getDocument("./testFileDoesNotExist.md");
 
-        assertTrue("File does not exist, and a new file was created",1==1);
+        assertTrue("File does not exist, and a new file was created",factory.getDocument(
+                "./testFileDoesNotExist.md")!=null);
     }
 }
