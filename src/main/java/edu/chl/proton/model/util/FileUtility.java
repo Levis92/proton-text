@@ -45,7 +45,7 @@ public class FileUtility extends File {
 
     /**
      * Change isSaved to true if saved or false if not saved.
-     * @param state
+     * @param state true or false.
      */
     protected void setIsSaved(boolean state) {
         isSaved = state;
