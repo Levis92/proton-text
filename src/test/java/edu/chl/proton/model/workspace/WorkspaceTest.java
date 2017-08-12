@@ -24,6 +24,7 @@ import edu.chl.proton.model.workspace.Workspace;
 import edu.chl.proton.model.workspace.WorkspaceFactory;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
@@ -48,14 +49,48 @@ public class WorkspaceTest {
     @Test public void createDocumentTest() {
         Workspace classUnderTest = workspace;
         classUnderTest.createDocument(DocumentType.MARKDOWN);
-        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocumentIndex() != 0);
+        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() != null);
     }
 
-    @Test public void openDocumentTest() {
+    @Test public void openDocumentTest() throws IOException {
+        Workspace classUnderTest = workspace;
+        classUnderTest.createDocument(DocumentType.MARKDOWN);
+        String path = "./Proton Text Directory/testFile";
+        try {
+            classUnderTest.saveCurrentDocument(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        classUnderTest.openDocument(classUnderTest.getPath());
+        assertTrue("currentDocument should be open in a tab.", classUnderTest.getCurrentDocumentIndex() != 0);
+    }
+
+    @Test public void removeCurrentDocumentTest() {
+        Workspace classUnderTest = workspace;
+        classUnderTest.createDocument(DocumentType.MARKDOWN);
+        String path = "./Proton Text Directory/testFile";
+        try {
+            classUnderTest.saveCurrentDocument(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File(path);
+        classUnderTest.removeCurrentDocument();
+        assertTrue("isAlreadyOpen() should return -1", classUnderTest.isAlreadyOpen(file) == -1);
 
     }
 
-    @Test public void removeDocumentTest() {
-
+    @Test public void isAlreadyOpenTest() {
+        Workspace classUnderTest = workspace;
+        classUnderTest.createDocument(DocumentType.MARKDOWN);
+        String path = "./Proton Text Directory/testFile";
+        try {
+            classUnderTest.saveCurrentDocument(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File(path);
+        assertTrue("isAlreadyOpen() should not return -1", classUnderTest.isAlreadyOpen(file) != -1);
     }
 }
