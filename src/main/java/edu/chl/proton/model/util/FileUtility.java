@@ -85,9 +85,7 @@ public class FileUtility extends File {
      */
     public String getDateForLastEdited() {
 
-        //File file = new File(getPath());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         return sdf.format(this.lastModified());
     }
