@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.documents;
 
 import edu.chl.proton.model.documents.DocumentFactory;
 import org.junit.Test;

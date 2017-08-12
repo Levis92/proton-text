@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.util;
 
 import edu.chl.proton.model.util.FileUtility;
 import org.junit.Test;
