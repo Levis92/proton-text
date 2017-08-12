@@ -59,7 +59,7 @@ public class CheckExtra implements ICheckPattern {
         Matcher match = pattern("hr").matcher(text);
         StringBuffer sb = new StringBuffer();
         while(match.find()){
-            match.appendReplacement(sb, "<hr style=\"color:lightgrey;\" size=\"2px\" noshade>");
+            match.appendReplacement(sb, "<hr style=\"color:lightgrey;\" size=\"2px\" noshade/>");
         }
         match.appendTail(sb);
         return sb.toString();
