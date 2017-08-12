@@ -59,6 +59,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         }
     }
 
+    @Override
     public Observable getCurrentDocument() {
         return (Observable) currentDocument;
     }
@@ -188,6 +189,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         }
     }
 
+    @Override
     public int isAlreadyOpen(File file) {
         for(IDocument doc : tabs){
             if (doc.getFile() != null) {

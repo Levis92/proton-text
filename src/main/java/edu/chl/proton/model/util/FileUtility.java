@@ -75,7 +75,7 @@ public class FileUtility extends File {
             out.close();
             setIsSaved(true);
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 

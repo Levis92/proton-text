@@ -24,13 +24,14 @@ import javafx.stage.Stage;
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-22.
+ *
+ * An interface for all methods that are related to the instance of the application.
  */
 public interface IStageHandler {
 
     /**
      * Returns the Stage of the current instance of the application.
-     * @return
+     * @return the Stage of the instance of the application.
      */
-
     Stage getStage();
 }

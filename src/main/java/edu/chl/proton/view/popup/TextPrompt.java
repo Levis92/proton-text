@@ -32,16 +32,20 @@ import javafx.stage.Window;
 /**
  * Anton Levholm
  * Created by antonlevholm on 2017-05-23.
+ *
+ * Creates a small window that asks the user for input.
  */
 public class TextPrompt {
     private String result;
-    private boolean clicked = false;
+    private boolean clicked;
 
     public TextPrompt(Window owner, String title, String input) {
+        clicked = false;
         addPrompt(owner, title, input);
     }
 
     public TextPrompt(Window owner, String title) {
+        clicked = false;
         addPrompt(owner, title, null);
     }
 
@@ -84,10 +88,17 @@ public class TextPrompt {
         else result = null;
     }
 
+    /**
+     * Sets the variable clicked to true.
+     */
     private void clicked() {
         clicked = true;
     }
 
+    /**
+     * Gets the user input from the text field.
+     * @return the user input.
+     */
     public String getResult() {
         return result;
     }

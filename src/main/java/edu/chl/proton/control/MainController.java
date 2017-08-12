@@ -146,8 +146,8 @@ public class MainController {
 
     /**
      * Adds a new tab to the TabPane and makes it the selected one.
-     * @param name
-     * @throws IOException
+     * @param name of the new tab.
+     * @throws IOException if the FXML file cannot be found.
      */
     private void addNewTab(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/chl/proton/view/markdown-tab.fxml"));
@@ -174,22 +174,20 @@ public class MainController {
 
     /**
      * Change to the previous tab when choosing "Previous tab" in the manu bar.
-     * @param event
-     * @throws IOException
+     * @throws IOException if there is no previous tab.
      */
     @FXML
-    public void onClickPreviousTab(ActionEvent event) throws IOException {
+    public void onClickPreviousTab() throws IOException {
         selectionModel.selectPrevious();
         document.setCurrentDocument(selectionModel.getSelectedIndex());
     }
 
     /**
-     *
-     * @param event
-     * @throws IOException
+     * Creates a new tab.
+     * @throws IOException if the tab cannot be loaded.
      */
     @FXML
-    public void onClickNewButton(ActionEvent event) throws IOException {
+    public void onClickNewButton() throws IOException {
         document.createDocument(DocumentType.MARKDOWN);
         addNewTab("Untitled.md");
     }
@@ -197,11 +195,10 @@ public class MainController {
     /**
      * Open the file manager when clicking on open in the menu bar.
      * Open the chosen file.
-     * @param event
-     * @throws IOException
+     * @throws IOException if the file cannot be opened.
      */
     @FXML
-    public void onClickOpenButton(ActionEvent event) throws IOException {
+    public void onClickOpenButton() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open file");
         File file = fileChooser.showOpenDialog(stage.getStage());
@@ -211,11 +208,10 @@ public class MainController {
 
     /**
      * Save current file when clicking on save in the menu bar.
-     * @param event
-     * @throws IOException
+     * @throws IOException if there is no directory.
      */
     @FXML
-    public void onClickSaveButton(ActionEvent event) throws IOException {
+    public void onClickSaveButton() throws IOException {
         if (!file.saveCurrentDocument()) {
             String title = "Filepath";
             String input = file.getCurrentDirectory().getPath() + "/filename.md";
@@ -239,12 +235,10 @@ public class MainController {
 
     /**
      * Changes the current directory and displays the new file tree.
-     * @param event
-     * @throws IOException
+     * @throws IOException if a file is not chosen.
      */
-
     @FXML
-    public void onClickChangeDirectory(ActionEvent event) throws IOException {
+    public void onClickChangeDirectory() throws IOException {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Change directory");
         File file = directoryChooser.showDialog(stage.getStage());
@@ -257,12 +251,10 @@ public class MainController {
 
     /**
      * Toggle between showing and hiding the file tree view.
-     * @param event
-     * @throws IOException
+     * @throws IOException if elements cannot be located.
      */
-
     @FXML
-    public void onClickToggleTreeViewVisibility(ActionEvent event) throws IOException {
+    public void onClickToggleTreeViewVisibility() throws IOException {
         if (treeViewPane.isVisible()) {
             treeViewPane.setVisible(false);
             treeViewPane.setMaxWidth(0);
@@ -278,10 +270,9 @@ public class MainController {
 
     /**
      * When choosing rename file a window is opened and the user can then choose to change the name.
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException if not able to rename file.
      */
-    public void onClickRenameFile(ActionEvent actionEvent) throws IOException {
+    public void onClickRenameFile() throws IOException {
         if (file.exists()) {
             String path = file.getPath();
             String title = "Set new name";
@@ -309,10 +300,9 @@ public class MainController {
 
     /**
      * When the user clicks on "Save as" a window opens and the user can then save the file with the current name or change it.
-     * @param actionEvent
-     * @throws IOException
+     * @throws IOException if the file cannot be saved.
      */
-    public void onClickSaveAs(ActionEvent actionEvent) throws IOException {
+    public void onClickSaveAs() throws IOException {
         String path ="./filename1.md";
         if (file.exists()){
             path = file.getPath();
@@ -327,16 +317,16 @@ public class MainController {
         } catch (NullPointerException eNull) {
             System.err.println("Exited TextPromt without choosing file");
         }
-
+        fileTree.populateTree(file.getCurrentDirectory(), null);
 
     }
 
     /**
      * Check so that the file name is correct.
      * If wrong the user is told to write the name in the right format.
-     * @param prompt
-     * @param title
-     * @return
+     * @param prompt is the object used for getting user input.
+     * @param title is the title of the window to open.
+     * @return the TextPrompt object with the result.
      */
     private TextPrompt checkCorrectFileName(TextPrompt prompt, String title) {
         int pLength = prompt.getResult().length();
@@ -360,9 +350,8 @@ public class MainController {
 
     /**
      * Show popup window when trying to close the application
-     * @param event
      */
-    public void onClickCloseApplication(ActionEvent event) {
+    public void onClickCloseApplication() {
         String title = "Close application";
         String message = "Are you sure you want to quit Proton Text?";
         PopupWindow popup = new PopupWindow(stage.getStage(),title,message);
@@ -370,11 +359,10 @@ public class MainController {
     }
 
     /**
-     * Close tab
-     * @param event
+     * Close the current tab.
      */
     @FXML
-    public void onClickCloseCurrentTab(ActionEvent event) {
+    public void onClickCloseCurrentTab() {
         int index = selectionModel.getSelectedIndex();
         tabPane.getTabs().remove(index);
         document.removeCurrentDocument();
@@ -382,11 +370,10 @@ public class MainController {
     }
 
     /**
-     * Close all tabs
-     * @param event
+     * Close all open tabs.
      */
     @FXML
-    public void onClickCloseAllTabs(ActionEvent event) {
+    public void onClickCloseAllTabs() {
         document.removeAllDocuments();
         int count = tabPane.getTabs().size();
         tabPane.getTabs().remove(0, count);
@@ -396,9 +383,8 @@ public class MainController {
 
     /**
      * Show information about the application when clicking on "about".
-     * @param actionEvent
      */
-    public void onClickAbout(ActionEvent actionEvent) {
+    public void onClickAbout() {
         new MessageDialog(stage.getStage(),"About Proton Text","Proton Text is a " +
                 "text editor created by students at Chalmers University of Technology. \n" +
                 "\nAuthors: Ludvig Ekman, Anton Levholm, Mickaela Södergren and Stina Werme.\n" +
@@ -409,7 +395,6 @@ public class MainController {
      * Inner class that handles the updating of the footer bar. It updates displayed path and
      * last save of the current file.
      */
-
     public class UpdateFooter implements Observer {
         Observable observable;
 
