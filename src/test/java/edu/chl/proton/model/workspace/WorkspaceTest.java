@@ -68,6 +68,7 @@ public class WorkspaceTest {
 
     @Test public void removeCurrentDocumentTest() {
         Workspace classUnderTest = workspace;
+        classUnderTest.removeAllDocuments();
         classUnderTest.createDocument(DocumentType.MARKDOWN);
         String path = "./Proton Text Directory/testFile";
         try {
