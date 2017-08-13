@@ -69,7 +69,7 @@ public class DocumentFactory {
                 return new Document(slide, file);
             } else if(fileName.substring(fileName.length()-3).equals(".md")) {
                IDoc markdown = new Markdown();
-             return new Document(markdown, file);
+                return new Document(markdown, file);
             } else {
                IDoc plain = new Plain();
                 return new Document(plain,file);

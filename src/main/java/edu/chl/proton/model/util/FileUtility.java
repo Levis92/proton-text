@@ -45,7 +45,7 @@ public class FileUtility extends File {
 
     /**
      * Change isSaved to true if saved or false if not saved.
-     * @param state
+     * @param state true or false.
      */
     protected void setIsSaved(boolean state) {
         isSaved = state;
@@ -75,7 +75,7 @@ public class FileUtility extends File {
             out.close();
             setIsSaved(true);
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -85,9 +85,7 @@ public class FileUtility extends File {
      */
     public String getDateForLastEdited() {
 
-        //File file = new File(getPath());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         return sdf.format(this.lastModified());
     }

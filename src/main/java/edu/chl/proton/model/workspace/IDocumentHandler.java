@@ -25,91 +25,81 @@ import java.util.List;
 import java.util.Observable;
 
 /**
- * Anton Levholm
+ * @author Anton Levholm
  * Created by antonlevholm on 2017-05-07.
+ *
+ * An interface for all methods that are related to tab management.
  */
 public interface IDocumentHandler {
 
     /**
      * Returns the index of the current document.
-     * @return
+     * @return index of current document.
      */
-
     int getCurrentDocumentIndex();
 
     /**
      * Returns the current Document that is observable
-     * @return
+     * @return an Observable object of the current document.
      */
-
     Observable getCurrentDocument();
 
     /**
      * Sets the current document based on an index.
-     * @param index
+     * @param index of the selected tab.
      */
-
     void setCurrentDocument(int index);
 
     /**
      * Creates a document based on DocumentType.
-     * @param type
+     * @param type of the requested document.
      */
-
     void createDocument(DocumentType type);
 
     /**
      * Creates a document based on opened file.
-     * @param filePath
+     * @param filePath to the file.
      */
-
     void openDocument(String filePath);
 
     /**
      * Removes the current document.
      */
-
     void removeCurrentDocument();
 
     /**
      * Removes document based on an index.
-     * @param index
+     * @param index of the document.
      */
-
     void removeDocument(int index);
 
     /**
      * Removes all documents.
      */
-
     void removeAllDocuments();
 
     /**
      * Takes in a String and adds it to the document.
-     * @param text
+     * @param text to add to the current document.
      */
-
     void setText(String text);
 
     /**
      * Takes in a List of Strings and adds them to the document.
-     * @param text
+     * @param text to add to the current document.
      */
-
     void setText(List<String> text);
 
     /**
      * Returns the text from the document in a format suitable for HTMLEditor.
-     * @return
+     * @return formatted text to the editor window.
      */
-
     String getText();
 
     /**
      * Returns HTML in a format adapted for having a Preview function in a WebbView.
-     * @return
+     * @return formatted HTML to preview document.
      */
-
     String getHTML();
 
 }

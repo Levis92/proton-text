@@ -22,8 +22,10 @@ package edu.chl.proton.model.workspace;
 import java.io.IOException;
 
 /**
- * Anton Levholm
+ * @author Anton Levholm
  * Created by antonlevholm on 2017-05-03.
+ *
+ * A factory for creating and returning a single instance of Workspace.
  */
 public class WorkspaceFactory {
     private static Workspace workspace;
@@ -38,6 +40,10 @@ public class WorkspaceFactory {
         }
     }
 
+    /**
+     * Returns the current Workspace.
+     * @return the current Workspace instance.
+     */
     public Workspace getWorkspace() {
         return workspace;
     }

@@ -114,9 +114,8 @@ public class MarkdownTabController {
 
     /**
      * Hides the default toolbar in HTMLEditor.
-     * @param editor
+     * @param editor object to remove toolbar from.
      */
-
     // Found at http://stackoverflow.com/questions/10075841/how-to-hide-the-controls-of-htmleditor
     private static void hideHTMLEditorToolbars(final HTMLEditor editor) {
         editor.setVisible(false);
@@ -133,13 +132,11 @@ public class MarkdownTabController {
 
     /**
      * Generates a PDF from the HTML String that getHTML() in IDocumentHandler returns.
-     * @param event
-     * @throws IOException
-     * @throws DocumentException
+     * @throws IOException if typecasting to WebView fails.
+     * @throws DocumentException if the PDF cannot be created.
      */
-
     @FXML
-    public void onClickGeneratePDF(ActionEvent event) throws IOException, DocumentException {
+    public void onClickGeneratePDF() throws IOException, DocumentException {
         String path = file.getCurrentDirectory().getPath() + "/untitled.pdf";
         String title = "Output filepath";
         TextPrompt prompt = new TextPrompt(stage.getStage(),title,path);
@@ -156,55 +153,54 @@ public class MarkdownTabController {
 
     /**
      * Creates text template for inserting of links
-     * @param event
-     * @throws IOException
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickLinkButton(ActionEvent event) throws IOException {
+    public void onClickLinkButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "[text about link](http://url here)");
     }
 
     /**
-     * Creates text template for inserting of headers
-     * @param event
-     * @throws IOException
+     * Creates text template for inserting of headers.
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickHeadingButton(ActionEvent event) throws IOException {
+    public void onClickHeadingButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "#");
     }
 
     /**
-     * Creates text template for inserting of bolding code
-     * @param event
-     * @throws IOException
+     * Creates text template for inserting of bold text.
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickBoldButton(ActionEvent event) throws IOException {
+    public void onClickBoldButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "****");
     }
 
     /**
-     * Creates text template for inserting of italic text
-     * @param event
-     * @throws IOException
+     * Creates text template for inserting of italic text.
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickItalicButton(ActionEvent event) throws IOException {
+    public void onClickItalicButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "**");
     }
 
-
+    /**
+     * Creates text template for inserting of quote text.
+     * @throws IOException if typecasting to WebView fails.
+     */
     @FXML
-    public void onClickQuoteButton(ActionEvent event) throws IOException {
+    public void onClickQuoteButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n> ");
@@ -213,11 +209,10 @@ public class MarkdownTabController {
     /**
      * Inserts image from file directory with help from user through file choosing,
      * or if image from web: creates text template.
-     * @param event
-     * @throws IOException
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickImageButton(ActionEvent event) throws IOException {
+    public void onClickImageButton() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "Is the image in your file system?",
                 ButtonType.YES, ButtonType.NO);
@@ -246,23 +241,21 @@ public class MarkdownTabController {
 
     /**
      * Creates text template for inserting of code text
-     * @param event
-     * @throws IOException
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickCodeButton(ActionEvent event) throws IOException {
+    public void onClickCodeButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
-        webPage.executeCommand("insertText", "´´´´´´");
+        webPage.executeCommand("insertText", "``````");
     }
 
     /**
      * Creates text template for inserting of ordered listing
-     * @param event
-     * @throws IOException
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickOrderedListButton(ActionEvent event) throws IOException {
+    public void onClickOrderedListButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n1.   ");
@@ -270,11 +263,10 @@ public class MarkdownTabController {
 
     /**
      * Creates text template for inserting of unordered listing
-     * @param event
-     * @throws IOException
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickUnorderedListButton(ActionEvent event) throws IOException {
+    public void onClickUnorderedListButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n*     ");
@@ -282,16 +274,18 @@ public class MarkdownTabController {
 
     /**
      * Creates markdown text for horizontal line
-     * @param event
-     * @throws IOException
+     * @throws IOException if typecasting to WebView fails.
      */
     @FXML
-    public void onClickHorizontalLineButton(ActionEvent event) throws IOException {
+    public void onClickHorizontalLineButton() throws IOException {
         WebView webView = (WebView) htmlEditor.lookup("WebView");
         WebPage webPage = Accessor.getPageFor(webView.getEngine());
         webPage.executeCommand("insertText", "\n*****\n");
     }
 
+    /**
+     * Class used for observing changes in the corresponding tab in the model.
+     */
     public class UpdateView implements Observer {
         Observable observable;
 
@@ -313,7 +307,12 @@ public class MarkdownTabController {
         }
     }
 
-    public boolean isImage(String string){
+    /**
+     * Method for checking file type.
+     * @param string containing the file path.
+     * @return true if the file is an accepted image file.
+     */
+    private boolean isImage(String string){
         if(string.substring(string.length()-4).equals(".pdf") ||
                 string.substring(string.length()-4).equals(".gif") ||
                 string.substring(string.length()-4).equals(".png") ||
