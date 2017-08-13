@@ -17,14 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
+import javafx.stage.Stage;
 
 /**
- * Anton Levholm
- * Created by antonlevholm on 2017-05-02.
+ * @author Anton Levholm
+ * Created by antonlevholm on 2017-05-22.
+ *
+ * An interface for all methods that are related to the instance of the application.
  */
-public enum DocumentType {
-    PLAIN, MARKDOWN, SLIDE, ASSIGNMENT
+public interface IStageHandler {
 
+    /**
+     * Returns the Stage of the current instance of the application.
+     * @return the Stage of the instance of the application.
+     */
+    Stage getStage();
 }

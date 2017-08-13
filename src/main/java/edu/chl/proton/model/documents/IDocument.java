@@ -17,24 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.documents;
 
-import org.junit.Test;
-
+import java.io.File;
 import java.io.IOException;
-
-import static org.junit.Assert.assertTrue;
+import java.util.List;
 
 /**
- * Created by ludvig on 2017-05-26.
+ * Created by ludvig on 2017-08-08.
  */
-public class DocumentFactoryTest {
-
-    @Test
-    public void testNonExistingFile() throws IOException{
-        DocumentFactory factory = new DocumentFactory();
-        factory.getDocument("./testFileDoesNotExist.md");
-
-        assertTrue("File does not exist, and a new file was created",1==1);
-    }
+public interface IDocument {
+    boolean doesExist();
+    File getFile();
+    String getPath();
+    String getText();
+    void setText(List<String> text);
+    String getHTML();
+    void save(String path) throws IOException;
+    boolean save() throws IOException;
+    void removeFile();
+    String getDateForLastEdited();
+    boolean isSaved();
+    void aqcuireText();
 }

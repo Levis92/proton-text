@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.util;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -28,6 +28,8 @@ import java.text.SimpleDateFormat;
 /**
  * @author Stina Werme
  * Created by stinawerme on 01/05/17.
+ *
+ * Extends Java's own file class and adds more functionality to a file.
  */
 public class FileUtility extends File {
 
@@ -37,20 +39,22 @@ public class FileUtility extends File {
         super(path);
     }
 
-    protected void setPath(String path) {
-        File file = new File(path);
-        this.renameTo(file);
-    }
-
     protected File getFile() {
         return this;
     }
 
+    /**
+     * Change isSaved to true if saved or false if not saved.
+     * @param state true or false.
+     */
     protected void setIsSaved(boolean state) {
         isSaved = state;
     }
 
-    protected boolean isSaved() {
+    /**
+     * @return true if saved and false if not saved.
+     */
+    public boolean isSaved() {
         return isSaved;
     }
 
@@ -59,7 +63,7 @@ public class FileUtility extends File {
      * @param text List<String>
      * @throws IOException
      */
-    protected void save(List<String> text) throws IOException {
+    public void save(List<String> text) throws IOException {
         try {
 
             File file = new File(this.getPath());
@@ -71,27 +75,25 @@ public class FileUtility extends File {
             out.close();
             setIsSaved(true);
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 
     /**
-     * Returns date and time for the last time the file was modified
+     * Returns date and time for the last time the file was modified.
      * @return String
      */
-    protected String getDateForLastEdited() {
+    public String getDateForLastEdited() {
 
-        //File file = new File(getPath());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         return sdf.format(this.lastModified());
     }
 
     /**
-     * Get last edited file
+     * Get last edited file.
      * @param dirPath String
-     * @return File
+     * @return the last edited file.
      */
     protected File getLastEditedFile(String dirPath) {
         File dir = new File(dirPath);
@@ -110,9 +112,9 @@ public class FileUtility extends File {
     }
 
     /**
-     * Delete file
+     * Delete file.
      */
-    protected void remove() {
+    public void remove() {
         this.getFile().delete();
     }
 
@@ -120,7 +122,7 @@ public class FileUtility extends File {
      * Aqcuires the text from the opened file.
      * @return List<String>
      */
-    protected List<String> aqcuireText(){
+    public List<String> aqcuireText(){
 
         // This will reference one line at a time
         String line;

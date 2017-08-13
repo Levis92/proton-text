@@ -17,8 +17,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.documents;
 
+import edu.chl.proton.model.documents.DocumentFactory;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -26,33 +27,16 @@ import java.io.IOException;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Anton Levholm
- * Created by antonlevholm on 2017-05-02.
+ * Created by ludvig on 2017-05-26.
  */
-public class WorkspaceTest {
-    private Workspace workspace;
-
-    public WorkspaceTest() throws IOException {
-        workspace = new WorkspaceFactory().getWorkspace();
-    }
+public class DocumentFactoryTest {
 
     @Test
-    public void InstanceTest() {
-        Workspace classUnderTest = workspace;
-        assertTrue("Instance of Workspace should not be null", classUnderTest != null);
-    }
+    public void testNonExistingFile() throws IOException{
+        DocumentFactory factory = new DocumentFactory();
+        factory.getDocument("./testFileDoesNotExist.md");
 
-    @Test public void createDocumentTest() {
-        Workspace classUnderTest = workspace;
-        classUnderTest.createDocument(DocumentType.MARKDOWN);
-        assertTrue("currentDocument should not be null", classUnderTest.getCurrentDocument() != 0);
-    }
-
-    @Test public void openDocumentTest() {
-
-    }
-
-    @Test public void removeDocumentTest() {
-
+        assertTrue("File does not exist, and a new file was created",factory.getDocument(
+                "./testFileDoesNotExist.md")!=null);
     }
 }

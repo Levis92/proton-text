@@ -19,11 +19,12 @@
 
 package edu.chl.proton.control;
 
-import edu.chl.proton.model.IFileHandler;
+import edu.chl.proton.model.workspace.IFileHandler;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @Author Stina Werme
@@ -42,7 +43,14 @@ public class FileTree {
 
         treeView.setEditable(true);
         //treeView.setShowRoot(false);
-        treeView.setCellFactory(p -> new EditableTreeCell());
+        treeView.setCellFactory(p -> {
+            try {
+                return new EditableTreeCell();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        });
     }
 
     /**

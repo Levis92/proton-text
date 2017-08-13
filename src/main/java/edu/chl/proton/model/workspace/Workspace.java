@@ -17,10 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.chl.proton.model;
+package edu.chl.proton.model.workspace;
 
 import edu.chl.proton.Protontext;
+import edu.chl.proton.model.documents.*;
+import edu.chl.proton.model.util.FileUtility;
+import edu.chl.proton.model.util.TextFormat;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,11 +34,13 @@ import java.util.Observable;
 /**
  * @author Anton Levholm
  * Created by antonlevholm on 2017-05-01.
+ *
+ * This class is responsible for keeping track of all currently opened documents and the current directory.
  */
 
 public class Workspace extends Observable implements IFileHandler, IDocumentHandler, IStageHandler {
-    private List<Document> tabs = new ArrayList<>();
-    private Document currentDocument;
+    private List<IDocument> tabs = new ArrayList<>();
+    private IDocument currentDocument;
     private File currentDirectory;
     private DocumentFactory factory = new DocumentFactory();
 
@@ -54,7 +60,12 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public int getCurrentDocument() {
+    public Observable getCurrentDocument() {
+        return (Observable) currentDocument;
+    }
+
+    @Override
+    public int getCurrentDocumentIndex() {
         return tabs.indexOf(currentDocument);
     }
 
@@ -77,8 +88,8 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
-    public void setCurrentDirectory(File directory) throws  IOException {
-        if(!directory.isDirectory()) {
+    public void setCurrentDirectory(File directory) throws IOException {
+        if (!directory.isDirectory()) {
             throw new IOException("Trying to set a file as directory");
         }
         currentDirectory = directory;
@@ -103,6 +114,7 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
         Document doc = factory.getDocument(filePath);
         currentDocument = doc;
         tabs.add(doc);
+        doc.notifyObservers();
         setChanged();
         notifyObservers();
     }
@@ -111,7 +123,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeCurrentDocument() {
         if (tabs.contains(currentDocument)) {
             tabs.remove(currentDocument);
-            if (tabs.isEmpty()) currentDocument = null;
             setChanged();
             notifyObservers();
         }
@@ -121,7 +132,6 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public void removeDocument(int index) {
         if (tabs.contains(tabs.get(index))) {
             tabs.remove(tabs.get(index));
-            if (tabs.isEmpty()) currentDocument = null;
             setChanged();
             notifyObservers();
         }
@@ -160,12 +170,40 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     }
 
     @Override
+    public void setText(String text) {
+        if (currentDocument != null) {
+            List<String> doc;
+            doc = TextFormat.htmlToText(text);
+            currentDocument.setText(doc);
+            setChanged();
+            notifyObservers();
+        }
+    }
+
+    @Override
     public void setText(List<String> text) {
         if (currentDocument != null) {
             currentDocument.setText(text);
             setChanged();
             notifyObservers();
         }
+    }
+
+    @Override
+    public int isAlreadyOpen(File file) {
+        for(IDocument doc : tabs){
+            if (doc.getFile() != null) {
+                if (file.getPath().equals(doc.getPath())) {
+                    return tabs.indexOf(doc);
+                }
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void removeFile(int index) {
+        tabs.get(index).removeFile();
     }
 
     @Override
@@ -182,4 +220,5 @@ public class Workspace extends Observable implements IFileHandler, IDocumentHand
     public Stage getStage() {
         return Protontext.getStage();
     }
+
 }
